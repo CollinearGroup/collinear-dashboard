@@ -1,2 +1,3 @@
 # collinear-dashboard
-displays open source statistics 
+
+> Displays Collinear Data and Project Statistics
