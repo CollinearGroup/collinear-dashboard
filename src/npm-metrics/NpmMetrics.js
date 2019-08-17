@@ -1,6 +1,8 @@
 import React from "react"
 import axios from "axios"
 
+import "./npm-metrics.css"
+
 const SMART_DEEP_SORT_NAME = "smart-deep-sort"
 const LICENSE_VALIDATOR_NAME = "license-validator"
 const PCAP_NAME = "pcap-ng-parser"
@@ -38,7 +40,7 @@ class NpmMetrics extends React.Component {
 
   render() {
     return (
-      <div>
+      <div id="nm-root">
         <div>Smart Deep Sort: {this.state.smartDeepSort}</div>
         <div>License Validator: {this.state.licenseValidator}</div>
         <div>PCAP: {this.state.pcap}</div>

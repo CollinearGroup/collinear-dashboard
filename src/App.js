@@ -1,5 +1,5 @@
 import React from "react"
-import NpmMetrics from "./NpmMetrics"
+import NpmMetrics from "./npm-metrics/NpmMetrics"
 import "./App.css"
 
 function App() {
