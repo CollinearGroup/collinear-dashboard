@@ -6,9 +6,12 @@ function App() {
   return (
     <div className="App">
       <div className="widget"> Collinear Group Dashboard </div>
-      <div className="widget">
-        <NpmMetrics />
-      </div>
+      <div className="widget"> <NpmMetrics /> </div>
+      <div className="widget">  </div>
+      <div className="widget">  </div>
+      <div className="widget">  </div>
+      <div className="widget">  </div>
+      <div className="widget">  </div>
     </div>
   )
 }
