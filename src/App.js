@@ -1,18 +1,21 @@
 import React from "react"
-import { connect } from "react-redux"
-import NpmMetrics from "./npm-metrics/NpmMetrics"
 import "./App.scss"
 
-const mapStateToProps = (state) => {
-  return { ...state }
+// Import your plugin
+import NpmMetrics from "./npm-metrics"
+import Info, { infoReducer } from "./info"
+
+// Export your reducers
+export const reducers = {
+  infoReducer
 }
 
-function App(props) {
+// Add your plugin
+export default function App(props) {
   return (
     <div className="App">
       <div className="widget">
-        <p>Collinear Group Dashboard</p>
-        <p> {props.time} </p>
+        <Info />
       </div>
       <div className="widget">
         <NpmMetrics />
@@ -25,5 +28,3 @@ function App(props) {
     </div>
   )
 }
-
-export default connect(mapStateToProps)(App)
