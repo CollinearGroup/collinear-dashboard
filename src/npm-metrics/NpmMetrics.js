@@ -15,12 +15,12 @@ class NpmMetrics extends React.Component {
     this.state = {
       smartDeepSort: null,
       licenseValidator: null,
-      pcap: null,
+      pcap: null
     }
   }
 
   async componentDidMount() {
-    await this.updateData()
+    this.updateData()
     this.fetchInterval = setInterval(() => {
       this.updateData()
     }, ONE_HOUR)
@@ -31,10 +31,13 @@ class NpmMetrics extends React.Component {
   }
 
   async updateData() {
+    let smartPromise = getModuleDownloads(SMART_DEEP_SORT_NAME)
+    let licensePromise = getModuleDownloads(LICENSE_VALIDATOR_NAME)
+    let pcapPromise = getModuleDownloads(PCAP_NAME)
     this.setState({
-      smartDeepSort: await getModuleDownloads(SMART_DEEP_SORT_NAME),
-      licenseValidator: await getModuleDownloads(LICENSE_VALIDATOR_NAME),
-      pcap: await getModuleDownloads(PCAP_NAME),
+      smartDeepSort: await smartPromise,
+      licenseValidator: await licensePromise,
+      pcap: await pcapPromise
     })
   }
 
