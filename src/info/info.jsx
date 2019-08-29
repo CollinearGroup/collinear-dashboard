@@ -1,21 +1,20 @@
 import React, { useEffect } from "react"
 import { setTime } from "./infoSlice"
 
-export default function App(props) {
-  // TODO: this doesn't seem like the best....
+export default function Info(props) {
   useEffect(() => {
-    // Drive some default updates
-    let dataRefreshInterval = setInterval(() => {
-      const payload = {
-        time: new Date().toTimeString()
-      }
-      props.dispatch(setTime(payload))
-    }, 1000)
-
+    let dataRefreshInterval = setInterval(updateTime, 1000)
     return () => {
       clearInterval(dataRefreshInterval)
     }
   })
+
+  function updateTime() {
+    const payload = {
+      time: new Date().toTimeString()
+    }
+    props.dispatch(setTime(payload))
+  }
 
   return (
     <div>

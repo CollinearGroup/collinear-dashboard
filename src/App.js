@@ -3,12 +3,7 @@ import "./App.scss"
 
 // Import your plugin
 import NpmMetrics from "./npm-metrics"
-import Info, { infoReducer } from "./info"
-
-// Export your reducers
-export const reducers = {
-  infoReducer
-}
+import Info from "./info"
 
 // Add your plugin
 export default function App(props) {

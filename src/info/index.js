@@ -1,4 +1,18 @@
-import Info, { reducer } from "./infoContainer";
+import React from "react"
+import { configureStore } from "redux-starter-kit"
+import { Provider } from "react-redux"
 
-export const infoReducer = reducer
-export default Info
+import ConnectedInfo from "./infoContainer"
+import reducer from "./infoSlice"
+
+const store = configureStore({
+  reducer
+})
+
+export default function Info() {
+  return (
+    <Provider store={store}>
+      <ConnectedInfo />
+    </Provider>
+  )
+}

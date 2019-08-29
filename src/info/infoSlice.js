@@ -1,7 +1,7 @@
 import { createSlice } from "redux-starter-kit"
 
-const appSlice = createSlice({
-  slice: "app",
+const infoSlice = createSlice({
+  slice: "info",
   initialState: {
     value: new Date().toTimeString()
   },
@@ -13,6 +13,6 @@ const appSlice = createSlice({
   }
 })
 
-export const { setTime } = appSlice.actions
+export const { setTime } = infoSlice.actions
 
-export default appSlice.reducer
+export default infoSlice.reducer
