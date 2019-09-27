@@ -1,13 +1,40 @@
-import React from 'react'
+import React, { Fragment } from 'react';
 
-export function FoosBallDropdown({ list, value, onChange }) {
+export function FoosBallDropdown({
+  list,
+  listKey,
+  value,
+  labelText,
+  defaultText,
+  updateForm,
+  formKey
+}) {
+  function renderOption(option) {
+    let value = option;
+    if (listKey) {
+      value = option[listKey];
+    }
+    return (
+      <option key={value} value={value}>
+        {value}
+      </option>
+    );
+  }
 
-  function renderOption({ name, id }) {
-    return <option value={name}>{name}</option>
+  function onChange(e) {
+    console.log(e.target.value, formKey);
+    updateForm({ [formKey]: e.target.value });
   }
 
   return (
-    <select value={value}  >
-      {list.map(renderOption)}
-    </select>
-  )
+    <Fragment>
+      <label htmlFor={formKey}>{labelText}</label>
+      <select key={formKey} value={value} onChange={onChange}>
+        <option default value="">
+          {defaultText}
+        </option>
+        {list.map(renderOption)}
+      </select>
+    </Fragment>
+  );
+}
