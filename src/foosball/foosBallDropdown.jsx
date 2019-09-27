@@ -22,7 +22,6 @@ export function FoosBallDropdown({
   }
 
   function onChange(e) {
-    console.log(e.target.value, formKey);
     updateForm({ [formKey]: e.target.value });
   }
 

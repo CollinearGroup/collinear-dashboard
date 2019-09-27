@@ -5,33 +5,61 @@ import './foosBallContainer.scss';
 export default class FoosBallContainer extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      users: null,
+      matches: null
+    };
     this.USERS_COLLECTION = db.collection('users');
     this.MATCHES_COLLECTION = db.collection('matches');
-    this.state = {
-      users: [],
-      matches: [],
-      isLoading: true
-    };
+    this.listener = this.MATCHES_COLLECTION.onSnapshot(
+      this.handleMatchesChange
+    );
   }
 
   async componentDidMount() {
     const usersSnapshot = await this.USERS_COLLECTION.get();
-    const matchesShapshot = await this.MATCHES_COLLECTION.get();
     const users = this.returnDataFromSnapshot(usersSnapshot);
-    const matches = this.returnDataFromSnapshot(matchesShapshot);
-    this.setState({ users, matches, isLoading: false });
+    this.setState({ users });
   }
+
+  componentWillUnmount() {
+    // This is used to remove the listener
+    this.listener();
+  }
+
+  handleMatchesChange = res => {
+    let newMatches = this.state.matches ? [...this.state.matches] : [];
+    res.docChanges().forEach(change => {
+      if (change.type === 'added') {
+        newMatches.push({ ...change.doc.data(), id: change.doc.id });
+      } else if (change.type === 'modified') {
+        const index = newMatches.indexOf(el => el.id === change.doc.id);
+        newMatches.splice(index, 1, {
+          ...change.doc.data(),
+          id: change.doc.id
+        });
+      } else if (change.type === 'removed') {
+        newMatches = newMatches.filter(el => el.id !== change.doc.id);
+      }
+    });
+    this.setState({ matches: newMatches });
+  };
 
   returnDataFromSnapshot = snapshot => {
     const data = [];
-    snapshot.forEach(doc => data.push(doc.data()));
+    snapshot.forEach(doc => data.push({ ...doc.data(), id: doc.id }));
     return data;
   };
 
+  isLoaded = () => {
+    return Array.isArray(this.state.matches) && Array.isArray(this.state.users);
+  };
+
   render() {
+    const isLoaded = this.isLoaded();
     return (
       <div className="full-width">
-        <FoosBallForm users={this.state.users} />
+        {isLoaded && <FoosBallForm users={this.state.users} />}
       </div>
     );
   }

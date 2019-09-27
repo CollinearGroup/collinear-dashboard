@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { FoosBallDropdown } from './foosBallDropdown';
-import { FoosBallNumber } from './foosBallNumber';
+import db from './data/fireStore';
 import './foosBallForm.scss';
 export default class FoosBallForm extends PureComponent {
   constructor(props) {
@@ -15,9 +15,16 @@ export default class FoosBallForm extends PureComponent {
     };
   }
 
-  onSubmit = e => {
+  onSubmit = async e => {
     e.preventDefault();
     // add date here
+    const payload = {
+      ...this.state,
+      aScore: parseInt(this.state.aScore, 10),
+      bScore: parseInt(this.state.bScore, 10),
+      date: new Date().valueOf()
+    };
+    await db.collection('matches').add(payload);
   };
 
   updateForm = formData => this.setState(formData);
@@ -32,11 +39,33 @@ export default class FoosBallForm extends PureComponent {
       return false;
     }
 
+    if (this.areThereDuplicatePlayers()) {
+      return false;
+    }
+
     if (!this.areScoresNumbers()) {
       return false;
     }
 
     return this.isOneScore5();
+  };
+
+  areThereDuplicatePlayers = () => {
+    let seenUsers = {};
+    const { aScore, bScore, ...selectedUsers } = this.state;
+    for (let user in selectedUsers) {
+      const value = selectedUsers[user];
+      if (value === '') {
+        continue;
+      }
+      if (!seenUsers[value]) {
+        seenUsers[value] = true;
+      } else {
+        return true;
+      }
+    }
+
+    return false;
   };
 
   areScoresNumbers = () => {
@@ -66,6 +95,7 @@ export default class FoosBallForm extends PureComponent {
   render() {
     const { p1A, p2A, p1B, p2B, aScore, bScore } = this.state;
     const isValid = this.isFormValid();
+
     return (
       <form className="flex-column" onSubmit={this.onSubmit}>
         <div className="flex-row flex-justify-space-between">
