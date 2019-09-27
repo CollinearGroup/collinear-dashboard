@@ -16,13 +16,13 @@ export default function App(props) {
       <div className="widget">
         <NpmMetrics />
       </div>
-      <div className="widget"> You're app here! </div>
-      <div className="widget"> You're app here! </div>
-      <div className="widget"> You're app here! </div>
-      <div className="widget"> You're app here! </div>
       <div className="widget">
         <FoosBall />
       </div>
+      <div className="widget"> You're app here! </div>
+      <div className="widget"> You're app here! </div>
+      <div className="widget"> You're app here! </div>
+      <div className="widget"></div>
     </div>
   );
 }
