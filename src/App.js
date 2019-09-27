@@ -8,18 +8,27 @@ import Info from "./info"
 
 // Add your plugin
 export default function App() {
+  let info = (
+    <div className="theme1-box">
+      <Info />
+    </div>
+  )
+  let npmMetrics = (
+    <div className="theme1-box">
+      <NpmMetrics />,
+    </div>
+  )
+
   let componentList = [
-    <Info />,
-    <NpmMetrics />,
-    getPlaceholder(),
-    getPlaceholder(),
+    info,
+    npmMetrics,
     getPlaceholder(),
     getPlaceholder(),
     getPlaceholder()
   ]
 
   function getPlaceholder() {
-    return <span> Hi Brian, Your're app here!</span>
+    return <div className="theme2-box"> Hi Brian, Your're app here!</div>
   }
 
   return <GridContainer componentList={componentList} />
@@ -29,39 +38,43 @@ export class GridContainer extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      list: this.getShuffledList()
+      list: this.props.componentList
     }
   }
   componentDidMount() {
-    // TODO: rename
-    this.fetchInterval = setInterval(() => {
+    this.updateDisplayInterval = setInterval(() => {
       this.setState({
-        list: this.getShuffledList()
+        // list: this.getShuffledList()
+        list: this.getRotatedList()
       })
     }, 5000)
   }
 
   componentWillUnmount() {
-    clearInterval(this.fetchInterval)
+    clearInterval(this.updateDisplayInterval)
   }
 
   getShuffledList() {
-    return _.shuffle(this.props.componentList).map(el => {
-      return <div className="box">{el}</div>
-    })
+    return _.shuffle(this.props.componentList)
+  }
+
+  getRotatedList() {
+    console.log(this.state.list)
+    let list = [...this.state.list]
+    let el = list.shift()
+    list.push(el)
+    return list
+  }
+
+  renderWithFeature(list) {
+    // First element is "featured"
+    let result = []
+    result.push(<div className="featured-grid">{list[0]}</div>)
+    let wrapper = <div className="summary-grid"> {list.slice(1)} </div>
+    return result.concat(wrapper)
   }
 
   render() {
-    return <div className="wrapper"> {this.state.list} </div>
+    return this.renderWithFeature(this.state.list)
   }
 }
-
-// export function Grid() {
-//   function getShuffledList() {
-//     return _.shuffle(this.props.componentList).map(el => {
-//       return <div className="box">{el}</div>
-//     })
-//   }
-
-//   return <div className="wrapper"> {this.getShuffledList()} </div>
-// }

@@ -1,18 +1,46 @@
 @import "./variables.scss";
 
-.wrapper {
+body {
+  font-family: Tahoma, Geneva, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 28px;
+}
+
+.featured-grid {
   display: grid;
-  grid-template-columns: 33% 200px 200px;
+  grid-template-columns: 860px;
+  grid-template-rows: 400px;
   grid-gap: 20px;
   background-color: #fff;
   color: #444;
+  // Assuming .wrapper is below me.
+  padding: 20px 20px 0px 20px;
 }
 
-.box {
-  background-color: #444;
-  color: #fff;
-  border-radius: 5px;
+.summary-grid {
+  display: grid;
+  grid-template-columns: 200px 200px 200px 200px;
+  grid-template-rows: 200px 200px 200px 200px;
+  background-color: #fff;
+  color: #444;
+  grid-gap: 20px;
   padding: 20px;
-  font-size: 150%;
-  animation: fadeIn ease 2s;
+}
+
+.theme1-box {
+  background: #cf0000;
+  border-radius: 5px;
+  color: #ffffff;
+  padding: 20px;
+}
+
+.theme2-box {
+  border: 1px solid #cf0000;
+  box-sizing: border-box;
+  border-radius: 5px;
+  color: #544e4e;
+
+  padding: 20px;
 }
