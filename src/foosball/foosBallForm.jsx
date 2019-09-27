@@ -5,7 +5,7 @@ import './foosBallForm.scss';
 export default class FoosBallForm extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = {
+    this.DEFAULT_STATE = {
       p1A: '',
       p1B: '',
       p2A: '',
@@ -13,6 +13,7 @@ export default class FoosBallForm extends PureComponent {
       aScore: 0,
       bScore: 0
     };
+    this.state = { ...this.DEFAULT_STATE };
   }
 
   onSubmit = async e => {
@@ -25,6 +26,7 @@ export default class FoosBallForm extends PureComponent {
       date: new Date().valueOf()
     };
     await db.collection('matches').add(payload);
+    this.setState(this.DEFAULT_STATE);
   };
 
   updateForm = formData => this.setState(formData);

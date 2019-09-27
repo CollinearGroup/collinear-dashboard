@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import db from './data/fireStore';
 import FoosBallForm from './foosBallForm';
+import FoosBallMatches from './foosBallMatches';
 import './foosBallContainer.scss';
 export default class FoosBallContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
       users: null,
-      matches: null
+      matches: null,
+      editMode: true
     };
     this.USERS_COLLECTION = db.collection('users');
     this.MATCHES_COLLECTION = db.collection('matches');
@@ -55,11 +57,23 @@ export default class FoosBallContainer extends Component {
     return Array.isArray(this.state.matches) && Array.isArray(this.state.users);
   };
 
+  renderContent = () => {
+    if (this.state.editMode) {
+      return <FoosBallForm users={this.state.users} />;
+    }
+    return (
+      <FoosBallMatches matches={this.state.matches} users={this.state.users} />
+    );
+  };
+
+  toggleEditMode = () => this.setState({ editMode: !this.state.editMode });
+
   render() {
     const isLoaded = this.isLoaded();
     return (
       <div className="full-width">
-        {isLoaded && <FoosBallForm users={this.state.users} />}
+        <button onClick={this.toggleEditMode}>Toggle Me</button>
+        {isLoaded && this.renderContent()}
       </div>
     );
   }
