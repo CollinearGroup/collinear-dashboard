@@ -13,7 +13,7 @@ $screen-size: 1060px;
   display: grid;
   grid-gap: 20px;
   grid-template-areas: "main side";
-  grid-template-columns: 3fr 1fr;
+  grid-template-columns: 2fr 1fr;
   grid-template-rows: $screen-size;
 }
 
@@ -21,7 +21,7 @@ $screen-size: 1060px;
   display: grid;
   grid-gap: 20px;
   grid-template-areas: "side main";
-  grid-template-columns: 1fr 3fr;
+  grid-template-columns: 1fr 2fr;
   grid-template-rows: $screen-size;
 }
 
@@ -46,11 +46,11 @@ $screen-size: 1060px;
   grid-template-rows: 5fr 1fr;
 }
 .grid-sidebar div {
-  background: #e0e0e0;
+  // background: #e0e0e0;
 }
 
 .box {
-  padding: 20px;
+  // padding: 20px;
 }
 
 #mission {
