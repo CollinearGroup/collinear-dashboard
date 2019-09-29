@@ -16,3 +16,17 @@
   padding: 20px;
   font-size: 1.5em;
 }
+
+#logo-box {
+  position: relative;
+}
+
+// This sucks, but it's because of the file I'm working with
+#logo {
+  position: absolute;
+  right: -14px;
+  height: 206px;
+  width: 572px;
+  object-fit: cover;
+  object-position: 0px 110%;
+}
