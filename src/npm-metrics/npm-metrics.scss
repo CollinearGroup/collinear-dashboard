@@ -1,6 +1,14 @@
 @import "../variables.scss";
 
 #nm-root {
-  // padding: 1em;
   text-align: $text-align;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 100%;
+}
+
+#nm-root div {
+  font-size: 1.25em;
+  padding: 1em;
 }

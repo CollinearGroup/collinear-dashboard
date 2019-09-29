@@ -29,13 +29,19 @@ $screen-size: 1060px;
   display: grid;
   grid-gap: 20px;
   grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
 }
 
 .stretch {
   grid-column-end: span 2;
 }
-.grid-main div {
-  background: #a0a0a0;
+
+.shade {
+  background: #e0e0e0;
+}
+
+.fill {
+  height: 100%;
 }
 
 .grid-sidebar {
@@ -44,12 +50,9 @@ $screen-size: 1060px;
   grid-gap: 20px;
   grid-template-rows: 5fr 1fr;
 }
-.grid-sidebar div {
-  // background: #e0e0e0;
-}
 
 .box {
-  // padding: 20px;
+  padding: 20px;
 }
 
 #mission {

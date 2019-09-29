@@ -17,7 +17,7 @@ export class GridContainer extends React.Component {
   }
 
   componentDidMount() {
-    let INTERVAL_TIME_MS = 10 * 1000
+    let INTERVAL_TIME_MS = 2 * 60 * 1000
     this.updateDisplayInterval = setInterval(() => {
       this.setState({
         sideBarPosition: this.togglePosition()
@@ -49,7 +49,7 @@ export class GridContainer extends React.Component {
 
 export function MainContent() {
   function getPlaceholder() {
-    return <div>Your app here!</div>
+    return <div className="shade fill">Your app here!</div>
   }
   return (
     <div className="grid-main">
@@ -66,10 +66,10 @@ export function MainContent() {
 export function SideBar() {
   return (
     <div className="grid-sidebar">
-      <div className="box">
+      <div>
         <Mission />
       </div>
-      <div className="box">
+      <div>
         <Info />
       </div>
     </div>
