@@ -1,12 +1,9 @@
 import React from "react"
 import "./App.scss"
-import _ from "lodash"
 
-// Import your plugin
 import NpmMetrics from "./npm-metrics"
 import Info from "./info"
 
-// Add your plugin
 export default function App() {
   return <GridContainer />
 }
@@ -81,16 +78,12 @@ export function SideBar() {
 
 export function Mission() {
   return (
-    <div>
-      <h2>Collinear Software Engineering</h2>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis
-        nemo odit ipsam impedit reprehenderit laudantium cum corporis,
-        laboriosam optio? Possimus cumque consequatur in minima? Dolore
-        reiciendis laborum amet, perspiciatis minus est fugit, similique rerum,
-        vero sit velit officia? Facilis, quidem dolore. Voluptate commodi
-        repudiandae deserunt reprehenderit unde, nam aut dolorem.
-      </p>
+    <div id="mission">
+      <h2>The Collinear Group Foundation</h2>
+      <p>Focus on Service</p>
+      <p>Focus on Excellence</p>
+      <p>Hire and Retain the Best People</p>
+      <p>Have Fun</p>
     </div>
   )
 }

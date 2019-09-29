@@ -27,7 +27,6 @@ $screen-size: 1060px;
 
 .grid-main {
   grid-area: main;
-
   display: grid;
   grid-gap: 20px;
   grid-template-columns: 1fr 1fr 1fr;
@@ -42,15 +41,19 @@ $screen-size: 1060px;
 
 .grid-sidebar {
   grid-area: side;
-
   display: grid;
   grid-gap: 20px;
   grid-template-rows: 5fr 1fr;
 }
 .grid-sidebar div {
-  background: #b0b0b0;
+  background: #e0e0e0;
 }
 
 .box {
   padding: 20px;
+}
+
+#mission {
+  font-size: 1.25em;
+  text-align: center;
 }
