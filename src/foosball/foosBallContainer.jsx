@@ -1,18 +1,18 @@
-import React, { Component } from 'react';
-import db from './data/fireStore';
-import FoosBallForm from './foosBallForm';
-import FoosBallMatches from './foosBallMatches';
-import './foosBallContainer.scss';
+import React, { Component } from "react";
+import db from "./data/fireStore";
+import FoosBallForm from "./foosBallForm";
+import FoosBallMatches from "./foosBallMatches";
+import "./foosBallContainer.scss";
 export default class FoosBallContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
       users: null,
       matches: null,
-      editMode: true
+      editMode: false
     };
-    this.USERS_COLLECTION = db.collection('users');
-    this.MATCHES_COLLECTION = db.collection('matches');
+    this.USERS_COLLECTION = db.collection("users");
+    this.MATCHES_COLLECTION = db.collection("matches");
     this.listener = this.MATCHES_COLLECTION.onSnapshot(
       this.handleMatchesChange
     );
@@ -32,18 +32,21 @@ export default class FoosBallContainer extends Component {
   handleMatchesChange = res => {
     let newMatches = this.state.matches ? [...this.state.matches] : [];
     res.docChanges().forEach(change => {
-      if (change.type === 'added') {
+      if (change.type === "added") {
         newMatches.push({ ...change.doc.data(), id: change.doc.id });
-      } else if (change.type === 'modified') {
+      } else if (change.type === "modified") {
         const index = newMatches.indexOf(el => el.id === change.doc.id);
         newMatches.splice(index, 1, {
           ...change.doc.data(),
           id: change.doc.id
         });
-      } else if (change.type === 'removed') {
+      } else if (change.type === "removed") {
         newMatches = newMatches.filter(el => el.id !== change.doc.id);
       }
     });
+    newMatches = newMatches.sort((a, b) => b.date - a.date);
+    console.log(newMatches);
+
     this.setState({ matches: newMatches });
   };
 
