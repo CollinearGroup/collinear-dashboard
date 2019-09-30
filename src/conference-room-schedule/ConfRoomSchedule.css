@@ -1,0 +1,68 @@
+.dashboard-title {
+  text-align: center;
+  vertical-align: top;
+  font-weight: 600;
+  padding-bottom: .5em;
+}
+.dashboard-content {
+  font-family: 'Tahoma'
+}
+
+.conf-schedule-names {
+  background: white;
+  display: flex;
+  /* flex-basis: 0; */
+  /* flex-grow: 1; */
+  flex: 1 1 100%;
+  flex-wrap: nowrap;
+  float: left;
+  /* width: 100%; */
+}
+
+.conf-schedule-content {
+  display: flex;
+  flex-direction: row;
+}
+
+.conf-schedule-name {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 8em;
+  font-size: x-small;
+  /* width: 100%; */
+}
+
+.conf-schedule-col {
+  border: 1px solid;
+  padding: .2em;
+  margin-right: .1em;
+  margin-left: .1em;
+  flex-basis: 100%;
+}
+
+.conf-schedule-hours {
+  /* background: yellow; */
+  padding-top: 1.3em;
+  padding-right: .2em;
+  width: 3.2em;
+  float: left;
+  font-weight: 400;
+  font-size: small;
+  text-align: right;
+}
+
+.conf-schedule-meetings {
+  padding-top: .1em;
+}
+
+.conf-room-meeting-busy {
+  font-size: x-small;
+  background: violet;
+  height: .78em;
+}
+.conf-room-meeting-free {
+  font-size: x-small;
+  background: white;
+  height: .78em;
+}
