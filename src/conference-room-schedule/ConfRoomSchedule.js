@@ -1,15 +1,8 @@
 import React, { Component } from 'react';
 import './ConfRoomSchedule.css'
 
-const http = require('http')
-
-class ConfRoomSchedule extends Component {
-  constructor() {
-    super()
-    this.state = {
-      credentials: null,
-      authenticated: false,
-      scheduleData: {} /*{
+//Sample schedule data
+ /*{
         'Giant Room': [
           null,
           null,
@@ -29,7 +22,6 @@ class ConfRoomSchedule extends Component {
           '3:30',
           null,
         ],
-        'War Room': [],
         'East Room': [
           1, 0, 
           0, 0, 
@@ -65,42 +57,27 @@ class ConfRoomSchedule extends Component {
           '.',
         ] 
       }*/
+ 
+
+class ConfRoomSchedule extends Component {
+  constructor() {
+    super()
+    this.state = {
+      scheduleData: {}   
     }
   }
 
-  async componentDidMount() {
-    let scheduleData = await(await fetch('http://localhost:8010/schedule')).json()
-    console.log("DATA: ", scheduleData)
-    // let scheduleData = {...this.state.scheduleData}
-    // scheduleData['War Room'] = data
+  async updateSchedule() {
+    let scheduleData = await (await fetch('http://localhost:8010/schedule')).json()
+    console.log("Updating data: ", scheduleData)
     this.setState({scheduleData})
   }
 
-  updateAuth = e => {
-    this.setState({credentials: e.target.value})
-  }
-
-  getContent = () => {
-    return new Promise((resolve, reject) => {
-      http.get(this.state.credentials, (res, err) => {
-        if(err) {
-          console.log("HTTP GET ERROR: ", err)
-        }
-        console.log("RES: ", res.statusCode)
-      })
-    })
-  }
-
-  authenticate = async (e) => {
-    e.preventDefault()
-    console.log("Getting CONTENT")
-    let x = await this.getContent()
-    console.log("X: ", x)
-    // let resp = await fetch(this.state.credentials, {method: 'GET', mode: 'no-cors'})
-    // console.log("RESPONSE: ", resp)
-    // let content = await resp.text()
-    // console.log("CONTENT: ", content)
-    this.setState({authenticated: true})
+  async componentDidMount() {
+    this.updateSchedule()
+    setInterval(() => {
+      this.updateSchedule()
+    }, 15 * 60 * 1000)
   }
 
   askForAuth = () => {
@@ -132,13 +109,6 @@ class ConfRoomSchedule extends Component {
   buildRoomColumn = (name, roomData = []) => {
     return <div className="conf-schedule-col">
       <div className="conf-schedule-name">{name}</div>
-      {/* <pre>{JSON.stringify(roomData)}</pre> */}
-      {/* <div style={{
-        position: 'relative',
-        top: '.6em',
-        height: '3em',
-        background: 'red'
-      }}>TEST</div> */}
       <div className="conf-schedule-meetings">
         {this.buildMeetingDiv(roomData)}
       </div>
@@ -166,8 +136,6 @@ class ConfRoomSchedule extends Component {
       <div>
         <div className="dashboard-title">Conference Room Schedule</div>
         <div className="dashboard-content">
-          {/* {!this.state.authenticated && this.askForAuth()} */}
-          {/* {this.state.authenticated && this.showCalendar()} */}
           {this.showCalendar()}
         </div>
       </div>
