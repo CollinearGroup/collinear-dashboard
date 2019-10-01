@@ -3,6 +3,7 @@ import "./App.scss"
 
 import NpmMetrics from "./npm-metrics"
 import Info from "./info"
+import SocialMediaPhotos from "./SocialMediaPhotos/SocialMediaPhotos"
 
 export default function App() {
   return <GridContainer />
@@ -57,7 +58,7 @@ export function MainContent() {
       <div className="box">
         <NpmMetrics />
       </div>
-      <div className="box">{getPlaceholder()}</div>
+      <div className="box"><SocialMediaPhotos /></div>
       <div className="stretch box">{getPlaceholder()}</div>
     </div>
   )
