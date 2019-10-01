@@ -26,6 +26,7 @@ $side-bar-col-size: 483px;
   grid-template-areas: "side main";
   grid-template-columns: $side-bar-col-size 2fr;
   grid-template-rows: $screen-size;
+  height: calc(100% - 20px);
   margin: 10px;
 }
 
