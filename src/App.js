@@ -66,10 +66,10 @@ export function MainContent() {
 export function SideBar() {
   return (
     <div className="grid-sidebar">
-      <div>
+      <div className="box">
         <Mission />
       </div>
-      <div>
+      <div className="box">
         <Info />
       </div>
     </div>
