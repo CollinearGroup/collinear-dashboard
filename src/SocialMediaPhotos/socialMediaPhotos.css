@@ -1,0 +1,33 @@
+.slideshow-container {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  float: left;
+  margin: 10px;
+}
+
+.slideshow-photo {
+  width: 420px;
+  height: 450px;
+  background-color: rgba(73, 75, 77, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slideshow-photo img {
+  max-width: 100%;
+  max-height: 400px;
+  opacity: 1;
+  transition: opacity .25s ease-in-out;
+  animation: opac 2s ;
+}
+
+@keyframes opac {
+  from {
+    opacity: 0
+  }
+  to {
+    opacity: 1
+  }
+}

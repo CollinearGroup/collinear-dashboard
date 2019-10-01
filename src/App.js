@@ -4,6 +4,7 @@ import "./App.scss"
 // Import your plugin
 import NpmMetrics from "./npm-metrics"
 import Info from "./info"
+import SocialMediaPhotos from "./SocialMediaPhotos/SocialMediaPhotos"
 
 // Add your plugin
 export default function App(props) {
@@ -19,7 +20,7 @@ export default function App(props) {
       <div className="widget"> You're app here! </div>
       <div className="widget"> You're app here! </div>
       <div className="widget"> You're app here! </div>
-      <div className="widget"> You're app here! </div>
+      <SocialMediaPhotos />
     </div>
   )
 }
