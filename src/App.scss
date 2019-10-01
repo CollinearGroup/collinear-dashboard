@@ -7,7 +7,7 @@ body {
   font-size: 24px;
 }
 
-$screen-size: 1060px;
+$screen-size: 100%;
 // Should conform to svg logo size
 $side-bar-col-size: 483px;
 .grid-layout-right {
@@ -16,6 +16,8 @@ $side-bar-col-size: 483px;
   grid-template-areas: "main side";
   grid-template-columns: 2fr $side-bar-col-size;
   grid-template-rows: $screen-size;
+  height: calc(100% - 20px);
+  margin: 10px;
 }
 
 .grid-layout-left {
@@ -24,6 +26,7 @@ $side-bar-col-size: 483px;
   grid-template-areas: "side main";
   grid-template-columns: $side-bar-col-size 2fr;
   grid-template-rows: $screen-size;
+  margin: 10px;
 }
 
 .grid-main {

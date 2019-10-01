@@ -30,12 +30,22 @@ export class GridContainer extends React.Component {
     clearInterval(this.updateDisplayInterval)
   }
 
+
   render() {
+  let fullSceenDream = {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    height: '100%',
+    width: '100%',
+  }
     let { sideBarPosition } = this.state
     return (
-      <div className={`grid-layout-${sideBarPosition}`}>
-        <MainContent />
-        <SideBar />
+      <div style={fullSceenDream}>
+        <div className={`grid-layout-${sideBarPosition}`}>
+          <MainContent />
+          <SideBar />
+        </div>
       </div>
     )
   }
@@ -58,7 +68,9 @@ export function MainContent() {
       <div className="box">
         <NpmMetrics />
       </div>
-      <div className="box"><SocialMediaPhotos /></div>
+      <div className="box">
+        <SocialMediaPhotos />
+      </div>
       <div className="stretch box">{getPlaceholder()}</div>
     </div>
   )
