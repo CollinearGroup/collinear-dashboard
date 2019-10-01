@@ -4,6 +4,7 @@ import "./App.scss"
 import NpmMetrics from "./npm-metrics"
 import Info from "./info"
 import SocialMediaPhotos from "./SocialMediaPhotos/SocialMediaPhotos"
+import ConfRoomSchedule from "./conference-room-schedule/ConfRoomSchedule"
 
 export default function App() {
   return <GridContainer />
@@ -64,7 +65,9 @@ export function MainContent() {
   }
   return (
     <div className="grid-main">
-      <div className="stretch box">{getPlaceholder()}</div>
+      <div className="stretch box">
+        <ConfRoomSchedule />
+      </div>
       <div className="box">
         <NpmMetrics />
       </div>
