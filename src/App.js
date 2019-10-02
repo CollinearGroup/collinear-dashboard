@@ -78,7 +78,6 @@ export function MainContent() {
       <div className="box">
         <SocialMediaPhotos />
       </div>
-      <div className="stretch box">{getPlaceholder()}</div>
     </div>
   );
 }
