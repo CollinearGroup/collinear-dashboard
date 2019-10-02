@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import "./foosBallMatches.scss";
 
 import debounce from "lodash.debounce";
@@ -11,29 +11,30 @@ export default class FoosBallMatch extends Component {
     this.chart = React.createRef();
 
     this.state = {
-      boundingRect: {}
+      boundingRect: {},
+      loaded: false
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.handleResize();
     this.debouncedResize = debounce(this.handleResize, 100);
     window.addEventListener("resize", this.debouncedResize, false);
   }
 
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   const nextRect = nextState.boundingRect;
-  //   if (
-  //     this.state.boundingRect.width !== nextRect.width ||
-  //     this.state.boundingRect.height !== nextRect.height
-  //   ) {
-  //     return true;
-  //   }
-  //   if (this.props.matches.length !== nextProps.matches.length) {
-  //     return true;
-  //   }
-  //   return false;
-  // }
+  shouldComponentUpdate(nextProps, nextState) {
+    const nextRect = nextState.boundingRect;
+    if (
+      this.state.boundingRect.width !== nextRect.width ||
+      this.state.boundingRect.height !== nextRect.height
+    ) {
+      return true;
+    }
+    if (this.props.matches.length !== nextProps.matches.length) {
+      return true;
+    }
+    return false;
+  }
 
   componentWillUnmount() {
     window.removeEventListener("resize", this.debouncedResize, false);
@@ -41,7 +42,7 @@ export default class FoosBallMatch extends Component {
 
   handleResize = () => {
     const boundingRect = this.chart.current.getBoundingClientRect();
-    this.setState({ boundingRect });
+    this.setState({ boundingRect, loaded: true });
   };
 
   buildPlayerRanking = () => {
@@ -68,7 +69,7 @@ export default class FoosBallMatch extends Component {
     }
   };
 
-  marginSpacing = { top: 10, bottom: 20, left: 110, right: 20 };
+  marginSpacing = { top: 10, bottom: 20, left: 130, right: 20 };
 
   createD3Config = () => {
     const rankMap = this.buildPlayerRanking();
@@ -84,10 +85,14 @@ export default class FoosBallMatch extends Component {
         return a.averageScorePerGame - b.averageScorePerGame;
       });
 
+    const topSixPlayerStats = playerStats.slice(
+      playerStats.length - 6 < 0 ? 0 : playerStats.length - 6
+    );
+
     return {
-      playerStats,
+      playerStats: topSixPlayerStats,
       yScale: scaleLinear()
-        .domain([playerStats.length, 0])
+        .domain([topSixPlayerStats.length, 0])
         .range([
           this.marginSpacing.top,
           this.state.boundingRect.height - this.marginSpacing.bottom
@@ -107,73 +112,80 @@ export default class FoosBallMatch extends Component {
     return (
       <div className="canvas">
         <svg ref={this.chart} className="d3-svg">
-          <g>
-            <line
-              stroke="#000"
-              x1={d3Config.xScale(0)}
-              x2={d3Config.xScale(0)}
-              y1={d3Config.yScale(d3Config.playerStats.length)}
-              y2={d3Config.yScale(0)}
-            />
-          </g>
-          <g>
-            <line
-              stroke="#000"
-              x1={d3Config.xScale(0)}
-              x2={d3Config.xScale(5)}
-              y1={d3Config.yScale(0)}
-              y2={d3Config.yScale(0)}
-            />
-          </g>
-          <g>
-            {[1, 2, 3, 4, 5].map(val => {
-              return (
-                <g
-                  key={val}
-                  transform={`translate(${d3Config.xScale(
-                    val
-                  )},${d3Config.yScale(0)})`}
-                >
-                  <line stroke="#000" y2="0.8rem"></line>
-                  <text textAnchor="middle" dx="0.5rem" dy="0.8rem">
-                    {val}
-                  </text>
-                </g>
-              );
-            })}
-          </g>
-          <g>
-            {d3Config.playerStats.map((player, i) => {
-              return (
-                <g
-                  transform={`translate(5,${d3Config.yScale(i)})`}
-                  key={player.name}
-                >
-                  <text dy="-5">{player.name}</text>
-                </g>
-              );
-            })}
-          </g>
-          <g>
-            {d3Config.playerStats.map((player, i) => {
-              return (
-                <g transform={`translate(0,${d3Config.yScale(i)})`}>
-                  <line
-                    transform="translate(0,-10)"
-                    stroke="green"
-                    strokeWidth="2"
-                    x1={d3Config.xScale(0)}
-                    x2={d3Config.xScale(player.averageScorePerGame)}
-                  />
-                  <circle
-                    cx={d3Config.xScale(player.averageScorePerGame)}
-                    cy={-10}
-                    r="3"
-                  />
-                </g>
-              );
-            })}
-          </g>
+          {this.state.loaded && (
+            <Fragment>
+              <g>
+                <line
+                  stroke="#000"
+                  x1={d3Config.xScale(0)}
+                  x2={d3Config.xScale(0)}
+                  y1={d3Config.yScale(d3Config.playerStats.length)}
+                  y2={d3Config.yScale(0)}
+                />
+              </g>
+              <g>
+                <line
+                  stroke="#000"
+                  x1={d3Config.xScale(0)}
+                  x2={d3Config.xScale(5)}
+                  y1={d3Config.yScale(0)}
+                  y2={d3Config.yScale(0)}
+                />
+              </g>
+              <g>
+                {[1, 2, 3, 4, 5].map(val => {
+                  return (
+                    <g
+                      key={val}
+                      transform={`translate(${d3Config.xScale(
+                        val
+                      )},${d3Config.yScale(0)})`}
+                    >
+                      <line stroke="#000" y2="0.8rem"></line>
+                      <text textAnchor="middle" dx="0.5rem" dy="0.8rem">
+                        {val}
+                      </text>
+                    </g>
+                  );
+                })}
+              </g>
+              <g>
+                {d3Config.playerStats.map((player, i) => {
+                  return (
+                    <g
+                      transform={`translate(5,${d3Config.yScale(i)})`}
+                      key={player.name}
+                    >
+                      <text dy="-5">{player.name}</text>
+                    </g>
+                  );
+                })}
+              </g>
+              <g>
+                {d3Config.playerStats.map((player, i) => {
+                  return (
+                    <g
+                      key={player.name}
+                      transform={`translate(0,${d3Config.yScale(i)})`}
+                    >
+                      <line
+                        transform="translate(0,-10)"
+                        stroke="green"
+                        strokeWidth="2"
+                        x1={d3Config.xScale(0)}
+                        x2={d3Config.xScale(player.averageScorePerGame)}
+                      />
+                      <circle
+                        cx={d3Config.xScale(player.averageScorePerGame)}
+                        cy={-10}
+                        r="3"
+                      />
+                    </g>
+                  );
+                })}
+              </g>
+            </Fragment>
+          )}
         </svg>
       </div>
     );

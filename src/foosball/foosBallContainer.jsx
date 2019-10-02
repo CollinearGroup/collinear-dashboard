@@ -45,7 +45,6 @@ export default class FoosBallContainer extends Component {
       }
     });
     newMatches = newMatches.sort((a, b) => b.date - a.date);
-    console.log(newMatches);
 
     this.setState({ matches: newMatches });
   };
@@ -75,7 +74,31 @@ export default class FoosBallContainer extends Component {
     const isLoaded = this.isLoaded();
     return (
       <div className="full-width">
-        <button onClick={this.toggleEditMode}>Toggle Me</button>
+        <div style={{ paddingBottom: "0.5rem" }}>
+          <button
+            style={{
+              width: "10rem",
+              display: "inline-block",
+              verticalAlign: "top"
+            }}
+            onClick={this.toggleEditMode}
+          >
+            {this.state.editMode
+              ? "Toggle to View Rank"
+              : "Toggle to Input Score"}
+          </button>
+          <div
+            style={{
+              display: "inline-block",
+              width: "calc( 100% - 12rem)",
+              textAlign: "center"
+            }}
+          >
+            {this.state.editMode
+              ? "Foosball Scoring Form"
+              : "Foosball Ranking (Top 6 By Average Score per Game)"}
+          </div>
+        </div>
         {isLoaded && this.renderContent()}
       </div>
     );

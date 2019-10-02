@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment } from "react";
 
 export function FoosBallDropdown({
   list,
@@ -7,7 +7,8 @@ export function FoosBallDropdown({
   labelText,
   defaultText,
   updateForm,
-  formKey
+  formKey,
+  alreadySelected = []
 }) {
   function renderOption(option) {
     let value = option;
@@ -15,7 +16,11 @@ export function FoosBallDropdown({
       value = option[listKey];
     }
     return (
-      <option key={value} value={value}>
+      <option
+        key={value}
+        value={value}
+        disabled={alreadySelected.includes(value)}
+      >
         {value}
       </option>
     );
@@ -29,7 +34,7 @@ export function FoosBallDropdown({
     <Fragment>
       <label htmlFor={formKey}>{labelText}</label>
       <select key={formKey} value={value} onChange={onChange}>
-        <option default value="">
+        <option default disabled value="">
           {defaultText}
         </option>
         {list.map(renderOption)}

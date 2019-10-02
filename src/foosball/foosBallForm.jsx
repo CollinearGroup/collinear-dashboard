@@ -1,15 +1,15 @@
-import React, { PureComponent } from 'react';
-import { FoosBallDropdown } from './foosBallDropdown';
-import db from './data/fireStore';
-import './foosBallForm.scss';
+import React, { PureComponent } from "react";
+import { FoosBallDropdown } from "./foosBallDropdown";
+import db from "./data/fireStore";
+import "./foosBallForm.scss";
 export default class FoosBallForm extends PureComponent {
   constructor(props) {
     super(props);
     this.DEFAULT_STATE = {
-      p1A: '',
-      p1B: '',
-      p2A: '',
-      p2B: '',
+      p1A: "",
+      p1B: "",
+      p2A: "",
+      p2B: "",
       aScore: 0,
       bScore: 0
     };
@@ -25,7 +25,7 @@ export default class FoosBallForm extends PureComponent {
       bScore: parseInt(this.state.bScore, 10),
       date: new Date().valueOf()
     };
-    await db.collection('matches').add(payload);
+    await db.collection("matches").add(payload);
     this.setState(this.DEFAULT_STATE);
   };
 
@@ -33,7 +33,7 @@ export default class FoosBallForm extends PureComponent {
 
   scoreOptions = [0, 1, 2, 3, 4, 5];
 
-  userText = '-SELECT OPTION-';
+  userText = "-SELECT OPTION-";
 
   isFormValid = () => {
     const { p1A, p1B } = this.state;
@@ -57,7 +57,7 @@ export default class FoosBallForm extends PureComponent {
     const { aScore, bScore, ...selectedUsers } = this.state;
     for (let user in selectedUsers) {
       const value = selectedUsers[user];
-      if (value === '') {
+      if (value === "") {
         continue;
       }
       if (!seenUsers[value]) {
@@ -97,29 +97,34 @@ export default class FoosBallForm extends PureComponent {
   render() {
     const { p1A, p2A, p1B, p2B, aScore, bScore } = this.state;
     const isValid = this.isFormValid();
+    const selectedPlayers = [p1A, p2A, p1B, p2B].filter(
+      player => player !== ""
+    );
 
     return (
       <form className="flex-column" onSubmit={this.onSubmit}>
         <div className="flex-row flex-justify-space-between">
           <div className="flex-column">
-            <h4>Team A</h4>
+            <h4 style={{ margin: "5px 0" }}>Team A</h4>
             <FoosBallDropdown
               list={this.props.users}
-              listKey={'name'}
+              listKey={"name"}
               value={p1A}
               updateForm={this.updateForm}
               formKey="p1A"
               labelText="Player 1"
               defaultText={this.userText}
+              alreadySelected={selectedPlayers}
             />
             <FoosBallDropdown
               list={this.props.users}
-              listKey={'name'}
+              listKey={"name"}
               value={p2A}
               updateForm={this.updateForm}
               formKey="p2A"
               labelText="Player 2"
               defaultText={this.userText}
+              alreadySelected={selectedPlayers}
             />
             <FoosBallDropdown
               list={this.scoreOptions}
@@ -127,28 +132,30 @@ export default class FoosBallForm extends PureComponent {
               updateForm={this.updateForm}
               formKey="aScore"
               labelText="FINAL SCORE:"
-              defaultText={'-'}
+              defaultText={"-"}
             />
           </div>
           <div className="flex-column">
-            <h4>Team B</h4>
+            <h4 style={{ margin: "5px 0" }}>Team B</h4>
             <FoosBallDropdown
               list={this.props.users}
-              listKey={'name'}
+              listKey={"name"}
               value={p1B}
               updateForm={this.updateForm}
               formKey="p1B"
               labelText="Player 1"
               defaultText={this.userText}
+              alreadySelected={selectedPlayers}
             />
             <FoosBallDropdown
               list={this.props.users}
-              listKey={'name'}
+              listKey={"name"}
               value={p2B}
               updateForm={this.updateForm}
               formKey="p2B"
               labelText="Player 2"
               defaultText={this.userText}
+              alreadySelected={selectedPlayers}
             />
             <FoosBallDropdown
               list={this.scoreOptions}
@@ -156,7 +163,7 @@ export default class FoosBallForm extends PureComponent {
               updateForm={this.updateForm}
               formKey="bScore"
               labelText="FINAL SCORE:"
-              defaultText={'-'}
+              defaultText={"-"}
             />
           </div>
         </div>
