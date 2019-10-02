@@ -44,11 +44,10 @@ class NpmMetrics extends React.Component {
   render() {
     return (
       <div id="nm-root">
-        <h2> NPM Modules</h2>
+        <div><b>NPM Modules</b></div>
         <div>Smart Deep Sort: {this.state.smartDeepSort}</div>
         <div>License Validator: {this.state.licenseValidator}</div>
         <div>PCAP: {this.state.pcap}</div>
-        <div></div>
       </div>
     )
   }
