@@ -1,8 +1,8 @@
-const firebase = require('firebase');
+const firebase = require("firebase");
+require("firebase/firestore");
 
-require('firebase/firestore');
-
-const FIREBASE_CONFIG = {};
+const FIREBASE_CONFIG = null;
+//replace with FIREBASE_CONFIG found on confluence
 
 firebase.initializeApp(FIREBASE_CONFIG);
 const db = firebase.firestore();
