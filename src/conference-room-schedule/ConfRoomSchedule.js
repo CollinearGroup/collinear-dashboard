@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import './ConfRoomSchedule.css'
 
+let CONF_RM_URL =
+  process.env.NODE_ENV === 'production'
+    ? process.env.REACT_APP_CONF_RM_URL
+    : 'http://localhost:8010/schedule'
+
 //Sample schedule data
  /*{
         'Giant Room': [
@@ -68,7 +73,7 @@ class ConfRoomSchedule extends Component {
   }
 
   async updateSchedule() {
-    let scheduleData = await (await fetch('http://localhost:8010/schedule')).json()
+    let scheduleData = await (await fetch(CONF_RM_URL)).json()
     console.log("Updating data: ", scheduleData)
     this.setState({scheduleData})
   }
