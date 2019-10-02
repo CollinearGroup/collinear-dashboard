@@ -1,46 +1,47 @@
-import React from "react"
-import "./App.scss"
+import React from "react";
+import "./App.scss";
 
-import NpmMetrics from "./npm-metrics"
-import Info from "./info"
-import SocialMediaPhotos from "./SocialMediaPhotos/SocialMediaPhotos"
-import ConfRoomSchedule from "./conference-room-schedule/ConfRoomSchedule"
+// Import your plugin
+import NpmMetrics from "./npm-metrics";
+import Info from "./info";
+import FoosBall from "./foosball";
+import SocialMediaPhotos from "./SocialMediaPhotos/SocialMediaPhotos";
+import ConfRoomSchedule from "./conference-room-schedule/ConfRoomSchedule";
 
 export default function App() {
-  return <GridContainer />
+  return <GridContainer />;
 }
 
 export class GridContainer extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       sideBarPosition: "right"
-    }
+    };
   }
 
   componentDidMount() {
-    let INTERVAL_TIME_MS = 2 * 60 * 1000
+    let INTERVAL_TIME_MS = 2 * 60 * 1000;
     this.updateDisplayInterval = setInterval(() => {
       this.setState({
         sideBarPosition: this.togglePosition()
-      })
-    }, INTERVAL_TIME_MS)
+      });
+    }, INTERVAL_TIME_MS);
   }
 
   componentWillUnmount() {
-    clearInterval(this.updateDisplayInterval)
+    clearInterval(this.updateDisplayInterval);
   }
-
 
   render() {
-  let fullSceenDream = {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    height: '100%',
-    width: '100%',
-  }
-    let { sideBarPosition } = this.state
+    let fullSceenDream = {
+      position: "absolute",
+      top: 0,
+      left: 0,
+      height: "100%",
+      width: "100%"
+    };
+    let { sideBarPosition } = this.state;
     return (
       <div style={fullSceenDream}>
         <div className={`grid-layout-${sideBarPosition}`}>
@@ -48,20 +49,20 @@ export class GridContainer extends React.Component {
           <SideBar />
         </div>
       </div>
-    )
+    );
   }
 
   togglePosition() {
     if (this.state.sideBarPosition === "right") {
-      return "left"
+      return "left";
     }
-    return "right"
+    return "right";
   }
 }
 
 export function MainContent() {
   function getPlaceholder() {
-    return <div className="shade fill">Your app here!</div>
+    return <div className="shade fill">Your app here!</div>;
   }
   return (
     <div className="grid-main">
@@ -71,12 +72,14 @@ export function MainContent() {
       <div className="box">
         <NpmMetrics />
       </div>
+      <div className="stretch box">
+        <FoosBall />
+      </div>
       <div className="box">
         <SocialMediaPhotos />
       </div>
-      <div className="stretch box">{getPlaceholder()}</div>
     </div>
-  )
+  );
 }
 
 export function SideBar() {
@@ -89,7 +92,7 @@ export function SideBar() {
         <Info />
       </div>
     </div>
-  )
+  );
 }
 
 export function Mission() {
@@ -101,5 +104,5 @@ export function Mission() {
       <p>Hire and Retain the Best People</p>
       <p>Have Fun</p>
     </div>
-  )
+  );
 }
