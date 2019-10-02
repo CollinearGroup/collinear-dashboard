@@ -33,7 +33,12 @@ export function FoosBallDropdown({
   return (
     <Fragment>
       <label htmlFor={formKey}>{labelText}</label>
-      <select key={formKey} value={value} onChange={onChange}>
+      <select
+        key={formKey}
+        value={value}
+        onChange={onChange}
+        style={{ marginBottom: "1rem" }}
+      >
         <option default disabled value="">
           {defaultText}
         </option>

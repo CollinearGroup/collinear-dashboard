@@ -69,7 +69,7 @@ export default class FoosBallMatch extends Component {
     }
   };
 
-  marginSpacing = { top: 10, bottom: 20, left: 130, right: 20 };
+  marginSpacing = { top: 10, bottom: 20, left: 135, right: 20 };
 
   createD3Config = () => {
     const rankMap = this.buildPlayerRanking();

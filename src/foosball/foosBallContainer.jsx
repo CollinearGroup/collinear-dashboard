@@ -73,31 +73,18 @@ export default class FoosBallContainer extends Component {
   render() {
     const isLoaded = this.isLoaded();
     return (
-      <div className="full-width">
+      <div className="foosball-container">
         <div style={{ paddingBottom: "0.5rem" }}>
-          <button
-            style={{
-              width: "10rem",
-              display: "inline-block",
-              verticalAlign: "top"
-            }}
-            onClick={this.toggleEditMode}
-          >
+          <button style={{ float: "right" }} onClick={this.toggleEditMode}>
             {this.state.editMode
               ? "Toggle to View Rank"
               : "Toggle to Input Score"}
           </button>
-          <div
-            style={{
-              display: "inline-block",
-              width: "calc( 100% - 12rem)",
-              textAlign: "center"
-            }}
-          >
+          <h3>
             {this.state.editMode
               ? "Foosball Scoring Form"
               : "Foosball Ranking (Top 6 By Average Score per Game)"}
-          </div>
+          </h3>
         </div>
         {isLoaded && this.renderContent()}
       </div>

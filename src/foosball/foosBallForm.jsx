@@ -103,7 +103,7 @@ export default class FoosBallForm extends PureComponent {
 
     return (
       <form className="flex-column" onSubmit={this.onSubmit}>
-        <div className="flex-row flex-justify-space-between">
+        <div className="flex-row flex-justify-space-evenly">
           <div className="flex-column">
             <h4 style={{ margin: "5px 0" }}>Team A</h4>
             <FoosBallDropdown
