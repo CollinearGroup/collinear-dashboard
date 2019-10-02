@@ -1,25 +1,9 @@
-import React, { useEffect } from "react"
-import { setTime } from "./infoSlice"
+import React from "react"
+import "./info.scss"
+import logo from "./collinear_logo_high_res.svg"
 
 export default function Info(props) {
-  useEffect(() => {
-    let dataRefreshInterval = setInterval(updateTime, 1000)
-    return () => {
-      clearInterval(dataRefreshInterval)
-    }
-  })
-
-  function updateTime() {
-    const payload = {
-      time: new Date().toTimeString()
-    }
-    props.dispatch(setTime(payload))
-  }
-
   return (
-    <div>
-      <p>Collinear Group Dashboard</p>
-      <p> {props.time} </p>
-    </div>
+    <img src={logo} alt="Logo" />
   )
 }
