@@ -69,11 +69,11 @@ export function MainContent() {
       <div className="box">
         <NpmMetrics />
       </div>
-      <div className="stretch box">
-        <FoosBall />
-      </div>
       <div className="box">
         <SocialMediaPhotos />
+      </div>
+      <div className="stretch box">
+        <FoosBall />
       </div>
     </div>
   )
