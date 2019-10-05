@@ -3,6 +3,7 @@ import db from "./data/fireStore";
 import FoosBallForm from "./foosBallForm";
 import FoosBallMatches from "./foosBallMatches";
 import "./foosBallContainer.scss";
+import {getUsers} from "./data/foosballService"
 export default class FoosBallContainer extends Component {
   constructor(props) {
     super(props);
@@ -11,7 +12,6 @@ export default class FoosBallContainer extends Component {
       matches: null,
       editMode: false
     };
-    this.USERS_COLLECTION = db.collection("users");
     this.MATCHES_COLLECTION = db.collection("matches");
     this.listener = this.MATCHES_COLLECTION.onSnapshot(
       this.handleMatchesChange
@@ -19,8 +19,7 @@ export default class FoosBallContainer extends Component {
   }
 
   async componentDidMount() {
-    const usersSnapshot = await this.USERS_COLLECTION.get();
-    const users = this.returnDataFromSnapshot(usersSnapshot);
+    const users = await getUsers()
     this.setState({ users });
   }
 
@@ -47,12 +46,6 @@ export default class FoosBallContainer extends Component {
     newMatches = newMatches.sort((a, b) => b.date - a.date);
 
     this.setState({ matches: newMatches });
-  };
-
-  returnDataFromSnapshot = snapshot => {
-    const data = [];
-    snapshot.forEach(doc => data.push({ ...doc.data(), id: doc.id }));
-    return data;
   };
 
   isLoaded = () => {
