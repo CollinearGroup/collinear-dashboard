@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import { FoosBallDropdown } from "./foosBallDropdown";
-import db from "./data/fireStore";
+import { addMatch } from "./data/foosballService";
 import "./foosBallForm.scss";
 export default class FoosBallForm extends PureComponent {
   constructor(props) {
@@ -25,7 +25,7 @@ export default class FoosBallForm extends PureComponent {
       bScore: parseInt(this.state.bScore, 10),
       date: new Date().valueOf()
     };
-    await db.collection("matches").add(payload);
+    await addMatch(payload)
     this.setState(this.DEFAULT_STATE);
   };
 
