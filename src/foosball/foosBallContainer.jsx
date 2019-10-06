@@ -1,70 +1,49 @@
-import React, { Component } from "react";
-import db from "./data/fireStore";
-import FoosBallForm from "./foosBallForm";
-import FoosBallMatches from "./foosBallMatches";
-import "./foosBallContainer.scss";
-import {getUsers} from "./data/foosballService"
+import React, { Component } from "react"
+import FoosBallForm from "./foosBallForm"
+import FoosBallMatches from "./foosBallMatches"
+import "./foosBallContainer.scss"
+import { getUsers, getMatches, onMatchUpdate } from "./data/foosballService"
 export default class FoosBallContainer extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       users: null,
       matches: null,
       editMode: false
-    };
-    this.MATCHES_COLLECTION = db.collection("matches");
-    this.listener = this.MATCHES_COLLECTION.onSnapshot(
-      this.handleMatchesChange
-    );
+    }
   }
 
   async componentDidMount() {
+    onMatchUpdate(this.onMatchUpdate)
     const users = await getUsers()
-    this.setState({ users });
+    const matches = await getMatches()
+    this.setState({ users, matches })
   }
 
-  componentWillUnmount() {
-    // This is used to remove the listener
-    this.listener();
+  onMatchUpdate = match => {
+    let newMatches = this.state.matches ? [...this.state.matches] : []
+    newMatches.push(match)
+    newMatches = newMatches.sort((a, b) => b.date - a.date)
+    this.setState({ matches: newMatches })
   }
-
-  handleMatchesChange = res => {
-    let newMatches = this.state.matches ? [...this.state.matches] : [];
-    res.docChanges().forEach(change => {
-      if (change.type === "added") {
-        newMatches.push({ ...change.doc.data(), id: change.doc.id });
-      } else if (change.type === "modified") {
-        const index = newMatches.indexOf(el => el.id === change.doc.id);
-        newMatches.splice(index, 1, {
-          ...change.doc.data(),
-          id: change.doc.id
-        });
-      } else if (change.type === "removed") {
-        newMatches = newMatches.filter(el => el.id !== change.doc.id);
-      }
-    });
-    newMatches = newMatches.sort((a, b) => b.date - a.date);
-
-    this.setState({ matches: newMatches });
-  };
 
   isLoaded = () => {
-    return Array.isArray(this.state.matches) && Array.isArray(this.state.users);
-  };
+    return Array.isArray(this.state.matches) && Array.isArray(this.state.users)
+  }
 
   renderContent = () => {
     if (this.state.editMode) {
-      return <FoosBallForm users={this.state.users} />;
+      return <FoosBallForm users={this.state.users} />
     }
     return (
       <FoosBallMatches matches={this.state.matches} users={this.state.users} />
-    );
-  };
+    )
+  }
 
-  toggleEditMode = () => this.setState({ editMode: !this.state.editMode });
+  toggleEditMode = () => this.setState({ editMode: !this.state.editMode })
 
   render() {
-    const isLoaded = this.isLoaded();
+    const isLoaded = this.isLoaded()
     return (
       <div className="foosball-container">
         <div style={{ paddingBottom: "0.5rem" }}>
@@ -81,6 +60,6 @@ export default class FoosBallContainer extends Component {
         </div>
         {isLoaded && this.renderContent()}
       </div>
-    );
+    )
   }
 }
