@@ -2,7 +2,12 @@ import React, { Component } from "react"
 import FoosBallForm from "./foosBallForm"
 import FoosBallMatches from "./foosBallMatches"
 import "./foosBallContainer.scss"
-import { getUsers, getMatches, onMatchUpdate } from "./data/foosballService"
+import {
+  getUsers,
+  getMatches,
+  onMatchUpdate,
+  clearMatches
+} from "./data/foosballService"
 export default class FoosBallContainer extends Component {
   constructor(props) {
     super(props)
@@ -27,13 +32,23 @@ export default class FoosBallContainer extends Component {
     this.setState({ matches: newMatches })
   }
 
+  clearAllDataHandler = async () => {
+    await clearMatches()
+    this.setState({ matches: [] })
+  }
+
   isLoaded = () => {
     return Array.isArray(this.state.matches) && Array.isArray(this.state.users)
   }
 
   renderContent = () => {
     if (this.state.editMode) {
-      return <FoosBallForm users={this.state.users} />
+      return (
+        <FoosBallForm
+          users={this.state.users}
+          clearAllDataHandler={this.clearAllDataHandler}
+        />
+      )
     }
     return (
       <FoosBallMatches matches={this.state.matches} users={this.state.users} />

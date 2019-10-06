@@ -1,42 +1,31 @@
-let hostUrl = process.env.foosballServerUrl || "http://localhost:8005"
+const axios = require("axios")
+const FOOSBALL_URL =
+  process.env.REACT_APP_FOOSBALL_URL || "http://localhost:8005"
+const FOOSBALL_WS = process.env.REACT_APP_FOOSBALL_WS || "ws://localhost:8005"
+
 let matchListener = () => {}
 
 export async function getUsers() {
-  let response = await fetch(`${hostUrl}/users`)
-  return await response.json()
+  let response = await axios.get(`${FOOSBALL_URL}/users`)
+  return response.data
 }
 
 export async function getMatches() {
-  let response = await fetch(`${hostUrl}/matches`)
-  return await response.json()
+  let response = await axios.get(`${FOOSBALL_URL}/matches`)
+  return response.data
 }
 
 export async function addMatch(payload) {
-  return await postData(`${hostUrl}/addMatch`, payload)
+  return await axios.post(`${FOOSBALL_URL}/addMatch`, payload)
 }
 
-// TODO: use axios (already installed)
-async function postData(url = "", data = {}) {
-  // Default options are marked with *
-  await fetch(url, {
-    method: "POST", // *GET, POST, PUT, DELETE, etc.
-    // mode: 'cors', // no-cors, *cors, same-origin
-    // cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-    // credentials: 'same-origin', // include, *same-origin, omit
-    headers: {
-      "Content-Type": "application/json"
-      // 'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    // redirect: 'follow', // manual, *follow, error
-    // referrer: 'no-referrer', // no-referrer, *client
-    body: JSON.stringify(data) // body data type must match "Content-Type" header
-  })
-  // return await response.json(); // parses JSON response into native JavaScript objects
+export async function clearMatches() {
+  return await axios.get(`${FOOSBALL_URL}/clearMatches`)
 }
 
 initWebSocket(WebSocket)
 function initWebSocket(WebSocket) {
-  const ws = new WebSocket("ws://localhost:8005/")
+  const ws = new WebSocket(FOOSBALL_WS)
   ws.onmessage = onMessageHandler
 }
 
