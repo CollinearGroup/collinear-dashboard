@@ -37,6 +37,6 @@ function getEventData(event) {
   return JSON.parse(event.data)
 }
 
-export function onMatchUpdate(listener = () => {}) {
+export function onMatchUpdate(listener) {
   matchListener = listener
 }
