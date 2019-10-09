@@ -17,6 +17,26 @@ body {
   padding: 20px;
 }
 
+@media (min-width: 800px) {
+  $screen-size: 100%;
+  .grid-layout-right {
+    display: grid;
+    grid-gap: 20px;
+    grid-template-areas: "main";
+    grid-template-columns: 2fr;
+    grid-template-rows: $screen-size;
+    height: calc(100% - 20px);
+    margin: 10px;
+  }
+  .grid-main {
+    grid-area: main;
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+}
+
 // Large Screen
 @media (min-width: 1024px) {
   $screen-size: 100%;
