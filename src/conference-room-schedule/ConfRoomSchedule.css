@@ -43,13 +43,18 @@
 
 .conf-schedule-hours {
   /* background: yellow; */
-  padding-top: 1.3em;
+  padding-top: 1.5em;
   padding-right: .2em;
   width: 3.2em;
   float: left;
   font-weight: 400;
-  font-size: small;
+  font-size: large;
   text-align: right;
+}
+
+.conf-schedule-hour {
+  margin-top: .3em;
+  white-space: nowrap;
 }
 
 .conf-schedule-meetings {
@@ -58,11 +63,11 @@
 
 .conf-room-meeting-busy {
   font-size: x-small;
-  background: violet;
-  height: .78em;
+  background: blueviolet;
+  height: 1.2em;
 }
 .conf-room-meeting-free {
   font-size: x-small;
   background: white;
-  height: .78em;
+  height: 1.2em;
 }

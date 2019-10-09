@@ -136,7 +136,7 @@ class ConfRoomSchedule extends Component {
       <div className="conf-schedule-content">
         <div className="conf-schedule-hours">
           {hoursArray.map(n => (
-            <div>{n}</div>
+            <div className="conf-schedule-hour">{n}</div>
           ))}
         </div>
 
