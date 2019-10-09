@@ -63,7 +63,7 @@
 
 .conf-room-meeting-busy {
   font-size: x-small;
-  background: blueviolet;
+  background: rgb(50,109,152);
   height: 1.2em;
 }
 .conf-room-meeting-free {
