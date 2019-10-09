@@ -3,6 +3,7 @@
   vertical-align: top;
   font-weight: 600;
   padding-bottom: .5em;
+  color: rgb(50,109,152)
 }
 .dashboard-content {
   font-family: 'Tahoma'
@@ -50,6 +51,7 @@
   font-weight: 400;
   font-size: large;
   text-align: right;
+  color: rgb(50,109,152)
 }
 
 .conf-schedule-hour {
