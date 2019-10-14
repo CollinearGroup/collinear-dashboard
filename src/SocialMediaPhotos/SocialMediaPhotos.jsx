@@ -1,16 +1,19 @@
 import React, { Component } from 'react'
 // replace these with the photos we actually wanna use
-import cat1 from './images/cat1.jpeg'
-import cat2 from './images/cat2.jpg'
-import cat3 from './images/cat3.jpg'
-import cat4 from './images/cat4.jpg'
-import cat5 from './images/cat5.jpg'
+import img1 from './images/dog1.jpeg'
+import img2 from './images/dog2.jpeg'
+import img3 from './images/dog3.jpeg'
+import img4 from './images/dog4.jpeg'
+import img5 from './images/dog5.jpeg'
+import img6 from './images/dog6.jpeg'
+import img7 from './images/dog7.jpeg'
+import img8 from './images/dog8.jpeg'
 import './socialMediaPhotos.css'
 
 
 export default class SocialMediaPhotos extends Component{
   state = {
-    images: [cat1, cat2, cat3, cat4, cat5],
+    images: [img1, img7, img3, img4, img5, img6, img2, img8],
     photoIndex: 0
   }
   componentDidMount(){
@@ -25,7 +28,7 @@ export default class SocialMediaPhotos extends Component{
     this.interval = setInterval( () => {
       let newIndex = this.state.photoIndex > this.state.images.length - 2 ? 0 : this.state.photoIndex + 1
       this.setState({photoIndex: newIndex})
-    }, 3000)
+    }, 10000)
   }
 
 
