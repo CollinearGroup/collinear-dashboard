@@ -30,7 +30,9 @@
   white-space: nowrap;
   overflow: hidden;
   max-width: 8em;
-  font-size: x-small;
+  font-size: small;
+  font-weight: 800;
+  padding-bottom: 1.4em;
   /* width: 100%; */
 }
 
@@ -51,12 +53,14 @@
   font-weight: 400;
   font-size: large;
   text-align: right;
-  color: rgb(50,109,152)
+  color: rgb(50,109,152);
 }
 
 .conf-schedule-hour {
   margin-top: .3em;
   white-space: nowrap;
+  /* border: 1px solid black; */
+  height: 1.2em;
 }
 
 .conf-schedule-meetings {
@@ -67,8 +71,11 @@
   font-size: x-small;
   background: rgb(50,109,152);
   height: 1.2em;
+  color: aliceblue;
+  /* border: 1px solid black; */
 }
 .conf-room-meeting-free {
+  /* border: 1px solid black; */
   font-size: x-small;
   background: white;
   height: 1.2em;
