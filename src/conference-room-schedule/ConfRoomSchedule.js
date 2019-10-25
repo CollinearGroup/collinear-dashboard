@@ -93,11 +93,42 @@ class ConfRoomSchedule extends Component {
     )
   }
 
+  hourFromPos = pos => {
+    return [
+      '8 AM',
+      '8:30 AM',
+      '9 AM',
+      '9:30 AM',
+      '10 AM',
+      '10:30 AM',
+      '11 AM',
+      '11:30 AM',
+      '12 AM',
+      '12:30 AM',
+      '1 PM',
+      '1:30 PM',
+      '2 PM',
+      '2:30 PM',
+      '3 PM',
+      '3:30 PM',
+      '4 PM',
+      '4:30 PM',
+      '5 PM',
+      '5:30 PM',
+      '6 PM',
+      '6:30 PM',
+    ][pos]
+  }
+
   buildMeetingDiv = data => {
     let divs = []
     for (let i = 0; i < 20; i++) {
+      let busyName = data[i] && data[i] !== data[i-1] ? data[i] : ''
+      if(busyName) {
+        busyName += ` (${this.hourFromPos(i)})`
+      }
       if (data[i]) {
-        divs.push(<div className="conf-room-meeting-busy">&nbsp;</div>)
+        divs.push(<div className="conf-room-meeting-busy">{busyName}</div>)
       } else {
         divs.push(<div className="conf-room-meeting-free">&nbsp;</div>)
       }
