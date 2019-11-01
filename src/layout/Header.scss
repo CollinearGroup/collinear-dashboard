@@ -23,23 +23,16 @@ $base-color: #ffffff;
   font-size: 12px;
 }
 
-#dateTime div {
-  display: inline-block;
-  vertical-align: middle;
+#dateTime {
+  align-self: center;
 }
 
-#date {
-  font-weight: bold;
-}
-
-#time {
+#dt-content {
   font-weight: lighter;
 }
 
 .vertical-separator {
   font-weight: lighter;
   border-right: 1px solid white;
-  width: 0px;
-  height: 1em;
   margin: 0px 10px 0px 15px;
 }
