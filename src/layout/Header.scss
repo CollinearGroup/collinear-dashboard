@@ -17,8 +17,29 @@ $base-color: #ffffff;
 #logo-secondary {
   color: $base-color;
   position: absolute;
-  font-weight: normal;
+  font-weight: lighter;
   right: 0px;
   bottom: -8px;
   font-size: 12px;
+}
+
+#dateTime div {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#date {
+  font-weight: bold;
+}
+
+#time {
+  font-weight: lighter;
+}
+
+.vertical-separator {
+  font-weight: lighter;
+  border-right: 1px solid white;
+  width: 0px;
+  height: 1em;
+  margin: 0px 10px 0px 15px;
 }
