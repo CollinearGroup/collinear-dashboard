@@ -7,10 +7,12 @@
   white-space: nowrap;
   overflow: hidden;
   max-width: 8em;
+  min-width: 5em;
   font-size: 16px;
   font-weight: 800;
-  padding-bottom: 1.4em;
   color: #FFFFFF;
+  float: right;
+  padding-right: .5em;
 }
 
 .conf-schedule-col {
@@ -34,13 +36,11 @@
 
 .calendar-content {
   width: 100%;
+  table-layout: fixed;
 }
 
 .conf-schedule-hour {
-  margin-top: .3em;
   white-space: nowrap;
-  /* justify-content: space-evenly;  */
-  height: 1.2em;
 }
 
 .conf-shedule-hour-span {
@@ -70,11 +70,22 @@
 
 table {
   border-spacing: 0 4px;
+  width: 100%;
+  /* display: inline-block; */
   table-layout: fixed;
 }
 
 th {
+  padding: 0;
+}
+
+.first-header-col {
+  width: 5em;
+}
+
+td {
   height: 2em;
+  /* width: 5em; */
 }
 
 .border-col {
@@ -102,15 +113,15 @@ th {
 }
 
 .busy-rect {
-  height: 80%;
+  height: 90%;
 }
 
 .label-div {
   text-align: left;
   padding-left: .5em;
-  white-space: nowrap;
-  font-size: 8px;
-  
+  font-size: 12px;
+  color: #000000;
+  font-weight: 700;
 }
 
 .name-div {
