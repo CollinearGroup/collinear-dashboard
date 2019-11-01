@@ -46,7 +46,7 @@
 .conf-shedule-hour-span {
   color: #FFFFFF;
   font-weight: 100;
-  font-size: 12px;
+  font-size: 14px;
   float:left;
 }
 
@@ -71,7 +71,6 @@
 table {
   border-spacing: 0 4px;
   width: 100%;
-  /* display: inline-block; */
   table-layout: fixed;
 }
 
@@ -85,7 +84,6 @@ th {
 
 td {
   height: 2em;
-  /* width: 5em; */
 }
 
 .border-col {
@@ -116,14 +114,10 @@ td {
   height: 90%;
 }
 
-.label-div {
-  text-align: left;
-  padding-left: .5em;
-  font-size: 12px;
-  color: #000000;
-  font-weight: 700;
-}
-
 .name-div {
   font-weight: 100;
+  text-align: left;
+  padding-left: .5em;
+  font-size: 14px;
+  color: #000000;
 }

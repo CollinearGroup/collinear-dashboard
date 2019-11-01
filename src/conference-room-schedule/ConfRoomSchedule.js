@@ -172,7 +172,6 @@ class ConfRoomSchedule extends Component {
       if (data[i]) {
         busyRect = (
           <div className={"busy-rect " + (busyColors[busyColorCount])}>
-            <div className="label-div">{busyName ? this.hourFromPos(i) : ''}</div>
             <div className="label-div name-div">{busyName}</div>
           </div>
           )
