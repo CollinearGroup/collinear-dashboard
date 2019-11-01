@@ -30,7 +30,7 @@ export default class SocialMediaPhotos extends Component {
         mode:'no-cors'
       })
       let ids = res.data.resources.map(img => img.public_id)
-      this.setState({photoIndex: ids})
+      this.setState({images: ids}, console.log(this.state.images))
     }catch(err) {
       console.log('heeeey',err)
     }
