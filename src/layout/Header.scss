@@ -1,0 +1,24 @@
+$logo-color: #02ffc1;
+$base-color: #ffffff;
+
+#header-container {
+  display: grid;
+  grid-template-columns: 2fr 3fr 3fr;
+}
+
+#logo-primary {
+  color: $logo-color;
+  position: relative;
+  display: inline-block;
+  font-weight: bold;
+  font-size: 32px;
+}
+
+#logo-secondary {
+  color: $base-color;
+  position: absolute;
+  font-weight: normal;
+  right: 0px;
+  bottom: -8px;
+  font-size: 12px;
+}

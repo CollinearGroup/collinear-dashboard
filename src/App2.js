@@ -1,8 +1,8 @@
 import React from "react"
 import "./App.scss"
 
-import Header from "./Header"
-import Footer from "./Footer"
+import Header from "./layout/Header"
+import Footer from "./layout/Footer"
 
 import NpmMetrics from "./npm-metrics"
 import FoosBall from "./foosball"

@@ -1,4 +1,6 @@
 import React from "react"
+import Logo from "./Logo"
+
 import "./Header.scss"
 
 export default class Header extends React.Component {
@@ -13,16 +15,10 @@ export default class Header extends React.Component {
   }
 }
 
-export class Logo extends React.Component {
-  render() {
-    return <div>Collinear</div>
-  }
-}
-
 export class Notifications extends React.Component {
   render() {
     return (
-      <div id="" className="justify-right">
+      <div id="" className="padding justify-right">
         I AM A
       </div>
     )
@@ -32,7 +28,7 @@ export class Notifications extends React.Component {
 export class DateTime extends React.Component {
   render() {
     return (
-      <div id="" className="justify-right">
+      <div id="" className="padding justify-right">
         Date Time
       </div>
     )
