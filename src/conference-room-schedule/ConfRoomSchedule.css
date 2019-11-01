@@ -57,9 +57,13 @@
   white-space: nowrap;
   /* justify-content: space-evenly;  */
   height: 1.2em;
+}
+
+.conf-shedule-hour-span {
   color: #FFFFFF;
   font-weight: 100;
   font-size: 12px;
+  float:left;
 }
 
 .conf-schedule-meetings {
@@ -74,18 +78,15 @@
 }
 .conf-room-meeting-free {
   font-size: x-small;
-  background: #888888;
+  background: #F4F9FF;
   border-right: 1px #FFFFFF;
   height: 1.2em;
+  padding: 0;
 }
 
-/* .spacer {
-  height: 2rem;
-} */
-
 table {
-  border-spacing: 0 2px;
-  /* table-layout: fixed; */
+  border-spacing: 0 4px;
+  table-layout: fixed;
 }
 
 .border-col {
@@ -94,4 +95,35 @@ table {
 
 .name-col { 
   width: auto;
+}
+
+.red-busy {
+  background-color: #FFE4E6;
+}
+
+.green-busy {
+  background-color: #E0FBE0;
+}
+
+.yellow-busy {
+  background-color: #FFF7E3;
+}
+
+.blue-busy {
+  background-color: #E6E4FF;
+}
+
+.busy-rect {
+  height: 80%;
+}
+
+.label-div {
+  text-align: left;
+  padding-left: .5em;
+  white-space: nowrap;
+  font-size: 8px;
+}
+
+.name-div {
+  font-weight: 100;
 }

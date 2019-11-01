@@ -1,85 +1,85 @@
 import React, { Component } from "react"
 import "./ConfRoomSchedule.css"
 
-let CONF_RM_URL = process.env.REACT_APP_CONF_RM_URL || "http://localhost:8010/schedule"
+let CONF_RM_URL = process.env.REACT_APP_CONF_RM_URL || "https://dashboard.collineargroup.com/calendar/schedule"
 
 //Sample schedule data
-let scheduleData = {
-  'Giant Room': [
-    null,
-    null,
-    '9',
-    '9',
-    '10',
-    '10',
-    null,
-    'b',
-    null,
-    null,
-    '1',
-    '1:30',
-    null,
-    '2:30',
-    '3',
-    '3:30',
-    null,
-  ],
-  'East Room': [
-    1, 0,
-    0, 0,
-    0, 0,
-    0, 0,
-    0, 0,
-    0, 0,
-    0, 0,
-    0, 0,
-    0, 0,
-    0, 1,
-  ],
-  'West Room': [
-    '7',
-    '.',
-    '8',
-    '.',
-    '9',
-    '.',
-    '10',
-    '.',
-    '11',
-    '.',
-    '12',
-    '.',
-    '1',
-    '.',
-    '2',
-    '.',
-    '3',
-    '.',
-    '4',
-    '.',
-    '5',
-    '.',
-  ],
-  'War Room': [
-    null,
-    null,
-    '9',
-    '9',
-    null,
-    '10',
-    null,
-    'b',
-    null,
-    null,
-    '1',
-    '1:30',
-    null,
-    '2:30',
-    '3',
-    null,
-    null,
-  ],
-}
+// let scheduleData = {
+//   'Giant Room': [
+//     null,
+//     null,
+//     '9',
+//     '9',
+//     '10',
+//     '10',
+//     null,
+//     'b',
+//     null,
+//     null,
+//     '1',
+//     '1:30',
+//     null,
+//     '2:30',
+//     '3',
+//     '3:30',
+//     null,
+//   ],
+//   'East Room': [
+//     1, 0,
+//     0, 0,
+//     0, 0,
+//     0, 0,
+//     0, 0,
+//     0, 0,
+//     0, 0,
+//     0, 0,
+//     0, 0,
+//     0, 1,
+//   ],
+//   'West Room': [
+//     '7',
+//     '.',
+//     '8',
+//     '.',
+//     '9',
+//     '.',
+//     '10',
+//     '.',
+//     '11',
+//     '.',
+//     '12',
+//     '.',
+//     '1',
+//     '.',
+//     '2',
+//     '.',
+//     '3',
+//     '.',
+//     '4',
+//     '.',
+//     '5',
+//     '.',
+//   ],
+//   'War Room': [
+//     null,
+//     null,
+//     '9',
+//     '9',
+//     null,
+//     '10',
+//     null,
+//     'b',
+//     null,
+//     null,
+//     '1',
+//     '1:30',
+//     null,
+//     '2:30',
+//     '3',
+//     null,
+//     null,
+//   ],
+// }
 
 let hoursArray = [
   " 7 AM",
@@ -95,6 +95,15 @@ let hoursArray = [
   " 5 PM",
 ]
 
+let busyColors = [
+  "red-busy",
+  "green-busy",
+  "yellow-busy",
+  "blue-busy"
+]
+
+let busyColorCount = 0
+
 class ConfRoomSchedule extends Component {
   constructor() {
     super()
@@ -103,10 +112,8 @@ class ConfRoomSchedule extends Component {
     }
   }
 
-  
-
   async updateSchedule() {
-    // let scheduleData = await (await fetch(CONF_RM_URL)).json()
+    let scheduleData = await (await fetch(CONF_RM_URL)).json()
     console.log("Updating data: ", scheduleData)
     this.setState({ scheduleData })
   }
@@ -156,52 +163,41 @@ class ConfRoomSchedule extends Component {
     ][pos]
   }
 
-
   buildMeetingDiv = data => {
     let divs = []
     for (let i = 0; i < 20; i++) {
       let busyName = data[i] && data[i] !== data[i - 1] ? data[i] : ''
-      if (busyName) {
-        busyName += ` (${this.hourFromPos(i)})`
-      }
+
+      let busyRect
       if (data[i]) {
-        divs.push(<th className="conf-room-meeting-busy border-col">{busyName}</th>)
-      } else {
-        divs.push(<th className="conf-room-meeting-free border-col"></th>)
-      }
+        busyRect = (
+          <div className={"busy-rect " + (busyColors[busyColorCount])}>
+            <div className="label-div">{busyName ? this.hourFromPos(i) : ''}</div>
+            <div className="label-div name-div">{busyName}</div>
+          </div>
+          )
+      } 
+      divs.push(<th className="conf-room-meeting-free border-col">{busyRect}</th>)
+    }
+    busyColorCount++
+    if (busyColorCount === busyColors.length) {
+      busyColorCount = 0
     }
     return divs
   }
 
-  buildRoomRow = (name, roomData = []) => {
+  buildRoomRow = (name, roomData = [], busyColorCount) => {
     return (
       <tr>
         <th className="name-col">
           <span className="conf-schedule-name">{name}</span>
         </th>
         {this.buildMeetingDiv(roomData)}
-
-        {/* <span className="conf-schedule-col">
-        
-        <span className="conf-schedule-meetings">
-          {this.buildMeetingDiv(roomData)}
-        </span> */}
-        {/* </span> */}
       </tr>
     )
   }
 
-  // getHourColumns = () => {
-  //   let hours = []
-  //   for (var i = 0; i < hoursArray.length - 1; i++) {
-  //     if (i < hoursArray.length - 1) {
-  //       hours.push
-  //     }
-  //   }
-  // }
-
   showCalendar = () => {
-
     let rooms = Object.keys(this.state.scheduleData).map(roomName =>
       this.buildRoomRow(roomName, this.state.scheduleData[roomName])
     )
@@ -209,26 +205,14 @@ class ConfRoomSchedule extends Component {
       <table className="calendar-content">
         <tr>
           <th></th> {/* The first column for the time row should be blank */}
-          {/* {this.getHourColumns()} */}
-          {hoursArray.map((hour, index) => (
-            
+          {hoursArray.map((hour, index) => (   
             <th colSpan="2" className={"conf-schedule-hour"}>
-              {hour}{/* <span>{hour}</span> */}
+              <span className="conf-shedule-hour-span">{hour}</span>
             </th>
           ))}
         </tr>
         {rooms}
       </table>
-      // <div>
-      //   <div className="conf-schedule-hours">
-      //     {hoursArray.map(n => (
-      //       <span className="conf-schedule-hour">{n}</span>
-      //     ))}
-      //   </div>
-      //   <div className="conf-schedule-content">
-      //     <div className="conf-schedule-names">{rooms}</div>
-      //   </div>
-      // </div>
     )
   }
 
