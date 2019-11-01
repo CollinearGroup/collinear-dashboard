@@ -2,20 +2,34 @@
 
 $panel-bg: #394a54;
 $bg-primary: #091b29;
+$font-color: #ffffff;
 
 body {
-  font-family: Tahoma, Geneva, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   font-style: normal;
   font-weight: normal;
   font-size: 24px;
   background: $bg-primary;
+  color: $font-color;
 }
 
-// Default/Small screens (Order matters)
 .box {
   overflow: hidden;
+  border-radius: 5px;
   background: $panel-bg;
   text-align: center;
+}
+
+.padding {
+  padding: 10px;
+}
+
+.center-text {
+  text-align: center;
+}
+
+.justify-right {
+  text-align: right;
 }
 
 #container {
@@ -30,7 +44,7 @@ body {
 }
 
 // Overrides the defaults
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 600px) {
   #container {
     display: grid;
     height: calc(1080px - 20px);

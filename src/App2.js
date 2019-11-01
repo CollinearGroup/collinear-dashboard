@@ -1,6 +1,9 @@
 import React from "react"
 import "./App.scss"
 
+import Header from "./Header"
+import Footer from "./Footer"
+
 import NpmMetrics from "./npm-metrics"
 import FoosBall from "./foosball"
 import SocialMediaPhotos from "./SocialMediaPhotos/SocialMediaPhotos"
@@ -13,7 +16,7 @@ export default function App() {
 export class GridContainer extends React.Component {
   wrapInId = (id, component) => {
     return (
-      <div id={id} className="box">
+      <div id={id} className="box padding">
         {component}
       </div>
     )
@@ -22,21 +25,45 @@ export class GridContainer extends React.Component {
   render() {
     return (
       <div id="container">
-        {this.wrapInId("header", <Header />)}
+        <HeaderWrapper />
         {this.wrapInId("calendar", <ConfRoomSchedule />)}
-        {this.wrapInId("photo", <SocialMediaPhotos />)}
+        <Photos />
         {this.wrapInId("foos", <FoosBall />)}
         {this.wrapInId("npm", <NpmMetrics />)}
-        {this.wrapInId("kudos", <div>Placeholder</div>)}
-        {this.wrapInId("message-board", <div>Placeholder</div>)}
-        {this.wrapInId("footer", <div>Footer!</div>)}
+        <Kudos />
+        {this.wrapInId("message-board", <div>Message Board Placeholder</div>)}
+        <Footer />
       </div>
     )
   }
 }
 
-export class Header extends React.Component {
+export class HeaderWrapper extends React.Component {
   render() {
-    return "I AM A HEADER"
+    return (
+      <div id="header">
+        <Header />
+      </div>
+    )
+  }
+}
+
+export class Photos extends React.Component {
+  render() {
+    return (
+      <div id="photo">
+        <SocialMediaPhotos />
+      </div>
+    )
+  }
+}
+
+export class Kudos extends React.Component {
+  render() {
+    return (
+      <div id="kudos">
+        <p>Kudos Placeholder</p>
+      </div>
+    )
   }
 }
