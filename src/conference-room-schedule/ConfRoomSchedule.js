@@ -177,7 +177,7 @@ class ConfRoomSchedule extends Component {
           </div>
           )
       } 
-      divs.push(<th className="conf-room-meeting-free border-col">{busyRect}</th>)
+      divs.push(<td className={"conf-room-meeting-free" +(i % 2 === 0 ? "" : " border-col")}>{busyRect}</td>)
     }
     busyColorCount++
     if (busyColorCount === busyColors.length) {
@@ -189,9 +189,9 @@ class ConfRoomSchedule extends Component {
   buildRoomRow = (name, roomData = [], busyColorCount) => {
     return (
       <tr>
-        <th className="name-col">
+        <td className="name-col">
           <span className="conf-schedule-name">{name}</span>
-        </th>
+        </td>
         {this.buildMeetingDiv(roomData)}
       </tr>
     )
@@ -204,9 +204,9 @@ class ConfRoomSchedule extends Component {
     return (
       <table className="calendar-content">
         <tr>
-          <th></th> {/* The first column for the time row should be blank */}
+          <th className="first-header-col"></th> {/* The first column for the time row should be blank */}
           {hoursArray.map((hour, index) => (   
-            <th colSpan="2" className={"conf-schedule-hour"}>
+            <th colSpan={index === hoursArray.length - 1 ? "1" : "2"} className={"conf-schedule-hour"}>
               <span className="conf-shedule-hour-span">{hour}</span>
             </th>
           ))}
