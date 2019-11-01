@@ -2,22 +2,6 @@
   font-family: 'HelveticaNeue'
 }
 
-.conf-schedule-names {
-  /* background: black; */
-  /* display: flex; */
-  /* flex-basis: 0; */
-  /* flex-grow: 1; */
-  /* flex: 1 1 100%; */
-  /* flex-wrap: nowrap; */
-  /* float: left; */
-  /* width: 100%; */
-}
-
-/* .conf-schedule-content {
-  display: flex;
-  flex-direction: column;
-} */
-
 .conf-schedule-name {
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -89,6 +73,10 @@ table {
   table-layout: fixed;
 }
 
+th {
+  height: 2em;
+}
+
 .border-col {
   border-right: 1px solid #FFFFFF;
 }
@@ -122,6 +110,7 @@ table {
   padding-left: .5em;
   white-space: nowrap;
   font-size: 8px;
+  
 }
 
 .name-div {
