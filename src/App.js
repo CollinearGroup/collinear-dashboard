@@ -4,7 +4,7 @@ import "./App.scss"
 // Import your plugin
 import NpmMetrics from "./npm-metrics"
 import Info from "./info"
-import FoosBall from "./foosball"
+import Foosball from "./foosball/frontend"
 import SocialMediaPhotos from "./SocialMediaPhotos/SocialMediaPhotos"
 import ConfRoomSchedule from "./conference-room-schedule/ConfRoomSchedule"
 
@@ -73,7 +73,7 @@ export function MainContent() {
         <SocialMediaPhotos />
       </div>
       <div className="stretch box">
-        <FoosBall />
+        <Foosball />
       </div>
     </div>
   )
