@@ -1,39 +1,32 @@
-.dashboard-title {
-  text-align: center;
-  vertical-align: top;
-  font-weight: 600;
-  padding-bottom: .5em;
-  color: rgb(50,109,152)
-}
 .dashboard-content {
-  font-family: 'Tahoma'
+  font-family: 'HelveticaNeue'
 }
 
 .conf-schedule-names {
-  background: white;
-  display: flex;
+  /* background: black; */
+  /* display: flex; */
   /* flex-basis: 0; */
   /* flex-grow: 1; */
-  flex: 1 1 100%;
-  flex-wrap: nowrap;
-  float: left;
+  /* flex: 1 1 100%; */
+  /* flex-wrap: nowrap; */
+  /* float: left; */
   /* width: 100%; */
 }
 
-.conf-schedule-content {
+/* .conf-schedule-content {
   display: flex;
-  flex-direction: row;
-}
+  flex-direction: column;
+} */
 
 .conf-schedule-name {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
   max-width: 8em;
-  font-size: small;
+  font-size: 16px;
   font-weight: 800;
   padding-bottom: 1.4em;
-  /* width: 100%; */
+  color: #FFFFFF;
 }
 
 .conf-schedule-col {
@@ -41,26 +34,36 @@
   padding: .2em;
   margin-right: .1em;
   margin-left: .1em;
-  flex-basis: 100%;
+  height: 2rem;
+  flex-wrap: nowrap;
 }
 
 .conf-schedule-hours {
-  /* background: yellow; */
   padding-top: 1.5em;
   padding-right: .2em;
-  width: 3.2em;
-  float: left;
-  font-weight: 400;
-  font-size: large;
-  text-align: right;
-  color: rgb(50,109,152);
+  font-weight: 100;
+  font-size: 14px;
+  text-align: center;
+  color: #FFFFFF;
+  width: 100%;
+}
+
+.calendar-content {
+  width: 100%;
 }
 
 .conf-schedule-hour {
   margin-top: .3em;
   white-space: nowrap;
-  /* border: 1px solid black; */
+  /* justify-content: space-evenly;  */
   height: 1.2em;
+}
+
+.conf-shedule-hour-span {
+  color: #FFFFFF;
+  font-weight: 100;
+  font-size: 12px;
+  float:left;
 }
 
 .conf-schedule-meetings {
@@ -72,11 +75,55 @@
   background: rgb(50,109,152);
   height: 1.2em;
   color: aliceblue;
-  /* border: 1px solid black; */
 }
 .conf-room-meeting-free {
-  /* border: 1px solid black; */
   font-size: x-small;
-  background: white;
+  background: #F4F9FF;
+  border-right: 1px #FFFFFF;
   height: 1.2em;
+  padding: 0;
+}
+
+table {
+  border-spacing: 0 4px;
+  table-layout: fixed;
+}
+
+.border-col {
+  border-right: 1px solid #FFFFFF;
+}
+
+.name-col { 
+  width: auto;
+}
+
+.red-busy {
+  background-color: #FFE4E6;
+}
+
+.green-busy {
+  background-color: #E0FBE0;
+}
+
+.yellow-busy {
+  background-color: #FFF7E3;
+}
+
+.blue-busy {
+  background-color: #E6E4FF;
+}
+
+.busy-rect {
+  height: 80%;
+}
+
+.label-div {
+  text-align: left;
+  padding-left: .5em;
+  white-space: nowrap;
+  font-size: 8px;
+}
+
+.name-div {
+  font-weight: 100;
 }
