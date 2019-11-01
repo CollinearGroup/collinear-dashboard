@@ -1,5 +1,6 @@
 import React from "react"
 import Logo from "./Logo"
+import DateTime from "./DateTime"
 
 import "./Header.scss"
 
@@ -15,21 +16,12 @@ export default class Header extends React.Component {
   }
 }
 
+// TODO: this is an unfinished feature
 export class Notifications extends React.Component {
   render() {
     return (
       <div id="" className="padding justify-right">
-        I AM A
-      </div>
-    )
-  }
-}
-
-export class DateTime extends React.Component {
-  render() {
-    return (
-      <div id="" className="padding justify-right">
-        Date Time
+        {" "}
       </div>
     )
   }
