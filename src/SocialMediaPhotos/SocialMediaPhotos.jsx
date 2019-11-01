@@ -2,8 +2,6 @@ import React, { Component } from 'react'
 import { Image, Video, Transformation, CloudinaryContext } from 'cloudinary-react';
 
 import axios from 'axios'
-import cloudinary from 'cloudinary-core';
-
 
 // replace these with the photos we actually wanna use
 // import img2 from './images/dog2.jpeg'
@@ -15,8 +13,7 @@ import cloudinary from 'cloudinary-core';
 // import img8 from './images/dog8.jpeg'
 import './socialMediaPhotos.css'
 let img1 = 'https://www.dropbox.com/sh/z5pa1ntcberp7c3/AACA73SJ1t1ooh40080-TqK0a?dl=0&preview=20190803_141205_resized.jpg'
-// const ACCESS_TOKEN = "E2lI9fQ8B4AAAAAAAAAAF3-mQBA8ryH--kef-bv5bVv-Enxnn7keVO1mAAHa2Oep"
-// const cloudinaryCore = new cloudinary.Cloudinary({ cloud_name: 'collinear' });
+
 export default class SocialMediaPhotos extends Component {
   state = {
     images: [],
@@ -32,7 +29,7 @@ export default class SocialMediaPhotos extends Component {
         },
         mode:'no-cors'
       })
-      let ids = res.resources.map(img => img.public_id)
+      let ids = res.data.resources.map(img => img.public_id)
       this.setState({photoIndex: ids})
     }catch(err) {
       console.log('heeeey',err)
