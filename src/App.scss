@@ -1,106 +1,80 @@
 @import "./variables.scss";
 
+$panel-bg: #394a54;
+$bg-primary: #091b29;
+
 body {
   font-family: Tahoma, Geneva, sans-serif;
   font-style: normal;
   font-weight: normal;
   font-size: 24px;
+  background: $bg-primary;
 }
 
 // Default/Small screens (Order matters)
 .box {
   overflow: hidden;
-  border-top: 1px lightgray solid;
-  height: 400px;
+  background: $panel-bg;
   text-align: center;
-  margin: 20px;
-  padding: 20px;
 }
 
-@media (min-width: 600px) {
-  $screen-size: 100%;
-  .grid-layout-right {
+#container {
+  display: grid;
+  grid-gap: 20px;
+  grid-template-rows: repeat(7, 200px);
+}
+
+// Do not show the calendar on mobile devices.
+#calendar {
+  display: none;
+}
+
+// Overrides the defaults
+@media screen and (min-width: 1024px) {
+  #container {
     display: grid;
+    height: calc(1080px - 20px);
     grid-gap: 20px;
-    grid-template-areas: "main";
-    grid-template-columns: 2fr;
-    grid-template-rows: $screen-size;
-    height: calc(100% - 20px);
-    margin: 10px;
-  }
-  .grid-main {
-    grid-area: main;
-    display: grid;
-    grid-gap: 20px;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-  }
-}
-
-// Large Screen
-@media (min-width: 1024px) {
-  $screen-size: 100%;
-  // Should conform to svg logo size
-  $side-bar-col-size: 483px;
-  .grid-layout-right {
-    display: grid;
-    grid-gap: 20px;
-    grid-template-areas: "main side";
-    grid-template-columns: 2fr $side-bar-col-size;
-    grid-template-rows: $screen-size;
-    height: calc(100% - 20px);
-    margin: 10px;
+    grid-template-rows: 50px repeat(3, 1fr) 30px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-areas:
+      "header header header"
+      "cal    cal    cal"
+      "photo  msgbd  npm"
+      "foos   msgbd  kudos"
+      "footer footer footer";
   }
 
-  .grid-layout-left {
-    display: grid;
-    grid-gap: 20px;
-    grid-template-areas: "side main";
-    grid-template-columns: $side-bar-col-size 2fr;
-    grid-template-rows: $screen-size;
-    height: calc(100% - 20px);
-    margin: 10px;
+  #photo {
+    grid-area: photo;
   }
 
-  .grid-main {
-    grid-area: main;
-    display: grid;
-    grid-gap: 20px;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-  }
-  .grid-sidebar {
-    grid-area: side;
-    display: grid;
-    grid-template-rows: auto 148px;
-    grid-row-gap: 20px;
+  #header {
+    grid-area: header;
   }
 
-  .box {
-    box-shadow: 1px 3px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 5px 5px;
-    overflow: hidden;
-    border: 1px lightgray solid;
-    height: inherit;
-    margin: 0px;
-    padding: 0px;
-    text-align: left;
+  #calendar {
+    display: block;
+    grid-area: cal;
   }
-}
 
-.stretch {
-  grid-column-end: span 2;
-}
+  #message-board {
+    grid-area: msgbd;
+  }
 
-.shade {
-  background: #e0e0e0;
-}
+  #npm {
+    grid-area: npm;
+  }
 
-.fill {
-  height: 100%;
-}
+  #kudos {
+    grid-area: kudos;
+  }
 
-#mission {
-  font-size: 1.25em;
-  text-align: center;
+  #foos {
+    grid-area: foos;
+  }
+
+  #footer {
+    grid-area: footer;
+  }
 }
