@@ -78,36 +78,58 @@ class Ranking extends Component {
     {
         "name": "Pears",
         "value": 30,
+    }, {
+        "name": "Mangos",
+        "value": 9,
+    },
+    {
+        "name": "Peaches",
+        "value": 10,
     }]
 
     createChart = () => {
         this.cleanOldSvg()
         const width = this.state.boundingRect.width
-        const height = this.state.boundingRect.height
+        const height = Math.max(this.state.boundingRect.height, this.mockData.length * 50)
+        const margin = { left: 60, right: 0, top: 0, bottom: 0 }
 
         const data = this.mockData.sort((a, b) => {
             return b.value - a.value
         })
 
         const xMax = Math.max(...data.map(player => player.value))
+        const textYDistanceDown = 25
 
         var svg = select('.canvas').append('svg').attr('viewBox', [0, 0, width, height])
 
-        var xScale = scaleLinear().domain([0, xMax]).range([0, width])
-        var yScale = scaleBand().domain(data.map(player => player.name)).rangeRound([0, height]).paddingInner(0.05)
+        var xScale = scaleLinear().domain([0, xMax]).range([0, width - margin.left - margin.right])
+        var yScale = scaleBand().domain(data.map(player => player.name)).rangeRound([0, height - margin.top - margin.bottom]).paddingInner(0.35).paddingOuter(0.25)
+        const valueScaleShiftRight = 100
+        var xValueScale = scaleLinear().domain([0, xMax]).range([0, width - margin.left - margin.right - valueScaleShiftRight])
 
-        svg.selectAll('rect').data(data).enter().append('rect')
+        var yAxis = svg.append('g').attr('transform', d => `translate(${0},${margin.top})`)
+        yAxis.selectAll('g').data(data).join('g').attr('transform', d => `translate(14,${yScale(d.name)})`).append('text').attr('y', textYDistanceDown + 8).append('tspan').text((d, i) => i + 1).style('fill', '#ffffff').style('font-size', '42')
 
-        svg
-            .selectAll("rect")
-            .data(data)
+        var graph = svg.append('g').attr('transform', d => `translate(${margin.left},${margin.top})`)
+        var cell = graph.selectAll('g').data(data).join('g').attr('transform', d => `translate(${0},${yScale(d.name)})`)
+
+        var playerRect = cell
+            .append('rect')
+            .style("fill", "grey")
+            .attr("width", d => xScale(xMax))
+            .attr("height", yScale.bandwidth())
+
+        var valueRects = cell
+            .append('rect')
+            .attr('x', d => xValueScale(xMax - d.value) + valueScaleShiftRight)
             .style("fill", "#BBE6FE")
-            .attr("y", (d) => {
-                return yScale(d.name)
-            })
-            .attr("x", d => xScale(xMax - d.value))
-            .attr("width", d => xScale(d.value))
-            .attr("height", 25);
+            .attr("width", d => xValueScale(d.value))
+            .attr("height", yScale.bandwidth())
+
+        var titleGroup = cell.append('g')
+
+        titleGroup.append('text').attr('x', '15')
+            .attr('y', textYDistanceDown).append('tspan').text(d => d.name)
     }
 
     cleanOldSvg = () => {
@@ -119,7 +141,8 @@ class Ranking extends Component {
     render() {
         return (
             <div className="ranking-container">
-                <div className="canvas" ref={this.canvas}>CANVAS</div>
+                <div>Ranking</div>
+                <div className="canvas" ref={this.canvas}></div>
             </div>
         );
     }
