@@ -1,4 +1,4 @@
-exports.seed = function (knex, Promise) {
+exports.seed = function (knex) {
   let tableOrder = ['games', 'users']
 
   let promiseList = tableOrder.map(table => {
