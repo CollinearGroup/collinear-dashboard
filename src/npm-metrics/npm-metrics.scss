@@ -1,9 +1,44 @@
 @import "../variables.scss";
 
 #nm-root {
-  text-align: $text-align;
+  text-align: left;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   height: 100%;
+    display: inline-block;
+    *display: inline;
+    zoom: 1;
+    position: relative;
+    clip: auto;
+    overflow: hidden;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+.container {
+    position: relative;
+    text-align: right;
+    white-space: nowrap;
+}
+.filler {
+    position: absolute;
+    left: 0;
+    right: 0;
+    border-bottom: 3px dashed #00FFC2;
+    height: 50%;
+}
+.label {
+    background: #394a54;
+    float: left;
+    margin-right: 20px;
+    padding-right: 4px;
+    position: relative;
+}
+.text {
+    background: #394a54;
+    border: dashed #00FFC2;
+    color: #00FFC2;
+    padding-left: 4px;
+    position: relative;
 }
