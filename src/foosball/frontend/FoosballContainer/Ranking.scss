@@ -12,3 +12,33 @@
     flex-grow: 1;
     overflow-y: auto;
 }
+
+.blue-stop-left {
+    stop-color: #BBE6FE; 
+}
+
+.blue-green-stop-left {
+    stop-color: #21C8BE; 
+}
+
+.green-stop-right {
+    stop-color: #00C620; 
+}
+
+.white-stop-right {
+    stop-color: #FFFFFF; 
+}
+
+.green-gradient {
+    fill: url(#greenGradient);
+}
+
+.blue-gradient {
+    fill: url(#blueGradient);
+}
+
+.outlined {
+    fill:   none;
+    stroke: url(#mainGradient);
+    stroke-width: 4;
+}
