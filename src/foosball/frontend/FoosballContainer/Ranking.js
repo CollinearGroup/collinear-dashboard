@@ -52,14 +52,18 @@ class Ranking extends Component {
     }
 
     mockData = [{ id: 1, first_name: 'Matt', last_name: 'Mueller', current_rating: 1000, games_played: 0 },
-    { id: 2, first_name: 'Chris', last_name: 'Peterson', current_rating: 1000, games_played: 0 },
+    { id: 2, first_name: 'Christopher', last_name: 'Peterson', current_rating: 1800, games_played: 0 },
     { id: 3, first_name: 'Henry', last_name: 'Turner', current_rating: 1000, games_played: 0 },
-    { id: 4, first_name: 'Tessa', last_name: 'Dvorak', current_rating: 1000, games_played: 0 }]
+    { id: 4, first_name: 'Tessa', last_name: 'Dvorak', current_rating: 1000, games_played: 0 },
+    { id: 5, first_name: 'Matt', last_name: 'Barnes', current_rating: 1200, games_played: 0 },
+    { id: 6, first_name: 'George', last_name: 'Barta', current_rating: 1500, games_played: 0 },
+    { id: 7, first_name: 'Bat', last_name: 'Man', current_rating: 700, games_played: 0 },
+    { id: 8, first_name: 'Hello', last_name: 'World', current_rating: 950, games_played: 0 }]
 
     createChart = () => {
         this.cleanOldSvg()
         const width = this.state.boundingRect.width
-        const height = Math.max(this.state.boundingRect.height, this.mockData.length * 50)
+        const height = this.mockData.length * 50
         const margin = { left: 80, right: 0, top: 0, bottom: 0 }
 
         const data = this.mockData.sort((a, b) => {
@@ -98,7 +102,7 @@ class Ranking extends Component {
 
         var xScale = scaleLinear().domain([0, xMax]).range([0, width - margin.left - margin.right])
         var yScale = scaleBand().domain(data.map(player => player.last_name)).rangeRound([0, height - margin.top - margin.bottom]).paddingInner(0.35).paddingOuter(0.25)
-        const valueScaleShiftRight = 140
+        const valueScaleShiftRight = 135
         var xValueScale = scaleLinear().domain([0, xMax]).range([0, width - margin.left - margin.right - valueScaleShiftRight])
 
         var yAxis = svg.append('g').attr('transform', d => `translate(${0},${margin.top})`)
@@ -120,9 +124,27 @@ class Ranking extends Component {
             .attr('cy', yScale.bandwidth() / 2)
             .attr('r', (yScale.bandwidth() / 2) + 6)
 
-        var playerTitleGroup = cell.append('g').attr('transform', d => `translate(32,${textYDistanceDown})`)
-        playerTitleGroup.append('text').append('tspan').attr('y', -(200 / yScale.bandwidth())).text(d => d.first_name).style('font-size', '20')
-        playerTitleGroup.append('text').append('tspan').attr('y', 200 / yScale.bandwidth() + 5).attr('x', 25).text(d => d.last_name).style('font-size', '14')
+        var playerSymbol = cell.append('g').attr('transform', d => `translate(0,-6)`)
+
+        playerSymbol
+            .append('circle')
+            .style("stroke", "grey")
+            .style("stroke-width", "3")
+            .style('fill', 'white')
+            .attr("cx", d => xScale(0))
+            .attr('cy', yScale.bandwidth() / 2)
+            .attr('r', (yScale.bandwidth() / 7))
+
+        playerSymbol
+            .append('path')
+            .attr('d', `M -10 28 V 33 H 10 V 28 C 10 23, -10 23, -10 28`)
+            .style('stroke', 'grey')
+            .style('stroke-width', '3')
+            .style('fill', 'white')
+
+        var playerTitleGroup = cell.append('g').attr('transform', d => `translate(28,${textYDistanceDown})`)
+        playerTitleGroup.append('text').append('tspan').attr('y', -(250 / yScale.bandwidth())).text(d => d.first_name).style('font-size', '18')
+        playerTitleGroup.append('text').append('tspan').attr('y', 180 / yScale.bandwidth()).attr('x', 15).text(d => d.last_name).style('font-size', '14')
 
         var valueRects = cell
             .append('rect')
@@ -138,6 +160,8 @@ class Ranking extends Component {
             .attr('cy', yScale.bandwidth() / 2)
             .attr('r', yScale.bandwidth() / 2)
 
+        var valueTitleGroup = cell.append('g').attr('transform', d => `translate(${xValueScale(xMax - d.current_rating) + valueScaleShiftRight - 6},${textYDistanceDown - 4})`)
+        valueTitleGroup.append('text').append('tspan').text(d => d.current_rating).style('font-size', '10')
     }
 
     cleanOldSvg = () => {
