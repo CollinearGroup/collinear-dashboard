@@ -51,41 +51,10 @@ class Ranking extends Component {
         this.setState({ boundingRect, loaded: true })
     }
 
-    mockData = [{
-        "name": "Apples",
-        "value": 20,
-    },
-    {
-        "name": "Bananas",
-        "value": 12,
-    },
-    {
-        "name": "Grapes",
-        "value": 19,
-    },
-    {
-        "name": "Lemons",
-        "value": 5,
-    },
-    {
-        "name": "Limes",
-        "value": 16,
-    },
-    {
-        "name": "Oranges",
-        "value": 26,
-    },
-    {
-        "name": "Pears",
-        "value": 30,
-    }, {
-        "name": "Mangos",
-        "value": 9,
-    },
-    {
-        "name": "Peaches",
-        "value": 10,
-    }]
+    mockData = [{ id: 1, first_name: 'Matt', last_name: 'Mueller', current_rating: 1000, games_played: 0 },
+    { id: 2, first_name: 'Chris', last_name: 'Peterson', current_rating: 1000, games_played: 0 },
+    { id: 3, first_name: 'Henry', last_name: 'Turner', current_rating: 1000, games_played: 0 },
+    { id: 4, first_name: 'Tessa', last_name: 'Dvorak', current_rating: 1000, games_played: 0 }]
 
     createChart = () => {
         this.cleanOldSvg()
@@ -94,10 +63,10 @@ class Ranking extends Component {
         const margin = { left: 80, right: 0, top: 0, bottom: 0 }
 
         const data = this.mockData.sort((a, b) => {
-            return b.value - a.value
+            return b.current_rating - a.current_rating
         })
 
-        const xMax = Math.max(...data.map(player => player.value))
+        const xMax = Math.max(...data.map(player => player.current_rating))
         const textYDistanceDown = 25
 
         var svg = select('.canvas').append('svg').attr('viewBox', [0, 0, width, height])
@@ -128,15 +97,15 @@ class Ranking extends Component {
             .attr('offset', '1');
 
         var xScale = scaleLinear().domain([0, xMax]).range([0, width - margin.left - margin.right])
-        var yScale = scaleBand().domain(data.map(player => player.name)).rangeRound([0, height - margin.top - margin.bottom]).paddingInner(0.35).paddingOuter(0.25)
-        const valueScaleShiftRight = 100
+        var yScale = scaleBand().domain(data.map(player => player.last_name)).rangeRound([0, height - margin.top - margin.bottom]).paddingInner(0.35).paddingOuter(0.25)
+        const valueScaleShiftRight = 140
         var xValueScale = scaleLinear().domain([0, xMax]).range([0, width - margin.left - margin.right - valueScaleShiftRight])
 
         var yAxis = svg.append('g').attr('transform', d => `translate(${0},${margin.top})`)
-        yAxis.selectAll('g').data(data).join('g').attr('transform', d => `translate(14,${yScale(d.name)})`).append('text').attr('y', textYDistanceDown + 8).append('tspan').text((d, i) => i + 1).style('fill', '#ffffff').style('font-size', '42')
+        yAxis.selectAll('g').data(data).join('g').attr('transform', d => `translate(14,${yScale(d.last_name)})`).append('text').attr('y', textYDistanceDown + 8).append('tspan').text((d, i) => i + 1).style('fill', '#ffffff').style('font-size', '42')
 
         var graph = svg.append('g').attr('transform', d => `translate(${margin.left},${margin.top})`)
-        var cell = graph.selectAll('g').data(data).join('g').attr('transform', d => `translate(${0},${yScale(d.name)})`)
+        var cell = graph.selectAll('g').data(data).join('g').attr('transform', d => `translate(${0},${yScale(d.last_name)})`)
 
         var playerRect = cell
             .append('rect')
@@ -151,24 +120,24 @@ class Ranking extends Component {
             .attr('cy', yScale.bandwidth() / 2)
             .attr('r', (yScale.bandwidth() / 2) + 6)
 
+        var playerTitleGroup = cell.append('g').attr('transform', d => `translate(32,${textYDistanceDown})`)
+        playerTitleGroup.append('text').append('tspan').attr('y', -(200 / yScale.bandwidth())).text(d => d.first_name).style('font-size', '20')
+        playerTitleGroup.append('text').append('tspan').attr('y', 200 / yScale.bandwidth() + 5).attr('x', 25).text(d => d.last_name).style('font-size', '14')
+
         var valueRects = cell
             .append('rect')
-            .attr('x', d => xValueScale(xMax - d.value) + valueScaleShiftRight)
+            .attr('x', d => xValueScale(xMax - d.current_rating) + valueScaleShiftRight)
             .classed('green-gradient', true)
-            .attr("width", d => xValueScale(d.value))
+            .attr("width", d => xValueScale(d.current_rating))
             .attr("height", yScale.bandwidth())
 
         var valueCircle = cell
             .append('circle')
             .style("fill", "#21C8BE")
-            .attr("cx", d => xValueScale(xMax - d.value) + valueScaleShiftRight + 4)
+            .attr("cx", d => xValueScale(xMax - d.current_rating) + valueScaleShiftRight + 4)
             .attr('cy', yScale.bandwidth() / 2)
             .attr('r', yScale.bandwidth() / 2)
 
-        var titleGroup = cell.append('g')
-
-        titleGroup.append('text').attr('x', '15')
-            .attr('y', textYDistanceDown).append('tspan').text(d => d.name)
     }
 
     cleanOldSvg = () => {
