@@ -1,34 +1,32 @@
 import React from "react"
 import Logo from "./Logo"
 import DateTime from "./DateTime"
-import { getDay } from "./headerUtils"
+import Notifications from "./Notifications"
 
 import "./Header.scss"
 
+const ONE_MINUTE = 60 * 1000
+
 export default class Header extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      now: Date.now()
+    }
+    // Note that since this component is mounted once and forever this is ok.
+    setInterval(() => {
+      this.setState({
+        now: Date.now()
+      })
+    }, ONE_MINUTE)
+  }
+
   render() {
     return (
       <div id="header-container">
         <Logo />
-        <Notifications />
-        <DateTime />
-      </div>
-    )
-  }
-}
-
-// TODO: this is an unfinished feature
-export class Notifications extends React.Component {
-  render() {
-    const weekday = getDay(Date.now())
-    // TODO: change
-    if (weekday !== "Friday") {
-      return <div>{""}</div>
-    }
-
-    return (
-      <div id="timesheet-notification" className="padding justify-right">
-        ¡Timesheets due today!
+        <Notifications now={this.state.now} />
+        <DateTime now={this.state.now} />
       </div>
     )
   }

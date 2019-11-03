@@ -1,9 +1,11 @@
 $logo-color: #02ffc1;
 $base-color: #ffffff;
+$banner-color: #ff0f2d;
 
 #header-container {
   display: grid;
-  grid-template-columns: 2fr 3fr 3fr;
+  align-items: center;
+  grid-template-columns: 400px auto 400px;
 }
 
 #logo-primary {
@@ -35,4 +37,32 @@ $base-color: #ffffff;
   font-weight: lighter;
   border-right: 1px solid white;
   margin: 0px 10px 0px 15px;
+}
+
+#timesheets-notification {
+  justify-self: end;
+}
+
+// Banner
+.timesheets-ribbon {
+  position: relative;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 0px 5px 5px 0px;
+  background: $banner-color;
+}
+
+.timesheets-ribbon::before {
+  content: "";
+  left: -26px;
+  top: 0px;
+  position: absolute;
+  border-top: 18px solid $banner-color;
+  border-bottom: 18px solid $banner-color;
+  border-left: 26px solid transparent;
+}
+
+// Utils
+.uppercase {
+  text-transform: uppercase;
 }
