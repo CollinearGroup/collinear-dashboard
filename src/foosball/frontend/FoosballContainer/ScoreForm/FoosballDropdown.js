@@ -32,13 +32,8 @@ export function FoosballDropdown({
 
   return (
     <div>
-      <div>{labelText}</div>
-      <select
-        key={formKey}
-        value={value}
-        onChange={onChange}
-        style={{ marginBottom: "1rem" }}
-      >
+      <div style={{ fontSize: "14px" }}>{labelText}</div>
+      <select key={formKey} value={value} onChange={onChange}>
         <option default disabled value="">
           {defaultText}
         </option>

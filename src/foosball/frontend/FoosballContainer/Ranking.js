@@ -51,72 +51,13 @@ class Ranking extends Component {
     this.setState({ boundingRect, loaded: true });
   };
 
-  mockData = [
-    {
-      id: 1,
-      first_name: "Matt",
-      last_name: "Mueller",
-      current_rating: 1000,
-      games_played: 0
-    },
-    {
-      id: 2,
-      first_name: "Christopher",
-      last_name: "Peterson",
-      current_rating: 1800,
-      games_played: 0
-    },
-    {
-      id: 3,
-      first_name: "Henry",
-      last_name: "Turner",
-      current_rating: 1000,
-      games_played: 0
-    },
-    {
-      id: 4,
-      first_name: "Tessa",
-      last_name: "Dvorak",
-      current_rating: 1000,
-      games_played: 0
-    },
-    {
-      id: 5,
-      first_name: "Matt",
-      last_name: "Barnes",
-      current_rating: 1200,
-      games_played: 0
-    },
-    {
-      id: 6,
-      first_name: "George",
-      last_name: "Barta",
-      current_rating: 1500,
-      games_played: 0
-    },
-    {
-      id: 7,
-      first_name: "Bat",
-      last_name: "Man",
-      current_rating: 700,
-      games_played: 0
-    },
-    {
-      id: 8,
-      first_name: "Hello",
-      last_name: "World",
-      current_rating: 950,
-      games_played: 0
-    }
-  ];
-
   createChart = () => {
     this.cleanOldSvg();
     const width = this.state.boundingRect.width;
-    const height = this.mockData.length * 50;
+    const height = this.props.users.length * 50;
     const margin = { left: 80, right: 0, top: 0, bottom: 0 };
 
-    const data = this.mockData.sort((a, b) => {
+    const data = this.props.users.sort((a, b) => {
       return b.current_rating - a.current_rating;
     });
 
@@ -277,7 +218,7 @@ class Ranking extends Component {
     valueTitleGroup
       .append("text")
       .append("tspan")
-      .text(d => d.current_rating)
+      .text(d => Math.round(d.current_rating))
       .style("font-size", "10");
   };
 

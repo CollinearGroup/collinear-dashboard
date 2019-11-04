@@ -13,26 +13,37 @@ class ScoreForm extends Component {
       black_def: "",
       red_points: 0,
       black_points: 0,
+      newUserInput: "",
       isFormView: false
     };
     this.state = { ...this.DEFAULT_STATE };
   }
 
-  mockUsers = [
-    "Chris Peterson",
-    "Henry Turner",
-    "Matt Mueller",
-    "Tessa Dvorak"
-  ];
+  getIdFromFullName = name => {
+    const nameArray = name.split(" ");
+    const foundUser = this.props.users.find(user => {
+      return (
+        user.first_name === nameArray[0] && user.last_name === nameArray[1]
+      );
+    });
+    if (!foundUser) {
+      return undefined;
+    }
+    return foundUser.id;
+  };
 
   onSubmit = async e => {
     e.preventDefault();
     const payload = {
-      ...this.state,
+      red_off: this.getIdFromFullName(this.state.red_off),
+      red_def: this.getIdFromFullName(this.state.red_def),
+      black_off: this.getIdFromFullName(this.state.black_off),
+      black_def: this.getIdFromFullName(this.state.black_def),
       red_points: parseInt(this.state.red_points, 10),
       black_points: parseInt(this.state.black_points, 10)
     };
     console.log("Submitting", payload);
+    await this.props.submitGame(payload);
     this.setState(this.DEFAULT_STATE);
   };
 
@@ -101,7 +112,18 @@ class ScoreForm extends Component {
     return count === 1;
   };
 
+  submitNewUser = e => {
+    e.preventDefault();
+    const nameArray = this.state.newUserInput.split(" ");
+    const newUser = {
+      first_name: nameArray[0],
+      last_name: nameArray[1] || "is dumb"
+    };
+    this.props.submitNewUser(newUser);
+  };
+
   render() {
+    this.getIdFromFullName("stuff ");
     const {
       red_off,
       red_def,
@@ -114,6 +136,9 @@ class ScoreForm extends Component {
     const selectedPlayers = [red_off, red_def, black_off, black_def].filter(
       player => player !== ""
     );
+    const playerNamesArray = this.props.users.map(
+      player => `${player.first_name} ${player.last_name}`
+    );
 
     return (
       <div className="score-form-container">
@@ -122,7 +147,7 @@ class ScoreForm extends Component {
             <h4 style={{ margin: "5px 0" }}>Red Team</h4>
             <div className="flex-row">
               <FoosballDropdown
-                list={this.mockUsers}
+                list={playerNamesArray}
                 value={red_off}
                 updateForm={this.updateForm}
                 formKey="red_off"
@@ -131,7 +156,7 @@ class ScoreForm extends Component {
                 alreadySelected={selectedPlayers}
               />
               <FoosballDropdown
-                list={this.mockUsers}
+                list={playerNamesArray}
                 value={red_def}
                 updateForm={this.updateForm}
                 formKey="red_def"
@@ -153,7 +178,7 @@ class ScoreForm extends Component {
             <h4 style={{ margin: "5px 0" }}>Black Team</h4>
             <div className="flex-row">
               <FoosballDropdown
-                list={this.mockUsers}
+                list={playerNamesArray}
                 value={black_off}
                 updateForm={this.updateForm}
                 formKey="black_off"
@@ -162,7 +187,7 @@ class ScoreForm extends Component {
                 alreadySelected={selectedPlayers}
               />
               <FoosballDropdown
-                list={this.mockUsers}
+                list={playerNamesArray}
                 value={black_def}
                 updateForm={this.updateForm}
                 formKey="black_def"
@@ -185,6 +210,21 @@ class ScoreForm extends Component {
               Submit Game
             </button>
           </div>
+        </form>
+        <form onSubmit={this.submitNewUser}>
+          <div>Add New User</div>
+          <input
+            value={this.state.newUserInput}
+            onChange={e => {
+              this.setState({ newUserInput: e.target.value });
+            }}
+          ></input>
+          <button
+            type="submit"
+            disabled={this.state.newUserInput.trim() === ""}
+          >
+            Submit New User
+          </button>
         </form>
       </div>
     );
