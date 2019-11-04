@@ -1,18 +1,13 @@
 import React, { Component } from 'react'
-import { Image, Video, Transformation, CloudinaryContext } from 'cloudinary-react';
+import { Image, CloudinaryContext } from 'cloudinary-react';
 
 import axios from 'axios'
 
-// replace these with the photos we actually wanna use
-// import img2 from './images/dog2.jpeg'
-// import img3 from './images/dog3.jpeg'
-// import img4 from './images/dog4.jpeg'
-// import img5 from './images/dog5.jpeg'
-// import img6 from './images/dog6.jpeg'
-// import img7 from './images/dog7.jpeg'
-// import img8 from './images/dog8.jpeg'
 import './socialMediaPhotos.css'
-let img1 = 'https://www.dropbox.com/sh/z5pa1ntcberp7c3/AACA73SJ1t1ooh40080-TqK0a?dl=0&preview=20190803_141205_resized.jpg'
+
+const IMAGES_URL = process.env.IMAGES_URL || '/images'
+const IMAGES_USERNAME = process.env.IMAGES_USERNAME
+const IMAGES_PASSWORD = process.env.IMAGES_PASSWORD
 
 export default class SocialMediaPhotos extends Component {
   state = {
@@ -22,10 +17,10 @@ export default class SocialMediaPhotos extends Component {
 
   async componentDidMount() {
     try{
-      let res = await axios.get("/images", {
+      let res = await axios.get(IMAGES_URL, {
         auth: {
-          username:228249614672283,
-          password:'Y4d_pgKoR1-XkktifCFxh7KbdLI'
+          username: IMAGES_USERNAME,
+          password: IMAGES_PASSWORD
         },
         mode:'no-cors'
       })
