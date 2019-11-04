@@ -19,9 +19,9 @@ export default class Notifications extends React.Component {
 
   getContent = now => {
     if (this.isThursday(now)) {
-      return <div>{""}</div>
+      return this.getThursdayBanner()
     }
-    return this.getThursdayBanner()
+    return <div>{""}</div>
   }
 
   render() {
