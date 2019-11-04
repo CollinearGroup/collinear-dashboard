@@ -44,25 +44,25 @@ class NpmMetrics extends React.Component {
   render() {
     return (
     <div id="nm-root">
-        <div><b>Open Source Libraries</b></div>
+        <div style={{fontSize: '22pt'}}>Open Source Libraries</div>
         <div class='description'>Collinear built and maintains the following libraries on NPM.  Count shows downloads per month</div>
     <br/>
     <div class='container'>
+        <div class='label'>Smart Deep Sort </div>
         <div class='filler'></div>
-        <span class='label'>Smart Deep Sort </span>
-        <span class='text'>{this.state.smartDeepSort}</span>
+        <div class='value'>{this.state.smartDeepSort}</div>
     </div>
     <br/>
     <div class='container'>
+        <div class='label'>License Validator </div>
         <div class='filler'></div>
-        <span class='label'>License Validator </span>
-        <span class='text'>{this.state.licenseValidator}</span>
+        <div class='value'>{this.state.licenseValidator}</div>
     </div>
     <br/>
     <div class='container'>
+        <div class='label'>PCAP </div>
         <div class='filler'></div>
-        <span class='label'>PCAP </span>
-        <span class='text'>{this.state.pcap}</span>
+        <div class='value'>{this.state.pcap}</div>
     </div>
     </div>
     )
