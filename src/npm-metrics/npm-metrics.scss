@@ -15,7 +15,12 @@
     padding-left: 5%;
     padding-right: 5%;
 }
-
+.description {
+    position: relative;
+    text-align: left;
+    white-space: pre-wrap;
+    font-size: 10pt;
+}
 .container {
     position: relative;
     text-align: right;
@@ -25,7 +30,7 @@
     position: absolute;
     left: 0;
     right: 0;
-    border-bottom: 3px dashed #00FFC2;
+    border-bottom: 2px dashed #00FFC2;
     height: 50%;
 }
 .label {
@@ -37,8 +42,13 @@
 }
 .text {
     background: #394a54;
-    border: dashed #00FFC2;
+    border: 2px dashed #00FFC2;
     color: #00FFC2;
-    padding-left: 4px;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 8px;
+    padding-bottom: 8px;
     position: relative;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    
 }
