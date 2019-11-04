@@ -5,7 +5,8 @@ $banner-color: #ff0f2d;
 #header-container {
   display: grid;
   align-items: center;
-  grid-template-columns: 400px auto 400px;
+  justify-items: center;
+  grid-template-rows: auto;
 }
 
 #logo-primary {
@@ -14,6 +15,7 @@ $banner-color: #ff0f2d;
   display: inline-block;
   font-weight: bold;
   font-size: 32px;
+  top: -5px;
 }
 
 #logo-secondary {
@@ -35,12 +37,8 @@ $banner-color: #ff0f2d;
 
 .vertical-separator {
   font-weight: lighter;
-  border-right: 1px solid white;
+  border-right: 1px solid lightgray;
   margin: 0px 10px 0px 15px;
-}
-
-#timesheets-notification {
-  justify-self: end;
 }
 
 // Banner
@@ -60,6 +58,18 @@ $banner-color: #ff0f2d;
   border-top: 18px solid $banner-color;
   border-bottom: 18px solid $banner-color;
   border-left: 26px solid transparent;
+}
+
+@media (min-width: 768px) {
+  #header-container {
+    grid-template-columns: 200px auto 400px;
+  }
+  #timesheets-notification {
+    justify-self: end;
+  }
+  .timesheets-ribbon {
+    white-space: nowrap;
+  }
 }
 
 // Utils
