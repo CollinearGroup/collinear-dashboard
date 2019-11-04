@@ -6,7 +6,8 @@ $banner-color: #ff0f2d;
   display: grid;
   align-items: center;
   justify-items: center;
-  grid-template-rows: auto;
+  text-align: center;
+  font-size: 38px;
 }
 
 #logo-primary {
@@ -14,7 +15,7 @@ $banner-color: #ff0f2d;
   position: relative;
   display: inline-block;
   font-weight: bold;
-  font-size: 32px;
+  font-size: 42px;
   top: -5px;
 }
 
@@ -23,8 +24,8 @@ $banner-color: #ff0f2d;
   position: absolute;
   font-weight: lighter;
   right: 0px;
-  bottom: -8px;
-  font-size: 12px;
+  bottom: -14px;
+  font-size: 16px;
 }
 
 #dateTime {
@@ -38,15 +39,18 @@ $banner-color: #ff0f2d;
 .vertical-separator {
   font-weight: lighter;
   border-right: 1px solid lightgray;
-  margin: 0px 10px 0px 15px;
+  margin-left: 30px;
+  margin-right: 20px;
 }
 
 // Banner
 .timesheets-ribbon {
   position: relative;
   padding: 10px;
-  font-size: 14px;
+  letter-spacing: 1px;
+  font-size: 18px;
   border-radius: 0px 5px 5px 0px;
+  margin-left: 20px;
   background: $banner-color;
 }
 
@@ -55,14 +59,14 @@ $banner-color: #ff0f2d;
   left: -26px;
   top: 0px;
   position: absolute;
-  border-top: 18px solid $banner-color;
-  border-bottom: 18px solid $banner-color;
+  border-top: 20px solid $banner-color;
+  border-bottom: 21px solid $banner-color;
   border-left: 26px solid transparent;
 }
 
 @media (min-width: 768px) {
   #header-container {
-    grid-template-columns: 200px auto 400px;
+    grid-template-columns: 220px 1fr auto;
   }
   #timesheets-notification {
     justify-self: end;

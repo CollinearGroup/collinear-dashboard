@@ -8,7 +8,7 @@ export default class DateTime extends React.Component {
     const time = getTime(now)
 
     return (
-      <div id="dateTime" className="padding justify-right">
+      <div id="dateTime" className="padding">
         <div id="dt-content">
           <strong>{date}</strong>
           <span class="vertical-separator"></span>
