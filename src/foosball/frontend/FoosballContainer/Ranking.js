@@ -1,183 +1,300 @@
-import React, { Component } from 'react';
-import './Ranking.scss'
+import React, { Component } from "react";
+import "./Ranking.scss";
 
-import { debounce } from 'lodash'
+import { debounce } from "lodash";
 
-import { select } from 'd3-selection'
-import { scaleLinear, scaleBand } from 'd3-scale'
+import { select } from "d3-selection";
+import { scaleLinear, scaleBand } from "d3-scale";
 
 class Ranking extends Component {
-    constructor(props) {
-        super(props)
+  constructor(props) {
+    super(props);
 
-        this.canvas = React.createRef()
+    this.canvas = React.createRef();
 
-        this.state = {
-            boundingRect: {},
-            loaded: false
-        }
+    this.state = {
+      boundingRect: {},
+      loaded: false
+    };
+  }
+
+  componentDidMount() {
+    this.handleCanvasResize();
+    this.debouncedResize = debounce(this.handleCanvasResize, 100);
+    window.addEventListener("resize", this.debouncedResize, false);
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    const nextRect = nextState.boundingRect;
+    const didSvgSizeChange =
+      this.state.boundingRect.width !== nextRect.width ||
+      this.state.boundingRect.height !== nextRect.height;
+
+    if (didSvgSizeChange) {
+      return true;
     }
+    return false;
+  }
 
-    componentDidMount() {
-        this.handleCanvasResize()
-        this.debouncedResize = debounce(this.handleCanvasResize, 100)
-        window.addEventListener('resize', this.debouncedResize, false)
+  componentDidUpdate() {
+    if (this.state.loaded) {
+      this.createChart();
     }
+  }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        const nextRect = nextState.boundingRect
-        const didSvgSizeChange =
-            this.state.boundingRect.width !== nextRect.width ||
-            this.state.boundingRect.height !== nextRect.height
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.debouncedResize, false);
+  }
 
-        if (didSvgSizeChange) {
-            return true
-        }
-        return false
+  handleCanvasResize = () => {
+    const boundingRect = this.canvas.current.getBoundingClientRect();
+    this.setState({ boundingRect, loaded: true });
+  };
+
+  mockData = [
+    {
+      id: 1,
+      first_name: "Matt",
+      last_name: "Mueller",
+      current_rating: 1000,
+      games_played: 0
+    },
+    {
+      id: 2,
+      first_name: "Christopher",
+      last_name: "Peterson",
+      current_rating: 1800,
+      games_played: 0
+    },
+    {
+      id: 3,
+      first_name: "Henry",
+      last_name: "Turner",
+      current_rating: 1000,
+      games_played: 0
+    },
+    {
+      id: 4,
+      first_name: "Tessa",
+      last_name: "Dvorak",
+      current_rating: 1000,
+      games_played: 0
+    },
+    {
+      id: 5,
+      first_name: "Matt",
+      last_name: "Barnes",
+      current_rating: 1200,
+      games_played: 0
+    },
+    {
+      id: 6,
+      first_name: "George",
+      last_name: "Barta",
+      current_rating: 1500,
+      games_played: 0
+    },
+    {
+      id: 7,
+      first_name: "Bat",
+      last_name: "Man",
+      current_rating: 700,
+      games_played: 0
+    },
+    {
+      id: 8,
+      first_name: "Hello",
+      last_name: "World",
+      current_rating: 950,
+      games_played: 0
     }
+  ];
 
-    componentDidUpdate() {
-        if (this.state.loaded) {
-            this.createChart()
-        }
-    }
+  createChart = () => {
+    this.cleanOldSvg();
+    const width = this.state.boundingRect.width;
+    const height = this.mockData.length * 50;
+    const margin = { left: 80, right: 0, top: 0, bottom: 0 };
 
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.debouncedResize, false)
-    }
+    const data = this.mockData.sort((a, b) => {
+      return b.current_rating - a.current_rating;
+    });
 
-    handleCanvasResize = () => {
-        const boundingRect = this.canvas.current.getBoundingClientRect()
-        this.setState({ boundingRect, loaded: true })
-    }
+    const xMax = Math.max(...data.map(player => player.current_rating));
+    const textYDistanceDown = 25;
 
-    mockData = [{ id: 1, first_name: 'Matt', last_name: 'Mueller', current_rating: 1000, games_played: 0 },
-    { id: 2, first_name: 'Christopher', last_name: 'Peterson', current_rating: 1800, games_played: 0 },
-    { id: 3, first_name: 'Henry', last_name: 'Turner', current_rating: 1000, games_played: 0 },
-    { id: 4, first_name: 'Tessa', last_name: 'Dvorak', current_rating: 1000, games_played: 0 },
-    { id: 5, first_name: 'Matt', last_name: 'Barnes', current_rating: 1200, games_played: 0 },
-    { id: 6, first_name: 'George', last_name: 'Barta', current_rating: 1500, games_played: 0 },
-    { id: 7, first_name: 'Bat', last_name: 'Man', current_rating: 700, games_played: 0 },
-    { id: 8, first_name: 'Hello', last_name: 'World', current_rating: 950, games_played: 0 }]
+    var svg = select(".canvas")
+      .append("svg")
+      .attr("viewBox", [0, 0, width, height]);
 
-    createChart = () => {
-        this.cleanOldSvg()
-        const width = this.state.boundingRect.width
-        const height = this.mockData.length * 50
-        const margin = { left: 80, right: 0, top: 0, bottom: 0 }
+    // Create the svg:defs element and the main gradient definition.
+    var svgDefs = svg.append("defs");
 
-        const data = this.mockData.sort((a, b) => {
-            return b.current_rating - a.current_rating
-        })
+    var blueGradient = svgDefs
+      .append("linearGradient")
+      .attr("id", "blueGradient");
 
-        const xMax = Math.max(...data.map(player => player.current_rating))
-        const textYDistanceDown = 25
+    blueGradient
+      .append("stop")
+      .attr("class", "blue-stop-left")
+      .attr("offset", "0");
 
-        var svg = select('.canvas').append('svg').attr('viewBox', [0, 0, width, height])
+    blueGradient
+      .append("stop")
+      .attr("class", "white-stop-right")
+      .attr("offset", "1");
 
-        // Create the svg:defs element and the main gradient definition.
-        var svgDefs = svg.append('defs');
+    var greenGradient = svgDefs
+      .append("linearGradient")
+      .attr("id", "greenGradient");
 
-        var blueGradient = svgDefs.append('linearGradient')
-            .attr('id', 'blueGradient');
+    greenGradient
+      .append("stop")
+      .attr("class", "blue-green-stop-left")
+      .attr("offset", "0");
 
-        blueGradient.append('stop')
-            .attr('class', 'blue-stop-left')
-            .attr('offset', '0');
+    greenGradient
+      .append("stop")
+      .attr("class", "green-stop-right")
+      .attr("offset", "1");
 
-        blueGradient.append('stop')
-            .attr('class', 'white-stop-right')
-            .attr('offset', '1');
+    var xScale = scaleLinear()
+      .domain([0, xMax])
+      .range([0, width - margin.left - margin.right]);
+    var yScale = scaleBand()
+      .domain(data.map(player => player.last_name))
+      .rangeRound([0, height - margin.top - margin.bottom])
+      .paddingInner(0.35)
+      .paddingOuter(0.25);
+    const valueScaleShiftRight = 135;
+    var xValueScale = scaleLinear()
+      .domain([0, xMax])
+      .range([0, width - margin.left - margin.right - valueScaleShiftRight]);
 
-        var greenGradient = svgDefs.append('linearGradient')
-            .attr('id', 'greenGradient');
+    var yAxis = svg
+      .append("g")
+      .attr("transform", d => `translate(${0},${margin.top})`);
+    yAxis
+      .selectAll("g")
+      .data(data)
+      .join("g")
+      .attr("transform", d => `translate(14,${yScale(d.last_name)})`)
+      .append("text")
+      .attr("y", textYDistanceDown + 8)
+      .append("tspan")
+      .text((d, i) => i + 1)
+      .style("fill", "#ffffff")
+      .style("font-size", "42");
 
-        greenGradient.append('stop')
-            .attr('class', 'blue-green-stop-left')
-            .attr('offset', '0');
+    var graph = svg
+      .append("g")
+      .attr("transform", d => `translate(${margin.left},${margin.top})`);
+    var cell = graph
+      .selectAll("g")
+      .data(data)
+      .join("g")
+      .attr("transform", d => `translate(${0},${yScale(d.last_name)})`);
 
-        greenGradient.append('stop')
-            .attr('class', 'green-stop-right')
-            .attr('offset', '1');
+    var playerRect = cell
+      .append("rect")
+      .classed("blue-gradient", true)
+      .attr("width", d => xScale(xMax))
+      .attr("height", yScale.bandwidth());
 
-        var xScale = scaleLinear().domain([0, xMax]).range([0, width - margin.left - margin.right])
-        var yScale = scaleBand().domain(data.map(player => player.last_name)).rangeRound([0, height - margin.top - margin.bottom]).paddingInner(0.35).paddingOuter(0.25)
-        const valueScaleShiftRight = 135
-        var xValueScale = scaleLinear().domain([0, xMax]).range([0, width - margin.left - margin.right - valueScaleShiftRight])
+    var playerCircle = cell
+      .append("circle")
+      .style("fill", "white")
+      .attr("cx", d => xScale(0))
+      .attr("cy", yScale.bandwidth() / 2)
+      .attr("r", yScale.bandwidth() / 2 + 6);
 
-        var yAxis = svg.append('g').attr('transform', d => `translate(${0},${margin.top})`)
-        yAxis.selectAll('g').data(data).join('g').attr('transform', d => `translate(14,${yScale(d.last_name)})`).append('text').attr('y', textYDistanceDown + 8).append('tspan').text((d, i) => i + 1).style('fill', '#ffffff').style('font-size', '42')
+    var playerSymbol = cell
+      .append("g")
+      .attr("transform", d => `translate(0,-6)`);
 
-        var graph = svg.append('g').attr('transform', d => `translate(${margin.left},${margin.top})`)
-        var cell = graph.selectAll('g').data(data).join('g').attr('transform', d => `translate(${0},${yScale(d.last_name)})`)
+    playerSymbol
+      .append("circle")
+      .style("stroke", "grey")
+      .style("stroke-width", "3")
+      .style("fill", "white")
+      .attr("cx", d => xScale(0))
+      .attr("cy", yScale.bandwidth() / 2)
+      .attr("r", yScale.bandwidth() / 7);
 
-        var playerRect = cell
-            .append('rect')
-            .classed('blue-gradient', true)
-            .attr("width", d => xScale(xMax))
-            .attr("height", yScale.bandwidth())
+    playerSymbol
+      .append("path")
+      .attr("d", `M -10 28 V 33 H 10 V 28 C 10 23, -10 23, -10 28`)
+      .style("stroke", "grey")
+      .style("stroke-width", "3")
+      .style("fill", "white");
 
-        var playerCircle = cell
-            .append('circle')
-            .style("fill", "white")
-            .attr("cx", d => xScale(0))
-            .attr('cy', yScale.bandwidth() / 2)
-            .attr('r', (yScale.bandwidth() / 2) + 6)
+    var playerTitleGroup = cell
+      .append("g")
+      .attr("transform", d => `translate(28,${textYDistanceDown})`);
+    playerTitleGroup
+      .append("text")
+      .append("tspan")
+      .attr("y", -(250 / yScale.bandwidth()))
+      .text(d => d.first_name)
+      .style("font-size", "18");
+    playerTitleGroup
+      .append("text")
+      .append("tspan")
+      .attr("y", 180 / yScale.bandwidth())
+      .attr("x", 15)
+      .text(d => d.last_name)
+      .style("font-size", "14");
 
-        var playerSymbol = cell.append('g').attr('transform', d => `translate(0,-6)`)
+    var valueRects = cell
+      .append("rect")
+      .attr(
+        "x",
+        d => xValueScale(xMax - d.current_rating) + valueScaleShiftRight
+      )
+      .classed("green-gradient", true)
+      .attr("width", d => xValueScale(d.current_rating))
+      .attr("height", yScale.bandwidth());
 
-        playerSymbol
-            .append('circle')
-            .style("stroke", "grey")
-            .style("stroke-width", "3")
-            .style('fill', 'white')
-            .attr("cx", d => xScale(0))
-            .attr('cy', yScale.bandwidth() / 2)
-            .attr('r', (yScale.bandwidth() / 7))
+    var valueCircle = cell
+      .append("circle")
+      .style("fill", "#21C8BE")
+      .attr(
+        "cx",
+        d => xValueScale(xMax - d.current_rating) + valueScaleShiftRight + 4
+      )
+      .attr("cy", yScale.bandwidth() / 2)
+      .attr("r", yScale.bandwidth() / 2);
 
-        playerSymbol
-            .append('path')
-            .attr('d', `M -10 28 V 33 H 10 V 28 C 10 23, -10 23, -10 28`)
-            .style('stroke', 'grey')
-            .style('stroke-width', '3')
-            .style('fill', 'white')
+    var valueTitleGroup = cell
+      .append("g")
+      .attr(
+        "transform",
+        d =>
+          `translate(${xValueScale(xMax - d.current_rating) +
+            valueScaleShiftRight -
+            6},${textYDistanceDown - 4})`
+      );
+    valueTitleGroup
+      .append("text")
+      .append("tspan")
+      .text(d => d.current_rating)
+      .style("font-size", "10");
+  };
 
-        var playerTitleGroup = cell.append('g').attr('transform', d => `translate(28,${textYDistanceDown})`)
-        playerTitleGroup.append('text').append('tspan').attr('y', -(250 / yScale.bandwidth())).text(d => d.first_name).style('font-size', '18')
-        playerTitleGroup.append('text').append('tspan').attr('y', 180 / yScale.bandwidth()).attr('x', 15).text(d => d.last_name).style('font-size', '14')
+  cleanOldSvg = () => {
+    select(".canvas")
+      .selectAll("svg")
+      .remove();
+  };
 
-        var valueRects = cell
-            .append('rect')
-            .attr('x', d => xValueScale(xMax - d.current_rating) + valueScaleShiftRight)
-            .classed('green-gradient', true)
-            .attr("width", d => xValueScale(d.current_rating))
-            .attr("height", yScale.bandwidth())
-
-        var valueCircle = cell
-            .append('circle')
-            .style("fill", "#21C8BE")
-            .attr("cx", d => xValueScale(xMax - d.current_rating) + valueScaleShiftRight + 4)
-            .attr('cy', yScale.bandwidth() / 2)
-            .attr('r', yScale.bandwidth() / 2)
-
-        var valueTitleGroup = cell.append('g').attr('transform', d => `translate(${xValueScale(xMax - d.current_rating) + valueScaleShiftRight - 6},${textYDistanceDown - 4})`)
-        valueTitleGroup.append('text').append('tspan').text(d => d.current_rating).style('font-size', '10')
-    }
-
-    cleanOldSvg = () => {
-        select('.canvas')
-            .selectAll('svg')
-            .remove()
-    }
-
-    render() {
-        return (
-            <div className="ranking-container">
-                <div>Ranking</div>
-                <div className="canvas" ref={this.canvas}></div>
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div className="ranking-container">
+        <div>Foosball Ranking</div>
+        <div className="canvas" ref={this.canvas}></div>
+      </div>
+    );
+  }
 }
 
 export default Ranking;

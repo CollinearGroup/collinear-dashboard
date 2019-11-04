@@ -12,13 +12,12 @@
 .toggle-button {
   position: absolute;
   top: 0;
-  left: 0;
+  right: 0;
   height: 25px;
-  margin: 5px 0 0 5px;
+  margin: 5px 5px 0 0;
   background-color: #999999;
   color: #000000;
   font-weight: 700;
   border-radius: 5px;
   z-index: 2;
 }
-
