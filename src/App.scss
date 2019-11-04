@@ -2,26 +2,41 @@
 
 $panel-bg: #394a54;
 $bg-primary: #091b29;
+$font-color: #ffffff;
 
 body {
-  font-family: Tahoma, Geneva, sans-serif;
+  font-family: Helvetica;
   font-style: normal;
   font-weight: normal;
   font-size: 24px;
   background: $bg-primary;
+  color: $font-color;
+  padding: 10px 20px;
 }
 
-// Default/Small screens (Order matters)
 .box {
   overflow: hidden;
+  border-radius: 5px;
   background: $panel-bg;
   text-align: center;
+}
+
+.padding {
+  padding: 10px;
+}
+
+.center-text {
+  text-align: center;
+}
+
+.justify-right {
+  text-align: right;
 }
 
 #container {
   display: grid;
   grid-gap: 20px;
-  grid-template-rows: repeat(7, 200px);
+  grid-template-rows: repeat(7, auto);
 }
 
 // Do not show the calendar on mobile devices.
@@ -30,12 +45,15 @@ body {
 }
 
 // Overrides the defaults
-@media screen and (min-width: 1024px) {
+@media (min-width: 768px) {
+  body {
+    padding: 20px 40px;
+  }
   #container {
     display: grid;
     height: calc(1080px - 20px);
     grid-gap: 20px;
-    grid-template-rows: 50px repeat(3, 1fr) 30px;
+    grid-template-rows: auto repeat(3, 1fr) 30px;
     grid-template-columns: repeat(3, 1fr);
     grid-template-areas:
       "header header header"

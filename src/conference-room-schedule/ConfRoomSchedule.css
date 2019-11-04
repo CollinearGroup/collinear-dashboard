@@ -1,28 +1,5 @@
-.dashboard-title {
-  text-align: center;
-  vertical-align: top;
-  font-weight: 600;
-  padding-bottom: .5em;
-  color: rgb(50,109,152)
-}
 .dashboard-content {
-  font-family: 'Tahoma'
-}
-
-.conf-schedule-names {
-  background: white;
-  display: flex;
-  /* flex-basis: 0; */
-  /* flex-grow: 1; */
-  flex: 1 1 100%;
-  flex-wrap: nowrap;
-  float: left;
-  /* width: 100%; */
-}
-
-.conf-schedule-content {
-  display: flex;
-  flex-direction: row;
+  font-family: 'HelveticaNeue'
 }
 
 .conf-schedule-name {
@@ -30,53 +7,93 @@
   white-space: nowrap;
   overflow: hidden;
   max-width: 8em;
-  font-size: small;
+  min-width: 5em;
+  font-size: 18px;
   font-weight: 800;
-  padding-bottom: 1.4em;
-  /* width: 100%; */
+  color: #FFFFFF;
+  float: right;
+  padding-right: .5em;
 }
 
-.conf-schedule-col {
-  border: 1px solid;
-  padding: .2em;
-  margin-right: .1em;
-  margin-left: .1em;
-  flex-basis: 100%;
-}
-
-.conf-schedule-hours {
-  /* background: yellow; */
-  padding-top: 1.5em;
-  padding-right: .2em;
-  width: 3.2em;
-  float: left;
-  font-weight: 400;
-  font-size: large;
-  text-align: right;
-  color: rgb(50,109,152);
+.calendar-content {
+  width: 100%;
+  table-layout: fixed;
 }
 
 .conf-schedule-hour {
-  margin-top: .3em;
   white-space: nowrap;
-  /* border: 1px solid black; */
-  height: 1.2em;
+}
+
+.conf-shedule-hour-span {
+  color: #FFFFFF;
+  font-weight: 100;
+  font-size: 14px;
+  float:left;
 }
 
 .conf-schedule-meetings {
   padding-top: .1em;
 }
 
-.conf-room-meeting-busy {
-  font-size: x-small;
-  background: rgb(50,109,152);
-  height: 1.2em;
-  color: aliceblue;
-  /* border: 1px solid black; */
-}
 .conf-room-meeting-free {
-  /* border: 1px solid black; */
   font-size: x-small;
-  background: white;
+  background: #F4F9FF;
+  border-right: 1px #FFFFFF;
   height: 1.2em;
+  padding: 0;
+}
+
+table {
+  border-spacing: 0 4px;
+  width: 100%;
+  table-layout: fixed;
+}
+
+th {
+  padding: 0;
+}
+
+.first-header-col {
+  width: 5em;
+}
+
+td {
+  height: 2em;
+}
+
+.border-col {
+  border-right: 1px solid #FFFFFF;
+}
+
+.name-col { 
+  width: auto;
+}
+
+.red-busy {
+  background-color: #FFE4E6;
+}
+
+.green-busy {
+  background-color: #E0FBE0;
+}
+
+.yellow-busy {
+  background-color: #FFF7E3;
+}
+
+.blue-busy {
+  background-color: #E6E4FF;
+}
+
+.busy-rect {
+  height: 80%;
+}
+
+.name-div {
+  text-overflow: ellipsis;
+  font-weight: 100;
+  text-align: left;
+  padding-left: .5em;
+  font-size: 14px;
+  color: #000000;
 }
