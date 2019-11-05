@@ -103,7 +103,7 @@ class Ranking extends Component {
       .domain([0, xMax])
       .range([0, width - margin.left - margin.right]);
     var yScale = scaleBand()
-      .domain(data.map(player => player.last_name))
+      .domain(data.map(player => player.id))
       .rangeRound([0, height - margin.top - margin.bottom])
       .paddingInner(0.35)
       .paddingOuter(0.25);
@@ -119,7 +119,7 @@ class Ranking extends Component {
       .selectAll("g")
       .data(data)
       .join("g")
-      .attr("transform", d => `translate(14,${yScale(d.last_name)})`)
+      .attr("transform", d => `translate(14,${yScale(d.id)})`)
       .append("text")
       .attr("y", textYDistanceDown + 8)
       .append("tspan")
@@ -134,7 +134,7 @@ class Ranking extends Component {
       .selectAll("g")
       .data(data)
       .join("g")
-      .attr("transform", d => `translate(${0},${yScale(d.last_name)})`);
+      .attr("transform", d => `translate(${0},${yScale(d.id)})`);
 
     var playerRect = cell
       .append("rect")
