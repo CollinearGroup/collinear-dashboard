@@ -117,7 +117,7 @@ class ScoreForm extends Component {
     const nameArray = this.state.newUserInput.split(" ");
     const newUser = {
       first_name: nameArray[0],
-      last_name: nameArray[1] || "is dumb"
+      last_name: nameArray[1] || "isDumb"
     };
     this.props.submitNewUser(newUser);
   };
@@ -142,7 +142,7 @@ class ScoreForm extends Component {
 
     return (
       <div className="score-form-container">
-        <form className="flex-column" onSubmit={this.onSubmit}>
+        <form onSubmit={this.onSubmit}>
           <div className="red-team">
             <h4 style={{ margin: "5px 0" }}>Red Team</h4>
             <div className="flex-row">
@@ -211,7 +211,7 @@ class ScoreForm extends Component {
             </button>
           </div>
         </form>
-        <form onSubmit={this.submitNewUser}>
+        <form style={{ padding: "5px 0 0 2rem" }} onSubmit={this.submitNewUser}>
           <div>Add New User</div>
           <input
             value={this.state.newUserInput}
@@ -222,6 +222,7 @@ class ScoreForm extends Component {
           <button
             type="submit"
             disabled={this.state.newUserInput.trim() === ""}
+            style={{ marginLeft: "1rem" }}
           >
             Submit New User
           </button>
