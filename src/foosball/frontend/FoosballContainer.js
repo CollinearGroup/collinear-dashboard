@@ -5,6 +5,8 @@ import "./FoosballContainer.scss";
 import ScoreForm from "./FoosballContainer/ScoreForm";
 import Ranking from "./FoosballContainer/Ranking";
 
+const foosballRankingURL = "http://localhost:8000/api";
+
 class FoosballContainer extends Component {
   constructor(props) {
     super(props);
@@ -20,17 +22,17 @@ class FoosballContainer extends Component {
   }
 
   submitGame = async payload => {
-    await axios.post("http://localhost:8000/api/games", payload);
+    await axios.post(`${foosballRankingURL}/games`, payload);
     await this.updateUsers();
   };
 
   updateUsers = async () => {
-    const response = await axios.get("http://localhost:8000/api/users");
+    const response = await axios.get(`${foosballRankingURL}/users`);
     this.setState({ users: response.data.users });
   };
 
   submitNewUser = async newUser => {
-    await axios.post("http://localhost:8000/api/users", newUser);
+    await axios.post(`${foosballRankingURL}/users`, newUser);
     await this.updateUsers();
   };
 
