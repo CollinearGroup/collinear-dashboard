@@ -71,18 +71,22 @@ td {
 
 .red-busy {
   background-color: #FFC2C4;
+  border-bottom: solid #FF5555 2px;
 }
 
 .green-busy {
   background-color: #C0FBC0;
+  border-bottom: solid #55FF55 2px;
 }
 
 .yellow-busy {
   background-color: #FAF797;
+  border-bottom: solid #C7C464 2px;
 }
 
 .blue-busy {
   background-color: #C4C2FF;
+  border-bottom: solid #5555FF 2px;
 }
 
 .busy-rect {
