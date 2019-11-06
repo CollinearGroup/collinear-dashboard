@@ -89,12 +89,13 @@ class GamesController extends Controller {
 
     const updatedPlayers = []
     for (let gameInfo of playersToUpdate) {
+      let newPlayerRating = undefined
       try {
-        const newPlayerRating = calculateNewRating(gameInfo)
+        newPlayerRating = calculateNewRating(gameInfo)
         await UsersModel.update(gameInfo.playerId, { current_rating: newPlayerRating })
         updatedPlayers.push(gameInfo)
-        console.log(`Error updating player ${gameInfo.playerId}'s rating to new value of ${newPlayerRating}. `)
       } catch (updateErr) {
+        console.log(`Error updating player ${gameInfo.playerId}'s rating to new value of ${newPlayerRating}. `)
         for (let { playerId, playerRating } of updatedPlayers) {
           try {
             await UsersModel.update(playerId, { current_rating: playerRating })

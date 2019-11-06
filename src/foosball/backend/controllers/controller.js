@@ -42,6 +42,43 @@ module.exports = name => {
               })
           })
       }
+
+      static complete(requiredArr) {
+        return function (req, res, next) {
+            let errors = requiredArr.filter(key => {
+                return req.body[key] === undefined
+            })
+            let keyWordLiterally = 'key'
+            if (errors.length > 1) {
+                errors[errors.length - 1] = 'and ' + errors[errors.length - 1]
+                if (errors.length > 2) {
+                    errors = errors.join(', ')
+                } else {
+                    errors = errors.join(' ')
+                }
+                keyWordLiterally += 's'
+            } else {
+                errors = errors[0]
+            }
+            if (errors) {
+                return next({ status: 400, message: `Request body missing ${errors} ${keyWordLiterally}` })
+            } else {
+                next()
+            }
+        }
+    }
+
+    static prune(requiredArr) {
+        return function (req, res, next) {
+            for (let key in req.body) {
+                if (!requiredArr.includes(key)) {
+                    delete req.body[key]
+                }
+            }
+            next()
+        }
+    }
+
   }
 
   return Controller
