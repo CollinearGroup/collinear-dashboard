@@ -82,7 +82,7 @@ let CONF_RM_URL = process.env.REACT_APP_CONF_RM_URL || "https://dashboard.collin
 // }
 
 let hoursArray = [
-  " 7 AM",
+  // " 7 AM",
   " 8 AM",
   " 9 AM",
   "10 AM",
@@ -93,6 +93,7 @@ let hoursArray = [
   " 3 PM",
   " 4 PM",
   " 5 PM",
+  " 6 PM"
 ]
 
 let busyColors = [
@@ -139,8 +140,8 @@ class ConfRoomSchedule extends Component {
 
   hourFromPos = pos => {
     return [
-      '7 AM',
-      '7:30 AM',
+      // '7 AM',
+      // '7:30 AM',
       '8 AM',
       '8:30 AM',
       '9 AM',
@@ -159,7 +160,9 @@ class ConfRoomSchedule extends Component {
       '3:30 PM',
       '4 PM',
       '4:30 PM',
-      '5 PM'
+      '5 PM',
+      '5:30 PM',
+      '6 PM'
     ][pos]
   }
 
@@ -174,9 +177,9 @@ class ConfRoomSchedule extends Component {
           <div className={"busy-rect " + (busyColors[busyColorCount])}>
             <div className="label-div name-div">{busyName}</div>
           </div>
-          )
-      } 
-      divs.push(<td className={"conf-room-meeting-free" +(i % 2 === 0 ? "" : " border-col")}>{busyRect}</td>)
+        )
+      }
+      divs.push(<td className={"conf-room-meeting-free" + (i % 2 === 0 ? "" : " border-col")}>{busyRect}</td>)
     }
     busyColorCount++
     if (busyColorCount === busyColors.length) {
@@ -185,7 +188,7 @@ class ConfRoomSchedule extends Component {
     return divs
   }
 
-  buildRoomRow = (name, roomData = [], busyColorCount) => {
+  buildRoomRow = (name, roomData = []) => {
     return (
       <tr>
         <td className="name-col">
@@ -204,7 +207,7 @@ class ConfRoomSchedule extends Component {
       <table className="calendar-content">
         <tr>
           <th className="first-header-col"></th> {/* The first column for the time row should be blank */}
-          {hoursArray.map((hour, index) => (   
+          {hoursArray.map((hour, index) => (
             <th colSpan={index === hoursArray.length - 1 ? "1" : "2"} className={"conf-schedule-hour"}>
               <span className="conf-shedule-hour-span">{hour}</span>
             </th>

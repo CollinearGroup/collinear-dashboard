@@ -70,19 +70,19 @@ td {
 }
 
 .red-busy {
-  background-color: #FFE4E6;
+  background-color: #FFC2C4;
 }
 
 .green-busy {
-  background-color: #E0FBE0;
+  background-color: #C0FBC0;
 }
 
 .yellow-busy {
-  background-color: #FFF7E3;
+  background-color: #FAF797;
 }
 
 .blue-busy {
-  background-color: #E6E4FF;
+  background-color: #C4C2FF;
 }
 
 .busy-rect {
