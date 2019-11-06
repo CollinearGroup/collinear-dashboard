@@ -95,7 +95,7 @@ class GamesController extends Controller {
         await UsersModel.update(gameInfo.playerId, { current_rating: newPlayerRating })
         updatedPlayers.push(gameInfo)
       } catch (updateErr) {
-        console.log(`Error updating player ${gameInfo.playerId}'s rating to new value of ${newPlayerRating}. `)
+        console.log(`Error updating player ${gameInfo.playerId}'s rating to new value of ${newPlayerRating}.`)
         for (let { playerId, playerRating } of updatedPlayers) {
           try {
             await UsersModel.update(playerId, { current_rating: playerRating })
@@ -103,7 +103,7 @@ class GamesController extends Controller {
             console.log(`Error resetting player ${playerId}'s rating to previous value of ${playerRating}.`)
           }
         }
-        break
+        return next({ status: 500, message: `Error updating player ratings` })
       }
     }
 
