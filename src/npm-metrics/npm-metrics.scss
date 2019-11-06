@@ -1,9 +1,52 @@
 @import "../variables.scss";
 
 #nm-root {
-  text-align: $text-align;
+  text-align: left;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   height: 100%;
+    display: inline-block;
+    *display: inline;
+    zoom: 1;
+    position: relative;
+    clip: auto;
+    overflow: hidden;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+.description {
+    position: relative;
+    text-align: left;
+    white-space: pre-wrap;
+    padding-top: 10px;
+    font-size: 10pt;
+}
+.container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    text-align: right;
+    white-space: nowrap;
+}
+.filler {
+    left: 0;
+    right: 0;
+    border-bottom: 2px dashed #00FFC2;
+    height: 50%;
+    flex-grow: 1;
+}
+.label {
+    background: #394a54;
+    padding: 4px;
+}
+.value {
+    background: #394a54;
+    border: 2px dashed #00FFC2;
+    color: #00FFC2;
+    width: 65px;
+    padding: 5px 0;
+    text-align: center;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }

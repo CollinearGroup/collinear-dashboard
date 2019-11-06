@@ -1,39 +1,57 @@
 import React, { Component } from 'react'
+import { Image, Video, Transformation, CloudinaryContext } from 'cloudinary-react';
+
+import axios from 'axios'
+
 // replace these with the photos we actually wanna use
-import img1 from './images/dog1.jpeg'
-import img2 from './images/dog2.jpeg'
-import img3 from './images/dog3.jpeg'
-import img4 from './images/dog4.jpeg'
-import img5 from './images/dog5.jpeg'
-import img6 from './images/dog6.jpeg'
-import img7 from './images/dog7.jpeg'
-import img8 from './images/dog8.jpeg'
+// import img2 from './images/dog2.jpeg'
+// import img3 from './images/dog3.jpeg'
+// import img4 from './images/dog4.jpeg'
+// import img5 from './images/dog5.jpeg'
+// import img6 from './images/dog6.jpeg'
+// import img7 from './images/dog7.jpeg'
+// import img8 from './images/dog8.jpeg'
 import './socialMediaPhotos.css'
+let img1 = 'https://www.dropbox.com/sh/z5pa1ntcberp7c3/AACA73SJ1t1ooh40080-TqK0a?dl=0&preview=20190803_141205_resized.jpg'
 
-
-export default class SocialMediaPhotos extends Component{
+export default class SocialMediaPhotos extends Component {
   state = {
-    images: [img1, img7, img3, img4, img5, img6, img2, img8],
+    images: [],
     photoIndex: 0
   }
-  componentDidMount(){
+
+  async componentDidMount() {
+    try{
+      let res = await axios.get("/images", {
+        auth: {
+          username:228249614672283,
+          password:'Y4d_pgKoR1-XkktifCFxh7KbdLI'
+        },
+        mode:'no-cors'
+      })
+      let ids = res.data.resources.map(img => img.public_id)
+      this.setState({images: ids}, console.log(this.state.images))
+    }catch(err) {
+      console.log('heeeey',err)
+    }
     this.startSlideShow()
+
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     clearInterval(this.interval)
   }
 
-  startSlideShow=()=>{
-    this.interval = setInterval( () => {
+  startSlideShow = () => {
+    this.interval = setInterval(() => {
       let newIndex = this.state.photoIndex > this.state.images.length - 2 ? 0 : this.state.photoIndex + 1
-      this.setState({photoIndex: newIndex})
+      this.setState({ photoIndex: newIndex })
     }, 10000)
   }
 
 
-  render(){
-    const {photoIndex, images} = this.state
+  render() {
+    const { photoIndex, images } = this.state
     let style = {
       height: '100%',
       width: '100%',
@@ -41,7 +59,9 @@ export default class SocialMediaPhotos extends Component{
     return (
       <div className="slideshow-container" style={style}>
         <div className="slideshow-photo" style={style}>
-          <img src={images[photoIndex]} alt="pix"/>
+          <CloudinaryContext cloudName="collinear" >
+            <Image publicId={images[photoIndex]} width="540" height="300" gravity="auto" background="auto" crop="fill_pad" />
+          </CloudinaryContext>
         </div>
       </div>
     )
