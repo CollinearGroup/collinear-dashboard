@@ -1,0 +1,31 @@
+.score-form-container {
+  background-color: #394a54;
+  color: #ffff;
+  height: 100%;
+  width: 100%;
+  text-align: left;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.red-team h4 {
+  color: #c4382d;
+  padding-left: 2rem;
+}
+
+.black-team h4 {
+  color: #000000;
+  padding-left: 2rem;
+}
+
+.submit-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 1rem 0;
+  border-bottom: dashed 1px white;
+}

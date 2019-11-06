@@ -5,7 +5,7 @@ import Header from "./layout/Header"
 import Footer from "./layout/Footer"
 
 import NpmMetrics from "./npm-metrics"
-import FoosBall from "./foosball"
+import Foosball from "./foosball/frontend"
 import SocialMediaPhotos from "./SocialMediaPhotos/SocialMediaPhotos"
 import ConfRoomSchedule from "./conference-room-schedule/ConfRoomSchedule"
 
@@ -28,7 +28,7 @@ export class GridContainer extends React.Component {
         <HeaderWrapper />
         {this.wrapInId("calendar", <ConfRoomSchedule />)}
         <Photos />
-        {this.wrapInId("foos", <FoosBall />)}
+        {this.wrapInId("foos", <Foosball />)}
         {this.wrapInId("npm", <NpmMetrics />)}
         <Kudos />
         {this.wrapInId("message-board", <div>Message Board Placeholder</div>)}
