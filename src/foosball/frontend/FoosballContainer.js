@@ -12,8 +12,9 @@ class FoosballContainer extends Component {
     super(props);
 
     this.state = {
-      isFormView: true,
-      users: []
+      isFormView: false,
+      users: [],
+      isLoading: true
     };
   }
 
@@ -28,7 +29,7 @@ class FoosballContainer extends Component {
 
   updateUsers = async () => {
     const response = await axios.get(`${foosballRankingURL}/users`);
-    this.setState({ users: response.data.users });
+    this.setState({ users: response.data.users, isLoading: false });
   };
 
   submitNewUser = async newUser => {
@@ -37,6 +38,9 @@ class FoosballContainer extends Component {
   };
 
   render() {
+    if (this.state.isLoading) {
+      return <div>Loading...</div>;
+    }
     return (
       <div className="foosball-container">
         <button
