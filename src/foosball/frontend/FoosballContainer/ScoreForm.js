@@ -73,7 +73,12 @@ class ScoreForm extends Component {
 
   areThereDuplicatePlayers = () => {
     let seenUsers = {};
-    const { red_points, black_points, ...selectedUsers } = this.state;
+    const selectedUsers = {
+      red_off: this.state.red_off,
+      red_def: this.state.red_def,
+      black_def: this.state.black_def,
+      black_off: this.state.black_off
+    };
     for (let user in selectedUsers) {
       const value = selectedUsers[user];
       if (value === "") {
