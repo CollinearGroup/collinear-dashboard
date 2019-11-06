@@ -14,7 +14,8 @@ class ScoreForm extends Component {
       red_points: 0,
       black_points: 0,
       newUserInput: "",
-      isFormView: false
+      isFormView: false,
+      userAddError: false
     };
     this.state = { ...this.DEFAULT_STATE };
   }
@@ -112,14 +113,24 @@ class ScoreForm extends Component {
     return count === 1;
   };
 
-  submitNewUser = e => {
+  submitNewUser = async e => {
     e.preventDefault();
+    if (this.getIdFromFullName(this.state.newUserInput)) {
+      this.setState({ userAddError: true });
+      return;
+    }
+
     const nameArray = this.state.newUserInput.split(" ");
+    if (nameArray.length !== 2) {
+      this.setState({ userAddError: true });
+      return;
+    }
     const newUser = {
       first_name: nameArray[0],
-      last_name: nameArray[1] || "isDumb"
+      last_name: nameArray[1]
     };
-    this.props.submitNewUser(newUser);
+    await this.props.submitNewUser(newUser);
+    this.setState(this.DEFAULT_STATE);
   };
 
   render() {
@@ -215,8 +226,12 @@ class ScoreForm extends Component {
           <div>Add New User</div>
           <input
             value={this.state.newUserInput}
+            placeholder={`FirstName LastName`}
             onChange={e => {
-              this.setState({ newUserInput: e.target.value });
+              this.setState({
+                newUserInput: e.target.value,
+                userAddError: false
+              });
             }}
           ></input>
           <button
@@ -226,6 +241,9 @@ class ScoreForm extends Component {
           >
             Submit New User
           </button>
+          {this.state.userAddError && (
+            <div className="error">Unable to add user</div>
+          )}
         </form>
       </div>
     );

@@ -4,6 +4,7 @@
   height: 100%;
   width: 100%;
   text-align: left;
+  overflow-y: auto;
 }
 
 .flex-row {
@@ -28,4 +29,9 @@
   justify-content: center;
   padding: 1rem 0;
   border-bottom: dashed 1px white;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
 }
