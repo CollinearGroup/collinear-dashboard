@@ -28,7 +28,7 @@ export class GridContainer extends React.Component {
         <HeaderWrapper />
         {this.wrapInId("calendar", <ConfRoomSchedule />)}
         <Photos />
-        {this.wrapInId("foos", <FoosBall />)}
+        {this.wrapInId("foos", <Foosball />)}
         {this.wrapInId("npm", <NpmMetrics />)}
         <Kudos />
         {this.wrapInId("message-board", <div>Message Board Placeholder</div>)}
@@ -54,6 +54,8 @@ export class Photos extends React.Component {
       <div id="photo">
         <SocialMediaPhotos />
       </div>
+    )
+  }
 }
 
 export class Kudos extends React.Component {
