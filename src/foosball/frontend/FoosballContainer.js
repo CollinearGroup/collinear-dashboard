@@ -5,7 +5,7 @@ import "./FoosballContainer.scss";
 import ScoreForm from "./FoosballContainer/ScoreForm";
 import Ranking from "./FoosballContainer/Ranking";
 
-const foosballRankingURL = "http://localhost:8000/api";
+const foosballRankingURL = process.env.FOOSBALL_API_URL || "/foosball-api";
 
 class FoosballContainer extends Component {
   constructor(props) {
