@@ -61,3 +61,5 @@ typings/
 .next
 
 build
+
+src/message_board/node_modules/
