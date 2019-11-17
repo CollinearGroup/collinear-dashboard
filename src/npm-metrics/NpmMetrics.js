@@ -45,7 +45,7 @@ class NpmMetrics extends React.Component {
     return (
     <div id="nm-root">
         <div style={{fontSize: '22pt'}}>Open Source Libraries</div>
-        <div class='description'>Collinear built and maintains the following libraries on NPM.  Count shows downloads per month</div>
+        <div class='description'>Collinear built and maintains the following libraries on NPM.  Count shows downloads in the past month</div>
     <br/>
     <div class='container'>
         <div class='label'>Smart Deep Sort </div>
