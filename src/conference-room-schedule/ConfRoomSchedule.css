@@ -32,10 +32,9 @@
 }
 
 .conf-room-meeting-free {
-  font-size: x-small;
   background: #F4F9FF;
   border-right: 1px #FFFFFF;
-  height: 1.2em;
+  height: 2em;
   padding: 0;
 }
 
@@ -53,16 +52,14 @@ th {
   width: 5em;
 }
 
-td {
-  height: 2em;
-}
-
 .border-col {
   border-right: 1px solid #FFFFFF;
 }
 
 .name-col { 
-  width: auto;
+  width: 15em;
+  height: 1.5em;
+  text-align: right;
 }
 
 .red-busy {
@@ -86,15 +83,18 @@ td {
 }
 
 .busy-rect {
-  height: 80%;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .name-div {
   text-overflow: ellipsis;
-  font-weight: 100;
   text-align: left;
-  padding-left: .5em;
+  padding: 0 .5em;
   font-size: 14px;
   font-weight: 500;
   color: #000000;
+  flex: 0 0
 }

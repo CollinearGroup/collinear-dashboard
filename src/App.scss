@@ -33,6 +33,14 @@ body {
   text-align: right;
 }
 
+#logo-container {
+  border-left: 0.5em solid transparent;
+  border-top: 5px solid transparent;
+  border-radius: 100%/100%;
+  box-shadow: -0.3em -0.05em 0 0.025em #0fa;
+  margin-top: 0.1em;
+}
+
 #container {
   display: grid;
   grid-gap: 20px;
@@ -53,14 +61,13 @@ body {
     display: grid;
     height: calc(1080px - 20px);
     grid-gap: 20px;
-    grid-template-rows: auto repeat(3, 1fr) 30px;
+    grid-template-rows: repeat(2, auto) repeat(2, 1fr);
     grid-template-columns: repeat(3, 1fr);
     grid-template-areas:
       "header header header"
       "cal    cal    cal"
       "photo  msgbd  npm"
-      "foos   msgbd  kudos"
-      "footer footer footer";
+      "foos   msgbd  kudos";
   }
 
   #photo {
@@ -90,9 +97,5 @@ body {
 
   #foos {
     grid-area: foos;
-  }
-
-  #footer {
-    grid-area: footer;
   }
 }

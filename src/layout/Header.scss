@@ -59,8 +59,16 @@ $banner-color: #ff0f2d;
   left: -26px;
   top: 0px;
   position: absolute;
-  border-top: 20px solid $banner-color;
-  border-bottom: 21px solid $banner-color;
+  border-top: 20px solid #ff0f2d;
+  border-left: 26px solid transparent;
+}
+
+.timesheets-ribbon::after {
+  content: "";
+  left: -26px;
+  bottom: 0px;
+  position: absolute;
+  border-bottom: 21px solid #ff0f2d;
   border-left: 26px solid transparent;
 }
 

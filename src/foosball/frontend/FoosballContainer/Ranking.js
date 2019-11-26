@@ -30,10 +30,7 @@ class Ranking extends Component {
       this.state.boundingRect.width !== nextRect.width ||
       this.state.boundingRect.height !== nextRect.height;
 
-    if (didSvgSizeChange) {
-      return true;
-    }
-    return false;
+    return didSvgSizeChange;
   }
 
   componentDidUpdate() {
@@ -125,7 +122,7 @@ class Ranking extends Component {
       .append("tspan")
       .text((d, i) => i + 1)
       .style("fill", "#ffffff")
-      .style("font-size", "42");
+      .style("font-size", "42px");
 
     var graph = svg
       .append("g")
@@ -177,14 +174,14 @@ class Ranking extends Component {
       .append("tspan")
       .attr("y", -(250 / yScale.bandwidth()))
       .text(d => d.first_name)
-      .style("font-size", "18");
+      .style("font-size", "18px");
     playerTitleGroup
       .append("text")
       .append("tspan")
       .attr("y", 180 / yScale.bandwidth())
       .attr("x", 15)
       .text(d => d.last_name)
-      .style("font-size", "14");
+      .style("font-size", "14px");
 
     var valueRects = cell
       .append("rect")
@@ -219,7 +216,7 @@ class Ranking extends Component {
       .append("text")
       .append("tspan")
       .text(d => Math.round(d.current_rating))
-      .style("font-size", "10");
+      .style("font-size", "10px");
   };
 
   cleanOldSvg = () => {
