@@ -1,0 +1,16 @@
+.input-form {
+    background: lightblue;
+    color: white;
+    padding: 5px;
+    margin: 10px;
+}
+
+.input-box {
+    margin: 10px;
+    width: 90%;
+}
+
+.text-area-box {
+    margin: 10px;
+    width: 90%;
+}

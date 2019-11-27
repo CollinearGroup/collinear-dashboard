@@ -1,0 +1,27 @@
+.message {
+    width: 90%;
+    margin: 10px;
+    padding: 10px;
+    background: lightgray;
+    color: black;
+    border: 1px solid black;
+    text-align: center;
+}
+
+.title {
+    border: 1px solid black;
+    font-size: 18px;
+    margin: 3px;
+    padding: 3px;
+}
+
+.description {
+    margin: 3px;
+    padding: 3px;
+}
+
+.time-period {
+    margin: 5px;
+    padding: 5px;
+    font-size: 10px;
+}
