@@ -50,7 +50,7 @@ body {
 
 // Do not show the calendar on mobile devices.
 #calendar {
-  display: none;
+  overflow-x: auto;
 }
 
 // Overrides the defaults

@@ -5,16 +5,20 @@ $banner-color: #ff0f2d;
 @keyframes waving {
   0%, 100% {
     transform: rotateX(-20deg) rotateY(-10deg);
-    filter: brightness(0.75);
+    filter: brightness(0.65) contrast(1.5);
+  }
+
+  20%, 80% {
+    filter: brightness(1) contrast(1);
   }
   
   25%, 75% {
-    filter: brightness(1);
+    filter: brightness(1.25) contrast(1);
   }
   
   50% {
     transform: rotateX(20deg) rotateY(10deg);
-    filter: brightness(1.5);
+    filter: brightness(1.5) contrast(1.5);
   }
 }
 
@@ -93,6 +97,12 @@ $banner-color: #ff0f2d;
   position: absolute;
   border-bottom: 21px solid #ff0f2d;
   border-left: 26px solid transparent;
+}
+
+.timesheets-message {
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-image: linear-gradient(to left, #fff, #faa);
 }
 
 @media (min-width: 768px) {
