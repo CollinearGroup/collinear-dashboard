@@ -2,6 +2,27 @@ $logo-color: #02ffc1;
 $base-color: #ffffff;
 $banner-color: #ff0f2d;
 
+@keyframes waving {
+  0%, 100% {
+    transform: rotateX(-20deg) rotateY(-10deg);
+    filter: brightness(0.75);
+  }
+  
+  25%, 75% {
+    filter: brightness(1);
+  }
+  
+  50% {
+    transform: rotateX(20deg) rotateY(10deg);
+    filter: brightness(1.5);
+  }
+}
+
+#timesheets-notification {
+  transform-style: preserve-3d;
+  perspective: 600px;
+}
+
 #header-container {
   display: grid;
   align-items: center;
@@ -52,6 +73,8 @@ $banner-color: #ff0f2d;
   border-radius: 0px 5px 5px 0px;
   margin-left: 20px;
   background: $banner-color;
+  animation: waving 5s infinite;
+  transform-origin: right bottom;
 }
 
 .timesheets-ribbon::before {
