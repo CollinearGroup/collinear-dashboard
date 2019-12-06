@@ -12,6 +12,7 @@ body {
   background: $bg-primary;
   color: $font-color;
   padding: 10px 20px;
+  margin: 0;
 }
 
 .box {
@@ -37,7 +38,7 @@ body {
   border-left: 0.5em solid transparent;
   border-top: 5px solid transparent;
   border-radius: 100%/100%;
-  box-shadow: -0.3em -0.05em 0 0.025em #0fa;
+  box-shadow: -0.3em -0.05em 0 0.025em #394a54;
   margin-top: 0.1em;
 }
 
@@ -55,11 +56,11 @@ body {
 // Overrides the defaults
 @media (min-width: 768px) {
   body {
-    padding: 20px 40px;
+    padding: 0;
   }
   #container {
     display: grid;
-    height: calc(1080px - 20px);
+    height: 100vh;
     grid-gap: 20px;
     grid-template-rows: repeat(2, auto) repeat(2, 1fr);
     grid-template-columns: repeat(3, 1fr);
@@ -68,6 +69,8 @@ body {
       "cal    cal    cal"
       "photo  msgbd  npm"
       "foos   msgbd  kudos";
+    padding: 20px 40px;
+    box-sizing: border-box;
   }
 
   #photo {
