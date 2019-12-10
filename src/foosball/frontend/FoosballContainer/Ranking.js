@@ -174,7 +174,7 @@ class Ranking extends Component {
       .append("tspan")
       .attr("y", -(250 / yScale.bandwidth()))
       .text(d => d.first_name)
-      .style("font-size", "18px");
+      .style("font-size", "16px");
     playerTitleGroup
       .append("text")
       .append("tspan")
@@ -229,7 +229,9 @@ class Ranking extends Component {
     return (
       <div className="ranking-container">
         <div>Foosball Ranking</div>
-        <div className="canvas" ref={this.canvas}></div>
+        <div id="rankings-list">
+          <div className="canvas" ref={this.canvas}></div>
+        </div>
       </div>
     );
   }
