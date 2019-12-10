@@ -116,7 +116,7 @@ class Ranking extends Component {
       .selectAll("g")
       .data(data)
       .join("g")
-      .attr("transform", d => `translate(14,${yScale(d.id)})`)
+      .attr("transform", d => `translate(14,${yScale(d.id)}) scale(0.9)`)
       .append("text")
       .attr("y", textYDistanceDown + 8)
       .append("tspan")
@@ -174,7 +174,7 @@ class Ranking extends Component {
       .append("tspan")
       .attr("y", -(250 / yScale.bandwidth()))
       .text(d => d.first_name)
-      .style("font-size", "16px");
+      .style("font-size", "18px");
     playerTitleGroup
       .append("text")
       .append("tspan")
