@@ -5,19 +5,25 @@
   width: 100%;
   height: 100%;
   background-color: #000000;
-  box-shadow: 3px 4px 3px rgba(0, 0, 0, 0.25);
-  border-radius: 5px;
-}
+  border-radius: 5px; }
 
 .toggle-button {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 2px;
+  right: 12px;
   height: 25px;
-  margin: 5px 5px 0 0;
-  background-color: #999999;
-  color: #000000;
+  margin: 0;
+  background-color: #091b29;
+  color: #fff;
   font-weight: 700;
   border-radius: 5px;
-  z-index: 2;
+  z-index: 2; 
+  border: none;
+  box-shadow: 0 0 0 1px #091b29, inset 1px 2px 2px 1px rgba(255, 255, 255, 0.25), inset -1px -2px 2px 1px rgba(0, 0, 0, 0.5);
+}
+
+.toggle-button:hover:active {
+  background-color: #233540;
+  box-shadow: 0 0 0 1px #1A2C39;
+  -webkit-text-stroke: 0.5px #23354088;
 }

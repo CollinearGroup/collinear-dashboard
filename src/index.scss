@@ -1,1 +1,20 @@
 /* TODO: make some global scss! */
+* {
+  scrollbar-color: #fff transparent;
+  scrollbar-width: thin;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #fff;
+  border: 3px solid transparent;
+  background-clip: padding-box;
+  border-radius: 1em;
+}

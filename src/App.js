@@ -2,7 +2,6 @@ import React from "react"
 import "./App.scss"
 
 import Header from "./layout/Header"
-import Footer from "./layout/Footer"
 
 import NpmMetrics from "./npm-metrics"
 import Foosball from "./foosball/frontend"
@@ -32,7 +31,6 @@ export class GridContainer extends React.Component {
         {this.wrapInId("npm", <NpmMetrics />)}
         <Kudos />
         {this.wrapInId("message-board", <div>Message Board Placeholder</div>)}
-        <Footer />
       </div>
     )
   }
