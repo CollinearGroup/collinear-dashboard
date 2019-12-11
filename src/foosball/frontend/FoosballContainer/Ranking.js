@@ -20,6 +20,8 @@ class Ranking extends Component {
 
     this.canvas = React.createRef();
 
+    this.changePlayerGroup = this.changePlayerGroup.bind(this);
+
     this.state = {
       boundingRect: {},
       loaded: false,
