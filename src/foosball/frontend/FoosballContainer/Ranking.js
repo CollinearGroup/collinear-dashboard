@@ -77,7 +77,7 @@ class Ranking extends Component {
     const players = {
       all: allPlayers,
       rookies: allPlayers.filter(p => p.games_played < this.LEAGUE_MIN),
-      league: allPlayers.fliter(p => p.games_played >= this.LEAGUE_MIN)
+      league: allPlayers.filter(p => p.games_played >= this.LEAGUE_MIN)
     };
 
     const xMax = Math.max(...players[this.PLAYER_GROUPS[this.props.playerGroup]].map(player => player.current_rating));
