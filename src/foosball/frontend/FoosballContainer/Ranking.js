@@ -70,7 +70,6 @@ class Ranking extends Component {
   createChart = () => {
     this.cleanOldSvg();
     const width = this.state.boundingRect.width;
-    const height = this.props.users.length * 50;
     const margin = { left: 80, right: 0, top: 0, bottom: 0 };
 
     const allPlayers = this.props.users.sort((a, b) => {
@@ -82,6 +81,8 @@ class Ranking extends Component {
       rookies: allPlayers.filter(p => p.games_played < LEAGUE_MIN),
       league: allPlayers.filter(p => p.games_played >= LEAGUE_MIN)
     };
+
+    const height = players[PLAYER_GROUPS[this.state.playerGroup]].length * 50;
 
     const xMax = Math.max(...players[PLAYER_GROUPS[this.state.playerGroup]].map(player => player.current_rating));
     const textYDistanceDown = 25;
