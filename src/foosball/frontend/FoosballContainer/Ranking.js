@@ -32,7 +32,7 @@ class Ranking extends Component {
   changePlayerGroup() {
     const nextPlayerGroup = this.state.playerGroup + 1;
 
-    this.setState({ playerGroup: nextPlayerGroup % PLAYER_GROUPS.length});
+    this.setState({ playerGroup: (nextPlayerGroup % PLAYER_GROUPS.length - 1) });
 
     this.createChart();
   }
@@ -255,7 +255,7 @@ class Ranking extends Component {
     return (
       <div className="ranking-container">
         <div>Foosball Ranking</div>
-        <button onClick={ this.changePlayerGroup }>{ PLAYER_GROUPS[this.state.playerGroup] }</button>
+        <button id="player-group" onClick={ this.changePlayerGroup }>{ PLAYER_GROUPS[this.state.playerGroup] }</button>
         <div id="rankings-list">
           <div className="canvas" ref={this.canvas}></div>
         </div>
