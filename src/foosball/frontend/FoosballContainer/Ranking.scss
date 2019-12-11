@@ -10,8 +10,7 @@
 #rankings-list {
   position: relative;
   width: 100%;
-  flex-grow: 1;
-  min-height: 10em;
+  flex: 1 1 10em;
 
   &::after {
     content: '';
