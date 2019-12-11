@@ -77,7 +77,7 @@ class Ranking extends Component {
 
     const players = {
       all: allPlayers,
-      rookies: allPlayers.filter(p => p.games_played < LEAGUE_MIN),
+      rookie: allPlayers.filter(p => p.games_played < LEAGUE_MIN),
       league: allPlayers.filter(p => p.games_played >= LEAGUE_MIN)
     };
 
