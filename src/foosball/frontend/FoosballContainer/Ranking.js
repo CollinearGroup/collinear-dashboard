@@ -7,6 +7,13 @@ import { select } from "d3-selection";
 import { scaleLinear, scaleBand } from "d3-scale";
 
 class Ranking extends Component {
+  LEAGUE_MIN = 10;
+  PLAYER_GROUPS = [
+    'league',
+    'rookie',
+    'all'
+  ]
+
   constructor(props) {
     super(props);
 
@@ -14,8 +21,17 @@ class Ranking extends Component {
 
     this.state = {
       boundingRect: {},
-      loaded: false
+      loaded: false,
+      playerGroup: 0
     };
+  }
+
+  changePlayerGroup() {
+    const nextPlayerGroup = ++this.props.playerGroup;
+
+    this.setState({ playerGroup: nextPlayerGroup % this.PLAYER_GROUPS.length});
+
+    this.createChart();
   }
 
   componentDidMount() {
@@ -54,11 +70,17 @@ class Ranking extends Component {
     const height = this.props.users.length * 50;
     const margin = { left: 80, right: 0, top: 0, bottom: 0 };
 
-    const data = this.props.users.sort((a, b) => {
+    const allPlayers = this.props.users.sort((a, b) => {
       return b.current_rating - a.current_rating;
     });
 
-    const xMax = Math.max(...data.map(player => player.current_rating));
+    const players = {
+      all: allPlayers,
+      rookies: allPlayers.filter(p => p.games_played < this.LEAGUE_MIN),
+      league: allPlayers.fliter(p => p.games_played >= this.LEAGUE_MIN)
+    };
+
+    const xMax = Math.max(...players[this.PLAYER_GROUPS[this.props.playerGroup]].map(player => player.current_rating));
     const textYDistanceDown = 25;
 
     var svg = select(".canvas")
@@ -100,7 +122,7 @@ class Ranking extends Component {
       .domain([0, xMax])
       .range([0, width - margin.left - margin.right]);
     var yScale = scaleBand()
-      .domain(data.map(player => player.id))
+      .domain(players[this.PLAYER_GROUPS[this.props.playerGroup]].map(player => player.id))
       .rangeRound([0, height - margin.top - margin.bottom])
       .paddingInner(0.35)
       .paddingOuter(0.25);
@@ -114,9 +136,9 @@ class Ranking extends Component {
       .attr("transform", d => `translate(${0},${margin.top})`);
     yAxis
       .selectAll("g")
-      .data(data)
+      .data(players[this.PLAYER_GROUPS[this.props.playerGroup]])
       .join("g")
-      .attr("transform", d => `translate(14,${yScale(d.id)}) scale(0.9)`)
+      .attr("transform", d => `translate(14,${yScale(d.id)}) scale(0.8)`)
       .append("text")
       .attr("y", textYDistanceDown + 8)
       .append("tspan")
@@ -129,7 +151,7 @@ class Ranking extends Component {
       .attr("transform", d => `translate(${margin.left},${margin.top})`);
     var cell = graph
       .selectAll("g")
-      .data(data)
+      .data(players[this.PLAYER_GROUPS[this.props.playerGroup]])
       .join("g")
       .attr("transform", d => `translate(${0},${yScale(d.id)})`);
 
@@ -229,6 +251,7 @@ class Ranking extends Component {
     return (
       <div className="ranking-container">
         <div>Foosball Ranking</div>
+        <button onClick={ this.changePlayerGroup }>{ this.PLAYER_GROUPS[this.props.playerGroup] }</button>
         <div id="rankings-list">
           <div className="canvas" ref={this.canvas}></div>
         </div>
