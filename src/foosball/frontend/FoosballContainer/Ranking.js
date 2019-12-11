@@ -45,10 +45,12 @@ class Ranking extends Component {
     const nextRect = nextState.boundingRect;
     const didSvgSizeChange =
       this.state.boundingRect.width !== nextRect.width ||
-      this.state.boundingRect.height !== nextRect.height ||
+      this.state.boundingRect.height !== nextRect.height;
+
+    const didPlayerGroupChange =
       this.state.playerGroup !== nextState.playerGroup;
 
-    return didSvgSizeChange;
+    return didSvgSizeChange || didPlayerGroupChange;
   }
 
   componentDidUpdate() {
