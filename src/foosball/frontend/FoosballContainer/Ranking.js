@@ -32,9 +32,10 @@ class Ranking extends Component {
   changePlayerGroup() {
     const nextPlayerGroup = this.state.playerGroup + 1;
 
-    this.setState({ playerGroup: (nextPlayerGroup % PLAYER_GROUPS.length - 1) });
-
+    this.setState({ playerGroup: nextPlayerGroup % (PLAYER_GROUPS.length - 1) });
     this.createChart();
+
+    this.forceUpdate();
   }
 
   componentDidMount() {
