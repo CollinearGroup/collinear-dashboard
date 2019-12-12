@@ -8,7 +8,7 @@
   &::after {
     content: '';
     display: block;
-    background-image: linear-gradient(to bottom, #394a54, transparent 0.75rem), linear-gradient(to bottom, #394a54, transparent 1rem), linear-gradient(to top, #394a54, transparent 0.75rem), linear-gradient(to top, #394a54, transparent 1rem);
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), transparent 1rem), linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent 1rem)
     position: absolute;
     top: 0;
     left: 0;
@@ -20,11 +20,11 @@
   }
 
   &.top::after {
-    background-image: linear-gradient(to top, #394a54, transparent 0.75rem), linear-gradient(to top, #394a54, transparent 1rem);
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent 1rem);
   }
 
   &.bottom::after {
-    background-image: linear-gradient(to bottom, #394a54, transparent 0.75rem), linear-gradient(to bottom, #394a54, transparent 1rem);
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), transparent 1rem);
   }
 }
 
