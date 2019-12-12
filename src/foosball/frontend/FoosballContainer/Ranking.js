@@ -33,7 +33,6 @@ class Ranking extends Component {
     window.addEventListener("resize", this.debouncedResize, false);
 
     this.canvas.current.addEventListener('scroll', this.scrollList);
-    this.scrollList({target: this.canvas.current});
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -51,6 +50,7 @@ class Ranking extends Component {
   componentDidUpdate() {
     if (this.state.loaded) {
       this.createChart();
+      this.scrollList({target: this.canvas.current});
     }
   }
 
