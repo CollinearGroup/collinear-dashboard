@@ -191,7 +191,7 @@ class Ranking extends Component {
     playerSymbol
       .append("path")
       .attr("d", `M -10 28 V 33 H 10 V 28 C 10 23, -10 23, -10 28`)
-      .attr('y', 45)
+      .attr("transform", d => `translate(0, 25)`)
       .style("stroke", "grey")
       .style("stroke-width", "3")
       .style("fill", "white");
