@@ -83,9 +83,11 @@ class Ranking extends Component {
       league: allPlayers.filter(p => p.games_played >= LEAGUE_MIN)
     };
 
-    const height = players[PLAYER_GROUPS[this.state.playerGroup]].length * 50;
+    const currentPlayers = players[PLAYER_GROUPS[this.state.playerGroup]];
 
-    const xMax = Math.max(...players[PLAYER_GROUPS[this.state.playerGroup]].map(player => player.current_rating));
+    const height = currentPlayers.length * 50;
+
+    const xMax = Math.max(...currentPlayers.map(player => player.current_rating));
     const textYDistanceDown = 25;
 
     var svg = select(".canvas")
@@ -127,10 +129,10 @@ class Ranking extends Component {
       .domain([0, xMax])
       .range([0, width - margin.left - margin.right]);
     var yScale = scaleBand()
-      .domain(players[PLAYER_GROUPS[this.state.playerGroup]].map(player => player.id))
+      .domain(currentPlayers.map(player => player.id))
       .rangeRound([0, height - margin.top - margin.bottom])
       .paddingInner(0.35)
-      .paddingOuter(0.30);
+      .paddingOuter(0.35);
     const valueScaleShiftRight = 135;
     var xValueScale = scaleLinear()
       .domain([0, xMax])
@@ -141,7 +143,7 @@ class Ranking extends Component {
       .attr("transform", d => `translate(${0}, ${margin.top})`);
     yAxis
       .selectAll("g")
-      .data(players[PLAYER_GROUPS[this.state.playerGroup]])
+      .data(currentPlayers)
       .join("g")
       .attr("transform", d => `translate(14, ${yScale(d.id)}) scale(0.8)`)
       .append("text")
@@ -156,7 +158,7 @@ class Ranking extends Component {
       .attr("transform", d => `translate(${margin.left},${margin.top})`);
     var cell = graph
       .selectAll("g")
-      .data(players[PLAYER_GROUPS[this.state.playerGroup]])
+      .data(currentPlayers)
       .join("g")
       .attr("transform", d => `translate(${0}, ${yScale(d.id)})`);
 
