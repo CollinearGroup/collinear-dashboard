@@ -130,7 +130,7 @@ class Ranking extends Component {
       .domain(players[PLAYER_GROUPS[this.state.playerGroup]].map(player => player.id))
       .rangeRound([0, height - margin.top - margin.bottom])
       .paddingInner(0.35)
-      .paddingOuter(0.45);
+      .paddingOuter(0.30);
     const valueScaleShiftRight = 135;
     var xValueScale = scaleLinear()
       .domain([0, xMax])
