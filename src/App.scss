@@ -54,7 +54,7 @@ body {
 }
 
 // Overrides the defaults
-@media (min-width: 768px) {
+@media (min-width: 768px) and (min-height: 768px) {
   body {
     padding: 0;
   }
@@ -62,8 +62,8 @@ body {
     display: grid;
     height: 100vh;
     grid-gap: 20px;
-    grid-template-rows: repeat(2, auto) repeat(2, 1fr);
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, auto) repeat(2, minmax(8em, 1fr));
+    grid-template-columns: repeat(3, minmax(15em, 1fr));
     grid-template-areas:
       "header header header"
       "cal    cal    cal"
@@ -84,6 +84,7 @@ body {
   #calendar {
     display: block;
     grid-area: cal;
+    min-height: 6em;
   }
 
   #message-board {
