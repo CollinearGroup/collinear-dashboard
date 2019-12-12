@@ -51,8 +51,9 @@
   bottom: 1px;
   right: 0;
   left: 0;
-  overflow-y: auto;
+  overflow: auto;
   overflow: overlay;
+  padding: 1rem 0;
 }
 
 .blue-stop-left {
