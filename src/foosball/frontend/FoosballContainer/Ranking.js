@@ -163,9 +163,9 @@ class Ranking extends Component {
     var playerRect = cell
       .append("rect")
       .classed("blue-gradient", true)
-      .attr('y', 4)
+      .attr('y', 5)
       .attr("width", d => xScale(xMax))
-      .attr("height", yScale.bandwidth() - 8);
+      .attr("height", yScale.bandwidth() - 10);
 
     var playerCircle = cell
       .append("circle")
@@ -190,6 +190,7 @@ class Ranking extends Component {
     playerSymbol
       .append("path")
       .attr("d", `M -10 28 V 33 H 10 V 28 C 10 23, -10 23, -10 28`)
+      .attr('y', 10)
       .style("stroke", "grey")
       .style("stroke-width", "3")
       .style("fill", "white");
@@ -219,7 +220,8 @@ class Ranking extends Component {
       )
       .classed("green-gradient", true)
       .attr("width", d => xValueScale(d.current_rating))
-      .attr("height", yScale.bandwidth());
+      .attr("height", yScale.bandwidth() - 10)
+      .attr('y', 5);
 
     var valueCircle = cell
       .append("circle")
