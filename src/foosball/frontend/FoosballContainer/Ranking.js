@@ -159,7 +159,7 @@ class Ranking extends Component {
       .data(currentPlayers)
       .join("g")
       .attr('y', 25)
-      .attr("transform", d => `translate(${0}, ${yScale(d.id)})`);
+      .attr("transform", d => `translate(${0}, ${yScale(d.id) + 10})`);
 
     var playerRect = cell
       .append("rect")
@@ -198,17 +198,17 @@ class Ranking extends Component {
 
     var playerTitleGroup = cell
       .append("g")
-      .attr("transform", d => `translate(28, ${textYDistanceDown})`);
+      .attr("transform", d => `translate(28, ${textYDistanceDown + 10})`);
     playerTitleGroup
       .append("text")
       .append("tspan")
-      .attr("y", -(250 / yScale.bandwidth()))
+      .attr("y", -(300 / yScale.bandwidth()))
       .text(d => d.first_name)
       .style("font-size", "18px");
     playerTitleGroup
       .append("text")
       .append("tspan")
-      .attr("y", 250 / yScale.bandwidth())
+      .attr("y", 300 / yScale.bandwidth())
       .attr("x", 15)
       .text(d => d.last_name)
       .style("font-size", "14px");
