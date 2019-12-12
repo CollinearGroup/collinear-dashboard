@@ -191,7 +191,7 @@ class Ranking extends Component {
     playerSymbol
       .append("path")
       .attr("d", `M -10 28 V 33 H 10 V 28 C 10 23, -10 23, -10 28`)
-      .attr('y', 25)
+      .attr('y', 45)
       .style("stroke", "grey")
       .style("stroke-width", "3")
       .style("fill", "white");
@@ -208,7 +208,7 @@ class Ranking extends Component {
     playerTitleGroup
       .append("text")
       .append("tspan")
-      .attr("y", -(180 / yScale.bandwidth()))
+      .attr("y", yScale.bandwidth() - 25)
       .attr("x", 15)
       .text(d => d.last_name)
       .style("font-size", "14px");
@@ -221,7 +221,7 @@ class Ranking extends Component {
       )
       .classed("green-gradient", true)
       .attr("width", d => xValueScale(d.current_rating))
-      .attr("height", yScale.bandwidth() - 10)
+      .attr("height", yScale.bandwidth() - 5)
       .attr('y', 5);
 
     var valueCircle = cell
