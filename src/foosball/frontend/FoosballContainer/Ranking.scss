@@ -8,7 +8,7 @@
   &::after {
     content: '';
     display: block;
-    background-image: radial-gradient(ellipse at bottom, rgba(0, 0, 0, 0.5), transparent 1rem), radial-gradient(ellipse at top, rgba(0, 0, 0, 0.5), transparent 1rem);
+    background-image: radial-gradient(ellipse 50% 1rem at bottom, rgba(0, 0, 0, 0.5), transparent), radial-gradient(ellipse 50% 1rem at top, rgba(0, 0, 0, 0.5), transparent);
     position: absolute;
     top: 0;
     left: 0;
@@ -20,11 +20,11 @@
   }
 
   &.top::after {
-    background-image: radial-gradient(ellipse at bottom, rgba(0, 0, 0, 0.5), transparent 1rem);
+    background-image: radial-gradient(ellipse 50% 1rem at bottom, rgba(0, 0, 0, 0.5), transparent);
   }
 
   &.bottom::after {
-    background-image: radial-gradient(ellipse at top, rgba(0, 0, 0, 0.5), transparent 1rem);
+    background-image: radial-gradient(ellipse 50% 1rem at top, rgba(0, 0, 0, 0.5), transparent);
   }
 }
 
