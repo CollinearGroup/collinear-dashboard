@@ -241,13 +241,13 @@ class Ranking extends Component {
         d =>
           `translate(${xValueScale(xMax - d.current_rating) +
             valueScaleShiftRight -
-            6}, ${textYDistanceDown - 4})`
+            6}, ${textYDistanceDown + 6})`
       );
     valueTitleGroup
       .append("text")
       .append("tspan")
       .text(d => Math.round(d.current_rating))
-      .style("font-size", "10px");
+      .style("font-size", "14px");
   };
 
   cleanOldSvg = () => {
