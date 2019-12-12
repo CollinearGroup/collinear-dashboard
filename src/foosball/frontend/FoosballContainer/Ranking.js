@@ -32,7 +32,7 @@ class Ranking extends Component {
     this.debouncedResize = debounce(this.handleCanvasResize, 100);
     window.addEventListener("resize", this.debouncedResize, false);
 
-    this.canvas.addEventListener('scroll', this.scrollList);
+    this.canvas.current.addEventListener('scroll', this.scrollList);
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -56,7 +56,7 @@ class Ranking extends Component {
   componentWillUnmount() {
     window.removeEventListener("resize", this.debouncedResize, false);
 
-    this.canvas.removeEventListener('scroll', this.scrollList);
+    this.canvas.current.removeEventListener('scroll', this.scrollList);
   }
 
   changePlayerGroup = () => {
