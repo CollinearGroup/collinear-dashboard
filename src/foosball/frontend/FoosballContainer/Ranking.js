@@ -85,7 +85,7 @@ class Ranking extends Component {
 
     const currentPlayers = players[PLAYER_GROUPS[this.state.playerGroup]];
 
-    const height = (currentPlayers.length + 0.7) * 50;
+    const height = currentPlayers.length * 50;
 
     const xMax = Math.max(...currentPlayers.map(player => player.current_rating));
     const textYDistanceDown = 25;
@@ -131,8 +131,7 @@ class Ranking extends Component {
     var yScale = scaleBand()
       .domain(currentPlayers.map(player => player.id))
       .rangeRound([0, height - margin.top - margin.bottom])
-      .paddingInner(0.35)
-      .paddingOuter(0.35);
+      .paddingInner(0.35);
     const valueScaleShiftRight = 135;
     var xValueScale = scaleLinear()
       .domain([0, xMax])
