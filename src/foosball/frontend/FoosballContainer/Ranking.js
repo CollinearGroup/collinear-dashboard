@@ -138,12 +138,12 @@ class Ranking extends Component {
 
     var yAxis = svg
       .append("g")
-      .attr("transform", d => `translate(${0}px, ${margin.top}px)`);
+      .attr("transform", d => `translate(${0}, ${margin.top})`);
     yAxis
       .selectAll("g")
       .data(players[PLAYER_GROUPS[this.state.playerGroup]])
       .join("g")
-      .attr("transform", d => `translate(14px, ${yScale(d.id)}px) scale(0.8)`)
+      .attr("transform", d => `translate(14, ${yScale(d.id)}) scale(0.8)`)
       .append("text")
       .attr("y", textYDistanceDown + 8)
       .append("tspan")
@@ -158,7 +158,7 @@ class Ranking extends Component {
       .selectAll("g")
       .data(players[PLAYER_GROUPS[this.state.playerGroup]])
       .join("g")
-      .attr("transform", d => `translate(${0}px, ${yScale(d.id)}px)`);
+      .attr("transform", d => `translate(${0}, ${yScale(d.id)})`);
 
     var playerRect = cell
       .append("rect")
@@ -175,7 +175,7 @@ class Ranking extends Component {
 
     var playerSymbol = cell
       .append("g")
-      .attr("transform", d => `translate(0px, -6px)`);
+      .attr("transform", d => `translate(0, -6)`);
 
     playerSymbol
       .append("circle")
@@ -195,7 +195,7 @@ class Ranking extends Component {
 
     var playerTitleGroup = cell
       .append("g")
-      .attr("transform", d => `translate(28px, ${textYDistanceDown}px)`);
+      .attr("transform", d => `translate(28, ${textYDistanceDown})`);
     playerTitleGroup
       .append("text")
       .append("tspan")
@@ -237,7 +237,7 @@ class Ranking extends Component {
         d =>
           `translate(${xValueScale(xMax - d.current_rating) +
             valueScaleShiftRight -
-            6}px, ${textYDistanceDown - 4}px)`
+            6}, ${textYDistanceDown - 4})`
       );
     valueTitleGroup
       .append("text")
