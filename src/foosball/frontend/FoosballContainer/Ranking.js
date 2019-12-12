@@ -223,14 +223,13 @@ class Ranking extends Component {
     playerTitleGroup
       .append("text")
       .append("tspan")
-      .attr("y", -(300 / yScale.bandwidth()))
-      .attr('transform', 'translate(0, -10)')
+      .attr("y", -10)
       .text(d => d.first_name)
       .style("font-size", "18px");
     playerTitleGroup
       .append("text")
       .append("tspan")
-      .attr("y", 300 / yScale.bandwidth())
+      .attr("y", 4)
       .attr("x", 15)
       .text(d => d.last_name)
       .style("font-size", "14px");
