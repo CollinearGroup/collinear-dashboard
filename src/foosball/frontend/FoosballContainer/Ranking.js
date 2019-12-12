@@ -158,7 +158,6 @@ class Ranking extends Component {
       .selectAll("g")
       .data(currentPlayers)
       .join("g")
-      .attr('y', 25)
       .attr("transform", d => `translate(${0}, ${yScale(d.id) + 10})`);
 
     var playerRect = cell
