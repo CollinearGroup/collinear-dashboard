@@ -20,8 +20,6 @@ class Ranking extends Component {
 
     this.canvas = React.createRef();
 
-    this.changePlayerGroup = this.changePlayerGroup.bind(this);
-
     this.state = {
       boundingRect: {},
       loaded: false,
@@ -29,16 +27,12 @@ class Ranking extends Component {
     };
   }
 
-  changePlayerGroup() {
-    const nextPlayerGroup = this.state.playerGroup + 1;
-
-    this.setState({ playerGroup: nextPlayerGroup % PLAYER_GROUPS.length });
-  }
-
   componentDidMount() {
     this.handleCanvasResize();
     this.debouncedResize = debounce(this.handleCanvasResize, 100);
     window.addEventListener("resize", this.debouncedResize, false);
+
+    this.canvas.addEventListener('scroll', this.scrollList);
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -61,12 +55,39 @@ class Ranking extends Component {
 
   componentWillUnmount() {
     window.removeEventListener("resize", this.debouncedResize, false);
+
+    this.canvas.removeEventListener('scroll', this.scrollList);
   }
+
+  changePlayerGroup = () => {
+    const nextPlayerGroup = this.state.playerGroup + 1;
+
+    this.setState({ playerGroup: nextPlayerGroup % PLAYER_GROUPS.length });
+  };
 
   handleCanvasResize = () => {
     const boundingRect = this.canvas.current.getBoundingClientRect();
     this.setState({ boundingRect, loaded: true });
   };
+
+  scrollList = (e) => {
+    const canvas = e.target;
+    const playersList = canvas.parentElement;
+
+    const top = canvas.scrollTop;
+
+    if (top === 0) {
+      playersList.classList.add('top');
+    } else {
+      playersList.classList.remove('top');
+    }
+
+    if (canvas.clientHeight === canvas.scrollHeight - top) {
+      playersList.classList.add('bottom');
+    } else {
+      playersList.classList.remove('bottom');
+    }
+  }
 
   createChart = () => {
     this.cleanOldSvg();
