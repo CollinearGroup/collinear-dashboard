@@ -8,7 +8,7 @@
   &::after {
     content: '';
     display: block;
-    background-image: linear-gradient(to bottom, #394a54, transparent 0.75rem), linear-gradient(to bottom, #394a54, transparent 1rem),  linear-gradient(to top, #394a54, transparent 0.75rem), linear-gradient(to top, #394a54, transparent 1rem);
+    background-image: linear-gradient(to bottom, #394a54, transparent 0.75rem), linear-gradient(to bottom, #394a54, transparent 1rem), linear-gradient(to top, #394a54, transparent 0.75rem), linear-gradient(to top, #394a54, transparent 1rem);
     position: absolute;
     top: 0;
     left: 0;
@@ -17,6 +17,14 @@
     pointer-events: none;
     z-index: 1;
     background-clip: content-box;
+
+    &.top {
+      background-image: linear-gradient(to top, #394a54, transparent 0.75rem), linear-gradient(to top, #394a54, transparent 1rem);
+    }
+
+    &.bottom {
+      background-image: linear-gradient(to bottom, #394a54, transparent 0.75rem), linear-gradient(to bottom, #394a54, transparent 1rem);
+    }
   }
 }
 
@@ -53,7 +61,6 @@
   left: 0;
   overflow: auto;
   overflow: overlay;
-  margin: 1rem 0;
 }
 
 .blue-stop-left {
