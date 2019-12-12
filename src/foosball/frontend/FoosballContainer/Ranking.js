@@ -143,7 +143,7 @@ class Ranking extends Component {
       .selectAll("g")
       .data(currentPlayers)
       .join("g")
-      .attr("transform", d => `translate(14, ${yScale(d.id)}) scale(0.8)`)
+      .attr("transform", d => `translate(14, ${yScale(d.id) + 10}) scale(0.8)`)
       .append("text")
       .attr("y", textYDistanceDown + 8)
       .append("tspan")
@@ -158,7 +158,7 @@ class Ranking extends Component {
       .selectAll("g")
       .data(currentPlayers)
       .join("g")
-      .attr("transform", d => `translate(${0}, ${yScale(d.id) + 10})`);
+      .attr("transform", d => `translate(${0}, ${yScale(d.id)})`);
 
     var playerRect = cell
       .append("rect")
