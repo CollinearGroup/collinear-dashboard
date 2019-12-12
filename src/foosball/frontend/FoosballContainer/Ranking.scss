@@ -16,7 +16,6 @@
     bottom: 0;
     pointer-events: none;
     z-index: 1;
-    padding-right: 10px;
     background-clip: content-box;
   }
 }
@@ -53,7 +52,7 @@
   right: 0;
   left: 0;
   overflow-y: auto;
-  overflow-y: overlay;
+  overflow: overlay;
 }
 
 .blue-stop-left {
