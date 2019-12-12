@@ -85,7 +85,7 @@ class Ranking extends Component {
 
     const currentPlayers = players[PLAYER_GROUPS[this.state.playerGroup]];
 
-    const height = currentPlayers.length * 60;
+    const height = currentPlayers.length * 50;
 
     const xMax = Math.max(...currentPlayers.map(player => player.current_rating));
     const textYDistanceDown = 25;
