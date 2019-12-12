@@ -85,7 +85,7 @@ class Ranking extends Component {
 
     const currentPlayers = players[PLAYER_GROUPS[this.state.playerGroup]];
 
-    const height = currentPlayers.length * 50;
+    const height = currentPlayers.length * 60;
 
     const xMax = Math.max(...currentPlayers.map(player => player.current_rating));
     const textYDistanceDown = 25;
@@ -130,8 +130,7 @@ class Ranking extends Component {
       .range([0, width - margin.left - margin.right]);
     var yScale = scaleBand()
       .domain(currentPlayers.map(player => player.id))
-      .rangeRound([0, height - margin.top - margin.bottom])
-      .paddingInner(0.35);
+      .rangeRound([0, height - margin.top - margin.bottom]);
     const valueScaleShiftRight = 135;
     var xValueScale = scaleLinear()
       .domain([0, xMax])
@@ -164,15 +163,16 @@ class Ranking extends Component {
     var playerRect = cell
       .append("rect")
       .classed("blue-gradient", true)
+      .attr('y', 4)
       .attr("width", d => xScale(xMax))
-      .attr("height", yScale.bandwidth());
+      .attr("height", yScale.bandwidth() - 8);
 
     var playerCircle = cell
       .append("circle")
       .style("fill", "white")
       .attr("cx", d => xScale(0))
       .attr("cy", yScale.bandwidth() / 2)
-      .attr("r", yScale.bandwidth() / 2 + 6);
+      .attr("r", yScale.bandwidth() / 2 - 2);
 
     var playerSymbol = cell
       .append("g")
