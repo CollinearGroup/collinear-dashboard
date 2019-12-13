@@ -13,6 +13,7 @@ const port = process.env.PORT || 8000
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
+const hmac = require('hmac-auth-express')
 
 const {
     MessagesRouter: messages,
@@ -20,6 +21,7 @@ const {
 } = require('./routes')
 
 app.use(cors())
+app.use(hmac(process.env.MESSAGES_HMAC_KEY))
 app.use(bodyParser.json())
 app.use(morgan('dev'))
 
