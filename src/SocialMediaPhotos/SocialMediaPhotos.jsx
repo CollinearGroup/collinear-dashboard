@@ -19,7 +19,9 @@ export default class SocialMediaPhotos extends Component {
       boundingRect: {
         height: 0,
         width: 0
-      }
+      },
+      photoIndex: 0,
+      images: ['']
     }
   }
 
@@ -42,10 +44,6 @@ export default class SocialMediaPhotos extends Component {
       console.log('heeeey', err)
     }
     this.startSlideShow()
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return nextState.boundingRect !== undefined && nextState.photoIndex !== undefined && nextState.images !== undefined;
   }
 
   componentWillUnmount() {
