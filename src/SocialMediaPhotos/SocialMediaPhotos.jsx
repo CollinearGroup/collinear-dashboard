@@ -70,10 +70,10 @@ export default class SocialMediaPhotos extends Component {
       width: '100%',
     }
     return (
-      <div className="slideshow-container" style={style}>
+      <div className="slideshow-container box" style={style}>
         <div className="slideshow-photo" style={style} ref={this.photo}>
           <CloudinaryContext cloudName="collinear-group" >
-            <Image publicId={images[photoIndex]} width={ Math.floor(boundingRect.width) } height={ Math.floor(boundingRect.height) } radius="5" gravity="auto" background="auto" crop="fill_pad" />
+            <Image publicId={images[photoIndex]} width={ Math.floor(boundingRect.width) } height={ Math.floor(boundingRect.height) } gravity="auto" background="#394a54" crop="fill_pad" />
           </CloudinaryContext>
         </div>
       </div>
