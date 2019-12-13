@@ -26,6 +26,10 @@ export default class SocialMediaPhotos extends Component {
   }
 
   async componentDidMount() {
+    this.handlePhotoResize();
+    this.debouncedResize = debounce(this.handlePhotoResize, 100);
+    window.addEventListener("resize", this.debouncedResize, false);
+
     try {
       let res = await axios.get("/images", {
         auth: {
@@ -44,7 +48,13 @@ export default class SocialMediaPhotos extends Component {
 
   componentWillUnmount() {
     clearInterval(this.interval)
+    window.removeEventListener("resize", this.debouncedResize, false);
   }
+
+  handlePhotoResize = () => {
+    const boundingRect = this.photo.current.getBoundingClientRect();
+    this.setState({ boundingRect });
+  };
 
   startSlideShow = () => {
     this.interval = setInterval(() => {
@@ -63,7 +73,7 @@ export default class SocialMediaPhotos extends Component {
       <div className="slideshow-container" style={style}>
         <div className="slideshow-photo" style={style} ref={this.photo}>
           <CloudinaryContext cloudName="collinear-group" >
-            <Image publicId={images[photoIndex]} width={ Math.floor(this.photo.current.getBoundingClientRect().width) } height={ Math.floor(this.photo.current.getBoundingClientRect().height) } radius="5" gravity="auto" background="auto" crop="fill_pad" />
+            <Image publicId={images[photoIndex]} width={ Math.floor(boundingRect.width) } height={ Math.floor(boundingRect.height) } radius="5" gravity="auto" background="auto" crop="fill_pad" />
           </CloudinaryContext>
         </div>
       </div>
