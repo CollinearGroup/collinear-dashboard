@@ -44,6 +44,10 @@ export default class SocialMediaPhotos extends Component {
     this.startSlideShow()
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextState.boundingRect !== undefined && nextState.photoIndex !== undefined && nextState.images !== undefined;
+  }
+
   componentWillUnmount() {
     clearInterval(this.interval)
     window.removeEventListener("resize", this.debouncedResize, false);
