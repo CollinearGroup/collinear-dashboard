@@ -1,12 +1,19 @@
 import React, { Component } from 'react'
 import { Image, CloudinaryContext } from 'cloudinary-react';
 import axios from 'axios'
+import { debounce } from "lodash";
 import './socialMediaPhotos.css'
 
 export default class SocialMediaPhotos extends Component {
   state = {
     images: [],
     photoIndex: 0
+  }
+
+  constructor(props) {
+    super(props);
+
+    this.photo = React.createRef();
   }
 
   async componentDidMount() {
@@ -24,11 +31,21 @@ export default class SocialMediaPhotos extends Component {
       console.log('heeeey', err)
     }
     this.startSlideShow()
+
+    this.handlePhotoResize();
+    this.debouncedResize = debounce(this.handlePhotoResize, 100);
+    window.addEventListener("resize", this.debouncedResize, false);
   }
 
   componentWillUnmount() {
     clearInterval(this.interval)
+    window.removeEventListener("resize", this.debouncedResize, false);
   }
+
+  handlePhotoResize = () => {
+    const boundingRect = this.photo.current.getBoundingClientRect();
+    this.setState({ boundingRect });
+  };
 
   startSlideShow = () => {
     this.interval = setInterval(() => {
@@ -38,16 +55,16 @@ export default class SocialMediaPhotos extends Component {
   }
 
   render() {
-    const { photoIndex, images } = this.state
+    const { photoIndex, images, boundingRect } = this.state
     let style = {
       height: '100%',
       width: '100%',
     }
     return (
       <div className="slideshow-container" style={style}>
-        <div className="slideshow-photo" style={style}>
+        <div className="slideshow-photo" style={style} ref={this.photo}>
           <CloudinaryContext cloudName="collinear-group" >
-            <Image publicId={images[photoIndex]} width="auto" radius="5" gravity="auto" background="auto" crop="scale" />
+            <Image publicId={images[photoIndex]} width={ boundingRect.width } height={ boundingRect.height } radius="5" gravity="auto" background="auto" crop="fill_pad" />
           </CloudinaryContext>
         </div>
       </div>
