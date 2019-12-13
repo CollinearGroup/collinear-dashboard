@@ -5,10 +5,10 @@ module.exports = {
   development: {
     client: 'pg',
     connection: {
-      host: 'database',
+      host: 'messages_database',
       user: 'test',
       password: 'test',
-      database: 'foosball'
+      database: 'messages_db'
     },
     migrations: {
       directory: path.join(__dirname, 'database', 'migrations')

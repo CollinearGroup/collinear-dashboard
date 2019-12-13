@@ -1,11 +1,10 @@
 const router = require('express').Router()
 const Keys = require('../required-fields')
-const { GamesController } = require(`../controllers`)
+const { MessagesController } = require(`../controllers`)
 
-router.get('/', GamesController.all)
-router.get('/:id', GamesController.one)
+router.get('/', MessagesController.all)
+router.get('/:id', MessagesController.one)
 
-//TODO: reorder this so updateGamesPlayed happens after the game is in the database?
-router.post('/', GamesController.prune(Keys.postPrune('games')), GamesController.complete(Keys.postComplete('games')), GamesController.updateElos, GamesController.updateGamesPlayed, GamesController.create)
+router.post('/', MessagesController.prune(Keys.postPrune('messages')), MessagesController.complete(Keys.postComplete('messages')), MessagesController.create)
 
 module.exports = router;

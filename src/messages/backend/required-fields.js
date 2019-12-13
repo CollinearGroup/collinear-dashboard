@@ -5,7 +5,7 @@ class KeyArr {
             optional: []
         }
 
-        this.games = {
+        this.kudos = {
             required: ['poster_first_name', 'poster_last_name', 'message'],
             optional: []
         }

@@ -1,10 +1,10 @@
 const router = require('express').Router()
 const Keys = require('../required-fields')
-const { UsersController } = require(`../controllers`)
+const { KudosController } = require(`../controllers`)
 
-router.get('/', UsersController.all)
-router.get('/:id', UsersController.one)
+router.get('/', KudosController.all)
+router.get('/:id', KudosController.one)
 
-router.post('/', UsersController.prune(Keys.postPrune('users')), UsersController.complete(Keys.postComplete('users')), UsersController.create)
+router.post('/', KudosController.prune(Keys.postPrune('kudos')), KudosController.complete(Keys.postComplete('kudos')), KudosController.create)
 
 module.exports = router;

@@ -2,7 +2,7 @@ exports.seed = function (knex, Promise) {
   return knex('kudos').del()
     .then(function () {
       return knex('kudos').insert([
-        { poster_first_name: 'Henry', poster_last_name: 'Turner', message: 'Congrats Chris on deleting master branch.' },
+        { poster_name: 'Henry Turner', message: 'Congrats Chris on deleting master branch.' },
       ])
     })
     .then(() => {
