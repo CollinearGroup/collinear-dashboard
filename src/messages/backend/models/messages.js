@@ -1,7 +1,7 @@
 const Model = require('./model.js')('messages')
 
-class Messages extends Model {
 
+class Messages extends Model {
 
 }
 

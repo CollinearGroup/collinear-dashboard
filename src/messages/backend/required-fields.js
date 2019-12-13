@@ -1,12 +1,12 @@
 class KeyArr {
     constructor() {
         this.messages = {
-            required: ['poster_first_name', 'poster_last_name', 'message'],
+            required: ['text', 'from'],
             optional: []
         }
 
         this.kudos = {
-            required: ['poster_first_name', 'poster_last_name', 'message'],
+            required: ['text', 'from'],
             optional: []
         }
     }

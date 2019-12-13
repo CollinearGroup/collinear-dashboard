@@ -11,7 +11,11 @@ module.exports = (tableName) => {
         }
 
         static create(body) {
-            return db(tableName).insert(body).returning('*').then(([res]) => res)
+            const poster_name = body.from.name
+            const message = body.text
+            const parsedBody = { poster_name, message }
+
+            return db(tableName).insert(parsedBody).returning('*').then(([res]) => res)
         }
 
         static update(id, body) {
