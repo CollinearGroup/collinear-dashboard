@@ -53,22 +53,22 @@ body {
   overflow-x: auto;
 }
 
-// Overrides the defaults
-@media (min-width: 768px) and (min-height: 768px) {
+// Overrides the defaults at a breakpoint
+@media (min-width: 768px) {
   body {
     padding: 0;
   }
   #container {
     display: grid;
-    height: 100vh;
     grid-gap: 20px;
-    grid-template-rows: repeat(2, auto) repeat(2, minmax(8em, 1fr));
-    grid-template-columns: repeat(3, minmax(15em, 1fr));
+    grid-template-rows: repeat(2, auto) repeat(3, minmax(8em, 1fr));
+    grid-template-columns: repeat(2, minmax(15em, 1fr));
     grid-template-areas:
-      "header header header"
-      "cal    cal    cal"
-      "photo  msgbd  npm"
-      "foos   msgbd  kudos";
+      "header header"
+      "cal    cal"
+      "npm    msgbd"
+      "foos   msgbd"
+      "photo  kudos";
     padding: 20px 40px;
     box-sizing: border-box;
   }
@@ -101,5 +101,19 @@ body {
 
   #foos {
     grid-area: foos;
+  }
+}
+
+// Overrides the defaults at a breakpoint
+@media (min-width: 1200px) and (min-height: 930px) {
+  #container {
+    height: 100vh;
+    grid-template-rows: repeat(2, auto) repeat(2, minmax(8em, 1fr));
+    grid-template-columns: repeat(3, minmax(15em, 1fr));
+    grid-template-areas:
+      "header header header"
+      "cal    cal    cal"
+      "photo  msgbd  npm"
+      "foos   msgbd  kudos";
   }
 }
