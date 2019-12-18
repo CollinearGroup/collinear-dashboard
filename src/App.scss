@@ -59,16 +59,17 @@ body {
     padding: 0;
   }
   #container {
+    max-height: 1000px;
     display: grid;
     grid-gap: 20px;
-    grid-template-rows: repeat(2, auto) repeat(3, minmax(8em, 1fr));
-    grid-template-columns: repeat(2, minmax(15em, 1fr));
+    grid-template-rows: repeat(2, auto) repeat(3, auto);
+    grid-template-columns: repeat(2, 1fr);
     grid-template-areas:
       "header header"
       "cal    cal"
-      "npm    msgbd"
+      "photo  npm"
       "foos   msgbd"
-      "photo  kudos";
+      "kudos  msgbd";
     padding: 20px 40px;
     box-sizing: border-box;
   }
@@ -105,15 +106,21 @@ body {
 }
 
 // Overrides the defaults at a breakpoint
-@media (min-width: 1200px) and (min-height: 930px) {
+@media (min-width: 1200px) {
   #container {
-    height: 100vh;
     grid-template-rows: repeat(2, auto) repeat(2, minmax(8em, 1fr));
-    grid-template-columns: repeat(3, minmax(15em, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     grid-template-areas:
       "header header header"
       "cal    cal    cal"
       "photo  msgbd  npm"
       "foos   msgbd  kudos";
+  }
+}
+
+// Overrides the defaults at a breakpoint
+@media (min-width: 1200px) and (min-height: 950px) {
+  #container {
+    height: 100vh;
   }
 }
