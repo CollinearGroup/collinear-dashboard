@@ -5,31 +5,16 @@ import { debounce } from "lodash";
 import './socialMediaPhotos.css'
 
 export default class SocialMediaPhotos extends Component {
-  state = {
-    images: [],
-    photoIndex: 0
-  }
-
   constructor(props) {
     super(props);
 
-    this.photo = React.createRef();
-
     this.state = {
-      boundingRect: {
-        height: 0,
-        width: 0
-      },
       photoIndex: 0,
       images: ['']
     }
   }
 
   async componentDidMount() {
-    this.handlePhotoResize();
-    this.debouncedResize = debounce(this.handlePhotoResize, 100);
-    window.addEventListener("resize", this.debouncedResize, false);
-
     try {
       let res = await axios.get("/images", {
         auth: {
@@ -51,11 +36,6 @@ export default class SocialMediaPhotos extends Component {
     window.removeEventListener("resize", this.debouncedResize, false);
   }
 
-  handlePhotoResize = () => {
-    const boundingRect = this.photo.current.getBoundingClientRect();
-    this.setState({ boundingRect });
-  };
-
   startSlideShow = () => {
     this.interval = setInterval(() => {
       let newIndex = this.state.photoIndex > this.state.images.length - 2 ? 0 : this.state.photoIndex + 1
@@ -64,18 +44,12 @@ export default class SocialMediaPhotos extends Component {
   }
 
   render() {
-    const { photoIndex, images, boundingRect } = this.state
-    let style = {
-      height: '100%',
-      width: '100%',
-    }
+    const { photoIndex, images } = this.state
     return (
-      <div className="slideshow-container box" style={style}>
-        <div className="slideshow-photo" style={style} ref={this.photo}>
-          <CloudinaryContext cloudName="collinear-group" >
-            <Image publicId={images[photoIndex]} width={ Math.floor(boundingRect.width) } height={ Math.floor(boundingRect.height) } gravity="auto" background="#394a54" crop="fill_pad" />
-          </CloudinaryContext>
-        </div>
+      <div className="slideshow-container box">
+        <CloudinaryContext cloudName="collinear-group" className="slideshow-photo" >
+          <Image publicId={images[photoIndex]} width="auto" responsive dpr="auto" gravity="auto" background="#394a54" crop="crop" />
+        </CloudinaryContext>
       </div>
     )
   }
