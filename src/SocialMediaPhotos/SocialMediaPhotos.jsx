@@ -67,7 +67,7 @@ export default class SocialMediaPhotos extends Component {
       <div className="slideshow-container box" ref={this.photo}>
         <CloudinaryContext cloudName="collinear-group" className="slideshow-photo" >
           <Image publicId={images[photoIndex]} >
-            <Transformation width={ Math.ceil(width) } height={ Math.ceil(height) } responsive dpr="auto" gravity="auto" background="#394a54" crop="crop" />
+            <Transformation width={ Math.ceil(width) } height={ Math.ceil(height) } responsive dpr="auto" gravity="auto" background="#394a54" crop="fill_pad" />
           </Image>
         </CloudinaryContext>
       </div>
