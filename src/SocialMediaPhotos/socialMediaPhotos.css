@@ -20,6 +20,9 @@
   height: 450px; */
   /* background-color: rgba(73, 75, 77, 0.7); */
   flex: 1 1 100%;
+  justify-content: stretch;
+  align-content: stretch;
+  display: flex;
   min-height: 10em;
 }
 
@@ -30,6 +33,8 @@
   transition: opacity .25s ease-in-out;
   animation: opac 2s ;
   flex: 1 1 100%;
+  width: 100%;
+  height: 100%;
 }
 
 @keyframes opac {
