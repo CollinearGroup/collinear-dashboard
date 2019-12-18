@@ -20,9 +20,6 @@
   height: 450px; */
   /* background-color: rgba(73, 75, 77, 0.7); */
   flex: 1 1 100%;
-  display: flex;
-  justify-content: stretch;
-  align-content: stretch;
   min-height: 10em;
 }
 
