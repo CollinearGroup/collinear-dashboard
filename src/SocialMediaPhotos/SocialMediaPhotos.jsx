@@ -48,7 +48,10 @@ export default class SocialMediaPhotos extends Component {
 
   handlePhotoResize = () => {
     const boundingRect = this.photo.current.getBoundingClientRect();
-    this.setState({ boundingRect });
+    const width = boundingRect.width;
+    const height = boundingRect.height < width ? boundingRect.height : width;
+
+    this.setState({ boundingRect: {height, width} });
   };
 
   startSlideShow = () => {
