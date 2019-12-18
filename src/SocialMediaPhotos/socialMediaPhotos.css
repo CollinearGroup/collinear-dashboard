@@ -16,16 +16,14 @@
 }
 
 .slideshow-photo {
-  /* width: 420px;
-  height: 450px; */
-  /* background-color: rgba(73, 75, 77, 0.7); */
   flex: 1 1 100%;
+  justify-content: stretch;
+  align-content: stretch;
+  display: flex;
   min-height: 10em;
 }
 
 .slideshow-photo img {
-  /* max-width: 100%; */
-  /* max-height: 400px; */
   opacity: 1;
   transition: opacity .25s ease-in-out;
   animation: opac 2s ;

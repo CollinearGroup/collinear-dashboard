@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Image, CloudinaryContext } from 'cloudinary-react';
+import { Image, CloudinaryContext, Transformation } from 'cloudinary-react';
 import axios from 'axios'
 import { debounce } from "lodash";
 import './socialMediaPhotos.css'
@@ -66,7 +66,9 @@ export default class SocialMediaPhotos extends Component {
     return (
       <div className="slideshow-container box" ref={this.photo}>
         <CloudinaryContext cloudName="collinear-group" className="slideshow-photo" >
-          <Image publicId={images[photoIndex]} width={ Math.ceil(width) } height={ Math.ceil(height) } responsive dpr="auto" gravity="auto" background="#394a54" crop="fill_pad" />
+          <Image publicId={images[photoIndex]} >
+            <Transformation width={ Math.ceil(width) } height={ Math.ceil(height) } responsive dpr="auto" gravity="auto" background="#394a54" crop="fill_pad" />
+          </Image>
         </CloudinaryContext>
       </div>
     )
