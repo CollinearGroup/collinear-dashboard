@@ -59,11 +59,11 @@ export default class SocialMediaPhotos extends Component {
   }
 
   render() {
-    const { photoIndex, images, boundingRect } = this.state
+    const { photoIndex, images, boundingRect: { width, height } } = this.state
     return (
       <div className="slideshow-container box" ref={this.photo}>
         <CloudinaryContext cloudName="collinear-group" className="slideshow-photo" >
-          <Image publicId={images[photoIndex]} width={ boundingRect.width } height={ boundingRect.height } responsive dpr="auto" gravity="auto" background="#394a54" crop="fill_pad" />
+          <Image publicId={images[photoIndex]} width={ Math.ceil(width) } height={ Math.ceil(height) } responsive dpr="auto" gravity="auto" background="#394a54" crop="fill_pad" />
         </CloudinaryContext>
       </div>
     )
