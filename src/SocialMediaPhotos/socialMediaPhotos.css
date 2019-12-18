@@ -23,6 +23,7 @@
   display: flex;
   justify-content: stretch;
   align-content: stretch;
+  min-height: 10em;
 }
 
 .slideshow-photo img {
