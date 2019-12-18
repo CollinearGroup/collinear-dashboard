@@ -5,22 +5,18 @@
 }
 
 .slideshow-container {
-  display: flex;
-  justify-content: stretch;
-  align-content: stretch;
-  float: left;
   overflow: hidden;
   border-radius: 5px;
-  flex-direction: column;
   flex: 1 1 100%;
 }
 
 .slideshow-photo {
-  flex: 1 1 100%;
   justify-content: stretch;
   align-content: stretch;
   display: flex;
   min-height: 10em;
+  height: 100%;
+  width: 100%;
 }
 
 .slideshow-photo img {
