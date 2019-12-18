@@ -1,5 +1,6 @@
 #photo {
   position: relative;
+  min-height: 10em;
 }
 
 .slideshow-container {
@@ -16,7 +17,6 @@
   justify-content: stretch;
   align-content: stretch;
   display: flex;
-  min-height: 10em;
   height: 100%;
   width: 100%;
 }
