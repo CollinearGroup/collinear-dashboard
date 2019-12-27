@@ -68,7 +68,6 @@ export default class SocialMediaPhotos extends Component {
         <CloudinaryContext cloudName="collinear-group" className="slideshow-photo" >
           <Image publicId={images[photoIndex]} >
             <Transformation width={ Math.ceil(width) } height={ Math.ceil(height) } responsive dpr="auto" gravity="auto" background="#394a54" crop="fill_pad" />
-            <Transformation effect="viesus_correct" />
           </Image>
         </CloudinaryContext>
       </div>
