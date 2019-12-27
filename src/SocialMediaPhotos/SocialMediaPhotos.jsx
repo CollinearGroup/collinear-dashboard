@@ -26,7 +26,7 @@ export default class SocialMediaPhotos extends Component {
     window.addEventListener("resize", this.debouncedResize, false);
 
     try {
-      let res = await axios.get("/images", {
+      let res = await axios.get("/images?max_results=100", {
         auth: {
           username: process.env.CLOUDINARY_USER,
           password: process.env.CLOUDINARY_PW
@@ -68,6 +68,7 @@ export default class SocialMediaPhotos extends Component {
         <CloudinaryContext cloudName="collinear-group" className="slideshow-photo" >
           <Image publicId={images[photoIndex]} >
             <Transformation width={ Math.ceil(width) } height={ Math.ceil(height) } responsive dpr="auto" gravity="auto" background="#394a54" crop="fill_pad" />
+            <Transformation effect="viesus_correct" />
           </Image>
         </CloudinaryContext>
       </div>
