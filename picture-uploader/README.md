@@ -2,6 +2,10 @@
 
 > A simple web server that handles uploads to an S3 API
 
+NOTE: AUTH DOES NOT REALLY WORK
+
+This is because LocalStack doesn't mimic AWS auth. So creds are required but do not get checked against anything.
+
 ## Getting Started
 
 ```sh

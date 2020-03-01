@@ -54,8 +54,7 @@ export const initializeStoreWithBucket = () => {
       const existingBucket = data.Buckets?.find(el => el.Name === bucketName)
       if (!existingBucket) {
         const bucketOptions = {
-          Bucket: bucketName,
-          ACL: "public-read"
+          Bucket: bucketName
         }
         s3client.createBucket(bucketOptions, err => {
           if (err) {
