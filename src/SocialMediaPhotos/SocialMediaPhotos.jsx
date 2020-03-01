@@ -1,48 +1,75 @@
 import React, { Component } from 'react'
-// replace these with the photos we actually wanna use
-import img1 from './images/dog1.jpeg'
-import img2 from './images/dog2.jpeg'
-import img3 from './images/dog3.jpeg'
-import img4 from './images/dog4.jpeg'
-import img5 from './images/dog5.jpeg'
-import img6 from './images/dog6.jpeg'
-import img7 from './images/dog7.jpeg'
-import img8 from './images/dog8.jpeg'
+import { Image, CloudinaryContext, Transformation } from 'cloudinary-react';
+import axios from 'axios'
+import { debounce } from "lodash";
 import './socialMediaPhotos.css'
 
+export default class SocialMediaPhotos extends Component {
+  constructor(props) {
+    super(props);
 
-export default class SocialMediaPhotos extends Component{
-  state = {
-    images: [img1, img7, img3, img4, img5, img6, img2, img8],
-    photoIndex: 0
+    this.photo = React.createRef();
+
+    this.state = {
+      boundingRect: {
+        height: 0,
+        width: 0
+      },
+      photoIndex: 0,
+      images: ['']
+    }
   }
-  componentDidMount(){
+
+  async componentDidMount() {
+    this.handlePhotoResize();
+    this.debouncedResize = debounce(this.handlePhotoResize, 100);
+    window.addEventListener("resize", this.debouncedResize, false);
+
+    try {
+      let res = await axios.get("/images?max_results=100", {
+        auth: {
+          username: process.env.CLOUDINARY_USER,
+          password: process.env.CLOUDINARY_PW
+        },
+        mode: 'no-cors'
+      })
+      let ids = res.data.resources.map(img => img.public_id)
+      this.setState({ images: ids }, console.log(this.state.images))
+    } catch (err) {
+      console.log('heeeey', err)
+    }
     this.startSlideShow()
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     clearInterval(this.interval)
+    window.removeEventListener("resize", this.debouncedResize, false);
   }
 
-  startSlideShow=()=>{
-    this.interval = setInterval( () => {
+  handlePhotoResize = () => {
+    const boundingRect = this.photo.current.getBoundingClientRect();
+    const width = boundingRect.width;
+    const height = boundingRect.height < width ? boundingRect.height : width;
+
+    this.setState({ boundingRect: {height, width} });
+  };
+
+  startSlideShow = () => {
+    this.interval = setInterval(() => {
       let newIndex = this.state.photoIndex > this.state.images.length - 2 ? 0 : this.state.photoIndex + 1
-      this.setState({photoIndex: newIndex})
+      this.setState({ photoIndex: newIndex })
     }, 10000)
   }
 
-
-  render(){
-    const {photoIndex, images} = this.state
-    let style = {
-      height: '100%',
-      width: '100%',
-    }
+  render() {
+    const { photoIndex, images, boundingRect: { width, height } } = this.state
     return (
-      <div className="slideshow-container" style={style}>
-        <div className="slideshow-photo" style={style}>
-          <img src={images[photoIndex]} alt="pix"/>
-        </div>
+      <div className="slideshow-container box" ref={this.photo}>
+        <CloudinaryContext cloudName="collinear-group" className="slideshow-photo" >
+          <Image publicId={images[photoIndex]} >
+            <Transformation width={ Math.ceil(width) } height={ Math.ceil(height) } responsive dpr="auto" gravity="auto" background="#394a54" crop="fill_pad" />
+          </Image>
+        </CloudinaryContext>
       </div>
     )
   }

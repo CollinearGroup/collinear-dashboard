@@ -6,7 +6,7 @@ import "./npm-metrics.scss"
 const SMART_DEEP_SORT_NAME = "smart-deep-sort"
 const LICENSE_VALIDATOR_NAME = "license-validator"
 const PCAP_NAME = "pcap-ng-parser"
-const NPM_URL = "https://api.npmjs.org/downloads/point/last-week"
+const NPM_URL = "https://api.npmjs.org/downloads/point/last-month"
 const ONE_HOUR = 60 * 60 * 1000
 
 class NpmMetrics extends React.Component {
@@ -43,12 +43,28 @@ class NpmMetrics extends React.Component {
 
   render() {
     return (
-      <div id="nm-root">
-        <div><b>NPM Modules</b></div>
-        <div>Smart Deep Sort: {this.state.smartDeepSort}</div>
-        <div>License Validator: {this.state.licenseValidator}</div>
-        <div>PCAP: {this.state.pcap}</div>
-      </div>
+    <div id="nm-root">
+        <div style={{fontSize: '22pt'}}>Open Source Libraries</div>
+        <div class='description'>Collinear built and maintains the following libraries on NPM.  Count shows downloads in the past month</div>
+    <br/>
+    <div class='container'>
+        <div class='label'>Smart Deep Sort </div>
+        <div class='filler'></div>
+        <div class='value'>{this.state.smartDeepSort}</div>
+    </div>
+    <br/>
+    <div class='container'>
+        <div class='label'>License Validator </div>
+        <div class='filler'></div>
+        <div class='value'>{this.state.licenseValidator}</div>
+    </div>
+    <br/>
+    <div class='container'>
+        <div class='label'>PCAP </div>
+        <div class='filler'></div>
+        <div class='value'>{this.state.pcap}</div>
+    </div>
+    </div>
     )
   }
 }

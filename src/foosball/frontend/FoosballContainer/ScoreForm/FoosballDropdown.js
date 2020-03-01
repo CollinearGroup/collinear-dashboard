@@ -1,6 +1,6 @@
-import React, { Fragment } from "react";
+import React from "react";
 
-export function FoosBallDropdown({
+export function FoosballDropdown({
   list,
   listKey,
   value,
@@ -31,19 +31,14 @@ export function FoosBallDropdown({
   }
 
   return (
-    <Fragment>
-      <label htmlFor={formKey}>{labelText}</label>
-      <select
-        key={formKey}
-        value={value}
-        onChange={onChange}
-        style={{ marginBottom: "1rem" }}
-      >
+    <div>
+      <div style={{ fontSize: "14px" }}>{labelText}</div>
+      <select key={formKey} value={value} onChange={onChange}>
         <option default disabled value="">
           {defaultText}
         </option>
         {list.map(renderOption)}
       </select>
-    </Fragment>
+    </div>
   );
 }
