@@ -11,6 +11,7 @@ services:
     command: node dist/app.js
   localstack:
     image: localstack/localstack:latest
+    # In production, do not expose this.
     ports:
       - '4572:4572'
     environment:

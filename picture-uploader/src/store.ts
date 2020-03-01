@@ -1,5 +1,6 @@
 import AWS from "aws-sdk"
 import fs, { ReadStream } from "fs"
+import { Readable } from "stream"
 AWS.config.update({ region: "west-us" })
 const endpoint = process.env.S3_ENDPOINT
 
@@ -13,6 +14,9 @@ const s3client = new AWS.S3({
   s3ForcePathStyle: true
 })
 const bucketName = process.env.AWS_BUCKET_NAME || "default"
+const bucketOptions = {
+  Bucket: bucketName
+}
 
 export const storeFile = async (name: string, filePath: string) => {
   const fileStream = fs.createReadStream(filePath)
@@ -44,11 +48,45 @@ export const save = async (name: string, fileStream: ReadStream) => {
   })
 }
 
+export const getRandomFile = async (): Promise<Readable> => {
+  const objectsInBucket = await listObjectsInBucket()
+  const bucketItemsLength = objectsInBucket?.Contents?.length
+  if (bucketItemsLength === undefined || bucketItemsLength === null) {
+    throw new Error("There are no pictures to show.")
+  }
+  const randomPictureIndex = Date.now() % bucketItemsLength
+  const bucketObjectKey = objectsInBucket?.Contents?.[randomPictureIndex]?.Key
+  const pictureStream = getObject(bucketObjectKey)
+  return pictureStream
+}
+
+export const getObject = (Key: string = ""): Readable => {
+  const pts = {
+    Key,
+    Bucket: bucketName
+  }
+  return s3client.getObject(pts).createReadStream()
+}
+
+export const listObjectsInBucket = (): Promise<AWS.S3.ListObjectsOutput> => {
+  return new Promise((resolve, reject) => {
+    s3client.listObjects(bucketOptions, function(err, data) {
+      if (err) {
+        reject(err)
+      }
+      resolve(data)
+    })
+  })
+}
+
 export const initializeStoreWithBucket = () => {
   const setupBucketsInterval = setInterval(() => {
     s3client.listBuckets((err, data) => {
       if (err) {
-        console.log("Unable to validate storage service is ready, will retry.")
+        console.log(
+          "Unable to validate storage service is ready, will retry.",
+          err.message
+        )
         return
       }
       const existingBucket = data.Buckets?.find(el => el.Name === bucketName)
@@ -59,7 +97,8 @@ export const initializeStoreWithBucket = () => {
         s3client.createBucket(bucketOptions, err => {
           if (err) {
             console.log(
-              "Unable to validate storage service is ready, will retry."
+              "Unable to validate storage service is ready, will retry.",
+              err.message
             )
             return
           }
@@ -71,6 +110,6 @@ export const initializeStoreWithBucket = () => {
       console.log("Found existing bucket of", bucketName)
       clearInterval(setupBucketsInterval)
     })
-  }, 10000)
+  }, 1000)
 }
 initializeStoreWithBucket()

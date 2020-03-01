@@ -1,5 +1,5 @@
 import fs from "fs"
-import { storeFile } from "./store"
+import { storeFile, getRandomFile } from "./store"
 import express from "express"
 import {
   validateAuth,
@@ -41,5 +41,20 @@ export const removeUploadFile = async (filePath: string) => {
     await fs.promises.unlink(filePath)
   } catch (error) {
     console.log(error)
+  }
+}
+
+export const nextRandomPhotoRoute = async (
+  req: express.Request,
+  res: express.Response
+) => {
+  try {
+    const file = await getRandomFile()
+    file.pipe(res)
+    return
+  } catch (error) {
+    console.log(error)
+    res.status(500).send({message: 'Unable to get the next picture!'})
+    return
   }
 }
