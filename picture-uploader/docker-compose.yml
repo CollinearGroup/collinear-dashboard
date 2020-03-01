@@ -1,0 +1,21 @@
+version: '3.2'
+services:
+  picture-uploader:
+    build: ./
+    ports:
+      - '9200:3000'
+    environment:
+      - NODE_ENV=production
+      - PIC_API_KEY=pic-api-key
+      - S3_ENDPOINT=http://localstack:4572
+    command: node dist/app.js
+  localstack:
+    image: localstack/localstack:latest
+    ports:
+      - '4572:4572'
+    environment:
+      - SERVICES=s3
+      - DEBUG=1
+      - DATA_DIR=/tmp/localstack/data
+    volumes:
+      - './.localstack:/tmp/localstack'
