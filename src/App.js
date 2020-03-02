@@ -5,7 +5,7 @@ import Header from "./layout/Header"
 
 import NpmMetrics from "./npm-metrics"
 import Foosball from "./foosball/frontend"
-import SocialMediaPhotos from "./SocialMediaPhotos/SocialMediaPhotos"
+import Photos from "./photos/Photos"
 import ConfRoomSchedule from "./conference-room-schedule/ConfRoomSchedule"
 
 export default function App() {
@@ -49,7 +49,7 @@ export class GridContainer extends React.Component {
       <div id="container">
         <HeaderWrapper />
         {this.wrapInId("calendar", <ConfRoomSchedule />)}
-        <Photos />
+        <PhotosWrapper />
         {this.wrapInId("foos", <Foosball />)}
         {this.wrapInId("npm", <NpmMetrics />)}
         <Kudos />
@@ -69,11 +69,11 @@ export class HeaderWrapper extends React.Component {
   }
 }
 
-export class Photos extends React.Component {
+export class PhotosWrapper extends React.Component {
   render() {
     return (
       <div id="photo">
-        <SocialMediaPhotos />
+        <Photos />
       </div>
     )
   }

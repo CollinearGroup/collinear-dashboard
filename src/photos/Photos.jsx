@@ -1,7 +1,7 @@
 import React, { Component } from "react"
-import "./socialMediaPhotos.css"
+import "./photos.css"
 
-export default class SocialMediaPhotos extends Component {
+export default class Photos extends Component {
   constructor(props) {
     super(props)
     this.state = {
