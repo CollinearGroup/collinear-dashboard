@@ -21,7 +21,7 @@ The local running app should by default point to the same S3 service via the loc
 
 Manually for now.
 
-Use `curl -H "PIC_API_KEY:pic-api-key" -v -F upload=@tsconfig.json localhost:3000/upload` to test the API.
+Use `curl -H "PIC_API_KEY:pic-api-key" -v -F file=@tsconfig.json localhost:3000/upload` to test the API.
 
 ## Deployment
 
