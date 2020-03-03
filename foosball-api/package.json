@@ -4,9 +4,9 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon app.js",
+    "dev": "nodemon src/app.js",
     "knex": "knex",
-    "start": "node app.js"
+    "start": "node src/app.js"
   },
   "keywords": [],
   "author": "",

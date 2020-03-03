@@ -14,20 +14,21 @@ services:
       # - ./logs:/var/log/nginx
 
   dashboard:
-    build: ./
+    build: ./dashboard
     container_name: dashboard
     environment:
-      - REACT_APP_CONF_RM_URL=http://localhost:8010/schedule
-      - REACT_APP_FOOSBALL_URL=http://localhost:8005
-      - REACT_APP_FOOSBALL_WS=ws://localhost:8005
+      - REACT_APP_CONF_RM_URL=http://localhost/calendar-api/schedule
+      - REACT_APP_FOOSBALL_URL=http://localhost/foosball-api
+      - REACT_APP_FOOSBALL_WS=ws://localhost/foosball-api
       - REACT_APP_PHOTOS_URL=http://localhost/picture-uploader
     volumes:
-      - ./src/:/app/src/
-      - ./public/:/app/public/
+      - ./dashboard/src/:/app/src/
+      - ./dashboard/public/:/app/public/
     command: npm start
 
   picture-uploader:
     build: ./picture-uploader/
+    container_name: picture-uploader
     environment:
       - NODE_ENV=production
       - PIC_API_KEY=pic-api-key
@@ -40,26 +41,20 @@ services:
       - DEBUG=1
       - DATA_DIR=/tmp/localstack/data
     volumes:
-      - './.localstack:/tmp/localstack'
+      - './picture-uploader/.localstack:/tmp/localstack'
 
-  # calendar:
-  #   image: node:12
-  #   container_name: calendar
-  #   volumes:
-  #     - ./room-calendar-server:/app
-  #   working_dir: /app
-  #   command: bash -c "npm install; node app"
+  calendar-api:
+    build: ./calendar-api/
+    container_name: calendar-api
+    volumes:
+      - ./calendar-api/calendar_config.json:/app/calendar_config.json
 
-  foos:
-    image: node:12
-    container_name: foos
+  foosball-api:
+    build: ./foosball-api/
+    container_name: foosball-api
     environment:
       - "NODE_ENV=production"
       - "DATABASE_URL=pgsql://test:test@foosdb/foosball"
-    volumes:
-      - ./src/foosball/backend:/app
-    working_dir: /app
-    command: bash -c "npm install; node app"
 
   foosdb:
     container_name: foosdb
