@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import "./photos.css"
-
+const PHOTOS_URL=`${process.env.REACT_APP_PHOTOS_URL}/next`
 export default class Photos extends Component {
   constructor(props) {
     super(props)
@@ -30,7 +30,7 @@ export default class Photos extends Component {
       <div className="slideshow-container box">
         <img
           key={imageRefreshKey}
-          src="http://localhost:3200/next"
+          src={PHOTOS_URL}
           alt="Collinear Media"
           width={"100%"}
         />

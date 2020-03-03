@@ -1,0 +1,78 @@
+version: '3.1'
+
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - 80:80
+      - 443:443
+    restart: always
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      # - ./certs:/etc/ssl/
+      # - ./logs:/var/log/nginx
+
+  dashboard:
+    build: ./
+    container_name: dashboard
+    environment:
+      - REACT_APP_CONF_RM_URL=http://localhost:8010/schedule
+      - REACT_APP_FOOSBALL_URL=http://localhost:8005
+      - REACT_APP_FOOSBALL_WS=ws://localhost:8005
+      - REACT_APP_PHOTOS_URL=http://localhost/picture-uploader
+    volumes:
+      - ./src/:/app/src/
+      - ./public/:/app/public/
+    command: npm start
+
+  picture-uploader:
+    build: ./picture-uploader/
+    environment:
+      - NODE_ENV=production
+      - PIC_API_KEY=pic-api-key
+      - S3_ENDPOINT=http://localstack:4572
+
+  localstack:
+    image: localstack/localstack:latest
+    environment:
+      - SERVICES=s3
+      - DEBUG=1
+      - DATA_DIR=/tmp/localstack/data
+    volumes:
+      - './.localstack:/tmp/localstack'
+
+  # calendar:
+  #   image: node:12
+  #   container_name: calendar
+  #   volumes:
+  #     - ./room-calendar-server:/app
+  #   working_dir: /app
+  #   command: bash -c "npm install; node app"
+
+  foos:
+    image: node:12
+    container_name: foos
+    environment:
+      - "NODE_ENV=production"
+      - "DATABASE_URL=pgsql://test:test@foosdb/foosball"
+    volumes:
+      - ./src/foosball/backend:/app
+    working_dir: /app
+    command: bash -c "npm install; node app"
+
+  foosdb:
+    container_name: foosdb
+    image: postgres:12
+    restart: always
+    volumes:
+      - db:/var/lib/postgresql/data
+    environment:
+      - "POSTGRES_USER=test"
+      - "POSTGRES_PASSWORD=test"
+      - "POSTGRES_DB=foosball"
+    ports:
+      - 5432:5432
+
+volumes:
+  db:

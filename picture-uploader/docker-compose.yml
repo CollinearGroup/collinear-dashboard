@@ -3,12 +3,14 @@ services:
   picture-uploader:
     build: ./
     ports:
-      - '9200:3000'
+      - '9200:80'
     environment:
       - NODE_ENV=production
       - PIC_API_KEY=pic-api-key
       - S3_ENDPOINT=http://localstack:4572
-    command: node dist/app.js
+    volumes:
+      - './src/:/app/src'
+    command: "npx nodemon --exec \"ts-node src/app.ts\" -e ts"
   localstack:
     image: localstack/localstack:latest
     # In production, do not expose this.

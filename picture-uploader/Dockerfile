@@ -10,4 +10,6 @@ RUN npm i
 COPY ./src ./src
 RUN npx tsc
 
-HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 CMD [ "curl localhost:3000" ]
+HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 CMD [ "curl http://localhost:80" ]
+
+CMD [ "node", "dist/app.js" ]

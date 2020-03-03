@@ -1,4 +1,5 @@
+URL=http://localhost/picture-uploader/upload;
 for f in images/*; do
   echo "Uploading -> $f";
-  curl -H "PIC_API_KEY:pic-api-key" -F file="@$f" localhost:3200/upload;
+  curl -H "pic-api-key:pic-api-key" -F file="@$f" $URL
 done

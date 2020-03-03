@@ -15,8 +15,8 @@ export const uploadRoute = async (
   res: express.Response
 ) => {
   try {
-    const { pic_api_key } = req.headers as PicIncomingHttpHeaders
-    validateAuth(pic_api_key)
+    const headers = req.headers as PicIncomingHttpHeaders
+    validateAuth(headers['pic-api-key'])
   } catch (error) {
     res.status(403).send({ message: error.message })
     return

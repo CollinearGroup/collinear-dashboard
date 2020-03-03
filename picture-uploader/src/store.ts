@@ -110,6 +110,6 @@ export const initializeStoreWithBucket = () => {
       console.log("Found existing bucket of", bucketName)
       clearInterval(setupBucketsInterval)
     })
-  }, 1000)
+  }, 10000)
 }
 initializeStoreWithBucket()

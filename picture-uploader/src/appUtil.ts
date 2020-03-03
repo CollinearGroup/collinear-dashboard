@@ -4,6 +4,7 @@ export const temporaryFileUploadsDirectory = "file-uploads"
 
 export const validateAuth = (apiKey: string) => {
   if (process.env.NODE_ENV !== "production") {
+    console.log('skipping auth since',  process.env.NODE_ENV)
     return
   }
   if (!apiKey) {
@@ -15,5 +16,5 @@ export const validateAuth = (apiKey: string) => {
 }
 
 export interface PicIncomingHttpHeaders extends IncomingHttpHeaders {
-  pic_api_key: string
+  ['pic-api-key']: string
 }

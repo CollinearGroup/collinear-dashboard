@@ -8,12 +8,12 @@ import { temporaryFileUploadsDirectory } from './appUtil'
 import { rootPathRoute, uploadRoute, nextRandomPhotoRoute } from "./routes";
 const multer = require("multer")
 
-const port = process.env.PORT || 3200
+const port = process.env.PORT || 80
 
 const upload = multer({ dest: temporaryFileUploadsDirectory })
 const app = express()
 app.use(cors())
-app.use(morgan('tiny'))
+app.use(morgan('dev'))
 
 app.listen(port, () => console.log(`Listening on http://localhost:${port}!`))
 
