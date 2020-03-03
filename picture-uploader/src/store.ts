@@ -39,10 +39,10 @@ export const save = async (name: string, fileStream: ReadStream) => {
     // call S3 to retrieve upload file to specified bucket
     s3client.upload(uploadParams, function(err, data) {
       if (err) {
-        console.log("Error", err)
+        console.log("Storage Upload Error", err)
         return reject()
       }
-      console.log("Upload Success", data.Location)
+      console.log("Storage Upload Success", data.Location)
       return resolve()
     })
   })
