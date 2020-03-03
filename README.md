@@ -11,4 +11,6 @@ $ docker-compose up --build
 ...
 ```
 
-The docker-compose is a work in progress.
+## Contributing
+
+See our [Confluence](https://collineargroup.atlassian.net/wiki/spaces/COL/pages/687538280/Dev+Ops)
