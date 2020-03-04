@@ -21,4 +21,7 @@ services:
       - DEBUG=1
       - DATA_DIR=/tmp/localstack/data
     volumes:
-      - './.localstack:/tmp/localstack'
+      - 'photos:/tmp/localstack/data'
+
+volumes:
+  photos:

@@ -19,11 +19,13 @@ const bucketOptions = {
 }
 
 export const storeFile = async (name: string, filePath: string) => {
+  console.log('storing file of', name, 'as', filePath)
   const fileStream = fs.createReadStream(filePath)
   await save(name, fileStream)
 }
 
 export const save = async (name: string, fileStream: ReadStream) => {
+  console.log('saving file of', name)
   const uploadParams = {
     Bucket: bucketName,
     Body: fileStream,
@@ -49,9 +51,10 @@ export const save = async (name: string, fileStream: ReadStream) => {
 }
 
 export const getRandomFile = async (): Promise<Readable> => {
+  console.log('getting random file')
   const objectsInBucket = await listObjectsInBucket()
   const bucketItemsLength = objectsInBucket?.Contents?.length
-  if (bucketItemsLength === undefined || bucketItemsLength === null) {
+  if (bucketItemsLength === undefined || bucketItemsLength === null || bucketItemsLength === 0) {
     throw new Error("There are no pictures to show.")
   }
   const randomPictureIndex = Date.now() % bucketItemsLength

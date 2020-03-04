@@ -41,7 +41,7 @@ services:
       - DEBUG=1
       - DATA_DIR=/tmp/localstack/data
     volumes:
-      - './picture-uploader/.localstack:/tmp/localstack'
+      - photos:/tmp/localstack/data
 
   calendar-api:
     build: ./calendar-api/
@@ -71,3 +71,4 @@ services:
 
 volumes:
   db:
+  photos:
