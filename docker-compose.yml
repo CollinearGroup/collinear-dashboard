@@ -10,8 +10,6 @@ services:
     restart: always
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
-      # - ./certs:/etc/ssl/
-      # - ./logs:/var/log/nginx
 
   dashboard:
     build: ./dashboard
@@ -32,16 +30,9 @@ services:
     environment:
       - NODE_ENV=production
       - PIC_API_KEY=pic-api-key
-      - S3_ENDPOINT=http://localstack:4572
-
-  localstack:
-    image: localstack/localstack:latest
-    environment:
-      - SERVICES=s3
-      - DEBUG=1
-      - DATA_DIR=/tmp/localstack/data
+      - STORE_PATH=/var/lib/picture-uploader/uploads
     volumes:
-      - photos:/tmp/localstack/data
+      - photos:/var/lib/picture-uploader/uploads
 
   calendar-api:
     build: ./calendar-api/

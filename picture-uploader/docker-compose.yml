@@ -7,21 +7,11 @@ services:
     environment:
       - NODE_ENV=production
       - PIC_API_KEY=pic-api-key
-      - S3_ENDPOINT=http://localstack:4572
+      - STORE_PATH=/var/lib/picture-uploader/uploads
     volumes:
       - './src/:/app/src'
+      - photos:/var/lib/picture-uploader/uploads
     command: "npx nodemon --exec \"ts-node src/app.ts\" -e ts"
-  localstack:
-    image: localstack/localstack:latest
-    # In production, do not expose this.
-    ports:
-      - '4572:4572'
-    environment:
-      - SERVICES=s3
-      - DEBUG=1
-      - DATA_DIR=/tmp/localstack/data
-    volumes:
-      - 'photos:/tmp/localstack/data'
 
 volumes:
   photos:
