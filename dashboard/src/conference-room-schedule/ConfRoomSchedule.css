@@ -1,0 +1,101 @@
+
+.conf-schedule-name {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 8em;
+  min-width: 5em;
+  font-size: 24px;
+  color: #FFFFFF;
+  float: right;
+  padding-right: .5em;
+}
+
+.calendar-content {
+  width: 100%;
+  table-layout: fixed;
+  min-width: 80rem;
+}
+
+.conf-schedule-hour {
+  white-space: nowrap;
+}
+
+.conf-shedule-hour-span {
+  color: #FFFFFF;
+  font-weight: 100;
+  font-size: 14px;
+  float:left;
+}
+
+.conf-schedule-meetings {
+  padding-top: .1em;
+}
+
+.conf-room-meeting-free {
+  background: #F4F9FF;
+  border-right: 1px #FFFFFF;
+  height: 1.6em;
+  padding: 0;
+}
+
+table {
+  border-spacing: 0 4px;
+  width: 100%;
+  table-layout: fixed;
+}
+
+th {
+  padding: 0;
+}
+
+.first-header-col {
+  width: 5em;
+}
+
+.border-col {
+  border-right: 1px solid #FFFFFF;
+}
+
+.name-col { 
+  width: 15em;
+  height: 1.5em;
+  text-align: right;
+}
+
+.red-busy {
+  background-color: #FFC2C4;
+  border-bottom: solid #FF5555 2px;
+}
+
+.green-busy {
+  background-color: #C0FBC0;
+  border-bottom: solid #55FF55 2px;
+}
+
+.yellow-busy {
+  background-color: #FAF797;
+  border-bottom: solid #C7C464 2px;
+}
+
+.blue-busy {
+  background-color: #C4C2FF;
+  border-bottom: solid #5555FF 2px;
+}
+
+.busy-rect {
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.name-div {
+  text-overflow: ellipsis;
+  text-align: left;
+  padding: 0 .5em;
+  font-size: 14px;
+  font-weight: 500;
+  color: #000000;
+  flex: 0 0
+}

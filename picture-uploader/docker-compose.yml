@@ -1,0 +1,17 @@
+version: '3.2'
+services:
+  picture-uploader:
+    build: ./
+    ports:
+      - '9200:80'
+    environment:
+      - NODE_ENV=production
+      - PIC_API_KEY=pic-api-key
+      - STORE_PATH=/var/lib/picture-uploader/uploads
+    volumes:
+      - './src/:/app/src'
+      - photos:/var/lib/picture-uploader/uploads
+    command: "npx nodemon --exec \"ts-node src/app.ts\" -e ts"
+
+volumes:
+  photos:
