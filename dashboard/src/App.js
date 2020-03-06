@@ -7,7 +7,8 @@ import NpmMetrics from "./npm-metrics"
 import Foosball from "./foosball/frontend"
 import Photos from "./photos/Photos"
 import ConfRoomSchedule from "./conference-room-schedule/ConfRoomSchedule"
-import MessageBoard from "./message-board/MessageBoard"
+// TODO: Import new message board front end.
+// import MessageBoard from "./message-board/MessageBoard"
 
 export default function App() {
   return <GridContainer />
@@ -54,7 +55,7 @@ export class GridContainer extends React.Component {
         {this.wrapInId("foos", <Foosball />)}
         {this.wrapInId("npm", <NpmMetrics />)}
         <Kudos />
-        {this.wrapInId("message-board", <MessageBoard />)}
+        {/* {this.wrapInId("message-board", <MessageBoard />)} */}
       </div>
     )
   }

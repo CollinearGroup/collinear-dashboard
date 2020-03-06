@@ -7,7 +7,7 @@ Hacking? See the [CONTRIBUTING.md](/CONTRIBUTING.md) guide.
 ## Getting Started
 
 ```bash
-$ docker-compose up --build
+$ docker-compose -f docker-compose.master.yml up --build
 ...
 ```
 
