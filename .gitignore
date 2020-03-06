@@ -61,6 +61,3 @@ typings/
 .next
 
 build
-
-# LocalStack
-.localstack/
