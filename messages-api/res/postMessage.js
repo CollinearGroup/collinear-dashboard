@@ -2,9 +2,8 @@ const crypto = require("crypto")
 const http = require("http")
 
 // Setup data and various, necessary transformations
-const secret = "secret"
+const secret = "development"
 const secretBuffer = Buffer.from(secret, "base64")
-
 const message = {
   text: "helloworld from team awesome (dan, and lee)"
 }
@@ -16,6 +15,7 @@ const hash = crypto.createHmac("sha256", secretBuffer).update(payloadBuffer)
 const digest64 = hash.digest("base64")
 const hmacAuth = `HMAC ${digest64}`
 
+// Send the request
 const httpRequestOptions = {
   hostname: "localhost",
   port: 8080,
@@ -27,8 +27,6 @@ const httpRequestOptions = {
     "Content-Length": payload.length
   }
 }
-
-// Send the request
 const req = http.request(httpRequestOptions, res => {
   res.on("data", d => {
     process.stdout.write(d)

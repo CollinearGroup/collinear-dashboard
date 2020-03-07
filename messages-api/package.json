@@ -15,7 +15,6 @@
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "hmac-auth-express": "^4.0.1",
     "knex": "^0.20.1",
     "lodash.uniq": "^4.5.0",
     "lodash.uniqby": "^4.7.0",

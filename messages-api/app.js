@@ -12,14 +12,10 @@ const port = process.env.PORT || 8000
 const cors = require("cors")
 const bodyParser = require("body-parser")
 const morgan = require("morgan")
-const hmac = require("hmac-auth-express")
 
 const { MessagesRouter: messages, KudosRouter: kudos } = require("./routes")
 
-console.log(process.env.MESSAGES_HMAC_KEY)
-
 app.use(cors())
-// app.use("/", hmac(process.env.MESSAGES_HMAC_KEY))
 app.use(bodyParser.json())
 app.use(morgan("dev"))
 
@@ -33,9 +29,7 @@ app.use((req, res) => {
 })
 
 app.use((err, _req, res, _next) => {
-  console.log("herererer")
-  console.log(_req.headers)
-  // console.error(err)
+  console.error(err)
   const status = err.status || 500
   const message = err.message || "Something went wrong!"
   res.status(status).json({ message, status })
