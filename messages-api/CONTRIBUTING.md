@@ -2,7 +2,7 @@
 
 You can use the script: `res/postMessage.js` script to post a message with appropriate HMAC auth as the Teams Outgoing Webhook will send it.
 
-If you work on auth, `res/simpleServer.js` gives you a quick server that manually validates the HMAC auth. If you want the Teams Webhook to send data to this script, fire up an [`ngrok`](https://ngrok.com) tunnel.
+If you want the Teams Webhook to send data to this script, fire up an [`ngrok`](https://ngrok.com) tunnel.
 
 NOTE: Double check the port and endpoint as it might vary depending on what was being tested last.
 

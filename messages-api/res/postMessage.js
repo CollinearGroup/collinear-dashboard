@@ -5,6 +5,7 @@ const http = require("http")
 const secret = "development"
 const secretBuffer = Buffer.from(secret, "base64")
 const message = {
+  from: "The Bossman",
   text: "helloworld from team awesome (dan, and lee)"
 }
 const payload = JSON.stringify(message)
@@ -18,8 +19,8 @@ const hmacAuth = `HMAC ${digest64}`
 // Send the request
 const httpRequestOptions = {
   hostname: "localhost",
-  port: 8080,
-  path: "/",
+  port: 8011,
+  path: "/api/messages/",
   method: "POST",
   headers: {
     "Content-Type": "application/json",
