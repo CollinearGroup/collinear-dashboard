@@ -1,6 +1,6 @@
 #photo {
   position: relative;
-  min-height: 10em;
+  height: 100%;
 }
 
 .slideshow-container {
