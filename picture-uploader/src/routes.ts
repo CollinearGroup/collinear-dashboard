@@ -1,5 +1,5 @@
 import fs from "fs"
-import { storeFile, getRandomFile } from "./store"
+import { storeFile, getNextFile, deleteAll } from "./store"
 import express from "express"
 import {
   validateAuth,
@@ -41,6 +41,22 @@ export const uploadRoute = async (
   await removeUploadFile(croppedFilePath)
 }
 
+export const deleteAllPhotos = async (
+  req: express.Request,
+  res: express.Response,
+) => {
+  if (!validateAuthMiddleware(req, res)) return
+  console.log('deleting all files');
+  
+  try {
+    await deleteAll()
+    res.send({message: "success"})
+  } catch (error) {
+    res.status(500).send({ message: error.message })
+    return
+  }
+}
+
 export const validateAuthMiddleware = async (
   req: express.Request,
   res: express.Response
@@ -63,12 +79,12 @@ export const removeUploadFile = async (filePath: string) => {
   }
 }
 
-export const nextRandomPhotoRoute = async (
+export const nextPhotoRoute = async (
   req: express.Request,
   res: express.Response
 ) => {
   try {
-    const file = await getRandomFile()
+    const file = await getNextFile()
     file.pipe(res)
     return
   } catch (error) {

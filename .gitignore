@@ -64,3 +64,5 @@ build
 
 # LocalStack
 .localstack/
+
+.DS_Store

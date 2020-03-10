@@ -5,7 +5,7 @@ import express from "express"
 import cors from "cors"
 import morgan from "morgan"
 import { temporaryFileUploadsDirectory } from './appUtil'
-import { rootPathRoute, uploadRoute, nextRandomPhotoRoute } from "./routes";
+import { rootPathRoute, uploadRoute, nextPhotoRoute, deleteAllPhotos } from "./routes";
 const multer = require("multer")
 
 const port = process.env.PORT || 80
@@ -19,4 +19,5 @@ app.listen(port, () => console.log(`Listening on http://localhost:${port}!`))
 
 app.get("/", rootPathRoute)
 app.post("/upload", upload.single("file"), uploadRoute)
-app.get("/next", nextRandomPhotoRoute)
+app.get("/next", nextPhotoRoute)
+app.get("/deleteAll", deleteAllPhotos)
