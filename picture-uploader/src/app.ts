@@ -21,5 +21,3 @@ app.get("/", rootPathRoute)
 app.post("/upload", upload.single("file"), uploadRoute)
 app.get("/next", nextPhotoRoute)
 app.get("/deleteAll", deleteAllPhotos)
-
-app.use

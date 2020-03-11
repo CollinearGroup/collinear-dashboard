@@ -17,7 +17,7 @@ export const uploadRoute = async (
 ) => {
   if (!validateAuthMiddleware(req, res)) return
 
-  const uploadedFileName = req.file.filename
+  const uploadedFileName = req?.file?.filename
   const uploadedFilePath = `${temporaryFileUploadsDirectory}/${uploadedFileName}`
   const croppedFilePath = `${temporaryFileUploadsDirectory}/cropped-${uploadedFileName}`
   console.log("received:", uploadedFileName)

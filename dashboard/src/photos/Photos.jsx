@@ -30,8 +30,7 @@ export default class Photos extends Component {
         <div className="slideshow-photo">
           <img
             id="photo"
-            key={imageRefreshKey}
-            src={PHOTOS_URL}
+            src={`${PHOTOS_URL}?${imageRefreshKey}`}
             alt="Collinear Media"
           />
         </div>
