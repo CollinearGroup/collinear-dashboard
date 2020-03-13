@@ -1,7 +1,7 @@
 class KeyArr {
   constructor() {
     this.messages = {
-      required: ["text", "from"],
+      required: ["text", "from", "show_from", "show_to"],
       optional: []
     }
 

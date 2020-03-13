@@ -6,14 +6,15 @@ import InputBox from '../components/ui/InputBox';
 import TextArea from '../components/ui/TextArea';
 import DatePicker from '../components/ui/DatePicker';
 
+const messageBoardURL = process.env.MESSAGE_BOARD_API_URL || "http://localhost:8011/api/messages/";
+
 class MessageBoardForm extends Component {
 
     state = {
-        title: '',
-        description: '',
-        timePeriod: '',
-        effectiveDate: '',
-        expirationDate: '',
+        poster_name: '',
+        message: '',
+        show_from: '',
+        show_to: '',
         canSubmit: false
     }
 
@@ -23,8 +24,8 @@ class MessageBoardForm extends Component {
                 [event.target.name]: event.target.value
             }, 
             function() { 
-                if (this.state.title !== '' && this.state.description !== '' && this.state.timePeriod !== '' 
-                   && this.state.effectiveDate !== '' && this.state.expirationDate !== '') {
+                if (this.state.poster_name !== '' && this.state.message !== '' 
+                   && this.state.show_from !== '' && this.state.show_to !== '') {
                        this.setState(
                            {
                                canSubmit: true
@@ -43,14 +44,14 @@ class MessageBoardForm extends Component {
 
     messagePostHandler = (event) => {
         event.preventDefault();
-        const message = {
-            title: this.state.title,
-            description: this.state.description,
-            timePeriod: this.state.timePeriod,
-            effectiveDate: this.state.effectiveDate,
-            expirationDate: this.state.expirationDate
+        const { poster_name, message, show_from, show_to } = this.state
+        const newMessage = {
+            poster_name,
+            message,
+            show_from,
+            show_to
         }
-        axios.post('https://cd-message-board.firebaseio.com/messages.json', message)
+        axios.post(messageBoardURL, newMessage)
              .then(response => {
                      console.log('Response was ' + response)
                      this.props.switchMode()
@@ -65,19 +66,16 @@ class MessageBoardForm extends Component {
               <form>
                 <p>Enter a new message</p>
                 <div>
-                    <InputBox name='title' placeholder='Title' change={this.onInputChangeHandler}/>
+                    <InputBox name='poster_name' placeholder="Enter Name" change={this.onInputChangeHandler}/>
                 </div>
                 <div>
-                    <TextArea name='description' placeholder='Message Description' change={this.onInputChangeHandler} />
+                    <TextArea name='message' placeholder='Enter Message Here' change={this.onInputChangeHandler} />
                 </div>
                 <div>
-                    <InputBox name='timePeriod' placeholder='Time period (example: "Week of May 9")' change={this.onInputChangeHandler} />
+                    <DatePicker label='Effective Date' name='show_from' change={this.onInputChangeHandler} />
                 </div>
                 <div>
-                    <DatePicker label='Effective Date' name='effectiveDate' change={this.onInputChangeHandler} />
-                </div>
-                <div>
-                    <DatePicker label='ExpirationDate' name='expirationDate' change={this.onInputChangeHandler} />
+                    <DatePicker label='ExpirationDate' name='show_to' change={this.onInputChangeHandler} />
                 </div>
                 <Button disabled={!this.state.canSubmit} clickHandler={this.messagePostHandler} text="SUBMIT MESSAGE" /> 
               </form>

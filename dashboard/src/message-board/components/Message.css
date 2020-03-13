@@ -1,4 +1,4 @@
-.message {
+.message-container {
     width: 90%;
     margin: 10px;
     padding: 10px;
@@ -8,20 +8,14 @@
     text-align: center;
 }
 
-.title {
+.poster {
     border: 1px solid black;
-    font-size: 18px;
-    margin: 3px;
-    padding: 3px;
-}
-
-.description {
-    margin: 3px;
-    padding: 3px;
-}
-
-.time-period {
-    margin: 5px;
-    padding: 5px;
     font-size: 10px;
+    margin: 3px;
+    padding: 3px;
+}
+
+.message {
+    margin: 3px;
+    padding: 3px;
 }

@@ -3,10 +3,9 @@ import './Message.css'
 
 const Message = (props) => {
     return (
-        <div className='message'>
-            <div className='time-period'>{props.timePeriod}</div>
-            <div className='title'>{props.title}</div>
-            <div className='description'>{props.description}</div>
+        <div className='message-container'>
+            <div className='message'>{props.message}</div>
+            <div className='poster'>Posted by: {props.poster_name}</div>
         </div>
     )
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './ExampleUsage.css';
+import './MessageBoard.css';
 import MessageBoard from './containers/MessageBoard';
 import MessageBoardForm from './containers/MessageBoardForm';
 
