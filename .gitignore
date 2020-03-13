@@ -61,3 +61,8 @@ typings/
 .next
 
 build
+
+# LocalStack
+.localstack/
+
+.DS_Store

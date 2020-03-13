@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import "./photos.css"
-const PHOTOS_URL=`${process.env.REACT_APP_PHOTOS_URL}/next`
+const PHOTOS_URL = `${process.env.REACT_APP_PHOTOS_URL}/next`
 export default class Photos extends Component {
   constructor(props) {
     super(props)
@@ -25,15 +25,15 @@ export default class Photos extends Component {
 
   render() {
     const { imageRefreshKey } = this.state
-
     return (
       <div className="slideshow-container box">
-        <img
-          key={imageRefreshKey}
-          src={PHOTOS_URL}
-          alt="Collinear Media"
-          width={"100%"}
-        />
+        <div className="slideshow-photo">
+          <img
+            id="photo"
+            src={`${PHOTOS_URL}?${imageRefreshKey}`}
+            alt="Collinear Media"
+          />
+        </div>
       </div>
     )
   }

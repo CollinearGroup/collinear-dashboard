@@ -18,15 +18,30 @@ export const storeFile = async (name: string, filePath: string) => {
   })
 }
 
-export const getRandomFile = async (): Promise<Readable> => {
+let lastPhotoIndex = 0
+export const getNextFile = async (): Promise<Readable> => {
   console.log("getting random file")
   const files = await fs.promises.readdir(STORE_PATH)
   if (files.length === 0) {
     throw new Error("No files have been uploaded yet.")
   }
-  const randomFileIndex = Date.now() % files.length
+  const randomFileIndex = lastPhotoIndex++ % files.length
   const filePath = `${STORE_PATH}/${files[randomFileIndex]}`
   return fs.createReadStream(filePath)
+}
+
+export const deleteAll = async () => {
+  const files = await fs.promises.readdir(STORE_PATH)
+  if (files.length === 0) {
+    throw new Error("No files have been uploaded yet.")
+  }
+  const fileDeletionPromises = [] as Array<Promise<void>>
+  for (const fileName of files) {
+    const filePath = `${STORE_PATH}/${fileName}`
+    const deletionPromise = fs.promises.unlink(filePath)
+    fileDeletionPromises.push(deletionPromise)
+  }
+  await Promise.all(fileDeletionPromises)
 }
 
 export const init = async () => {
