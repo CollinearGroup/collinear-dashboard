@@ -15,7 +15,9 @@ module.exports = tableName => {
     static create(body) {
       const poster_name = body.from.name
       const message = body.text
-      const parsedBody = { poster_name, message }
+      const show_from = body.show_from
+      const show_to = body.show_to
+      const parsedBody = { poster_name, message, show_from, show_to }
 
       return db(tableName)
         .insert(parsedBody)

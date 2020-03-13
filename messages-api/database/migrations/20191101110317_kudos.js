@@ -3,6 +3,8 @@ exports.up = function (knex, Promise) {
     table.increments()
     table.string('poster_name').notNullable().defaultsTo('')
     table.string('message').notNullable().defaultsTo('')
+    table.date('show_from').notNullable()
+    table.date('show_to').notNullable()
   })
 }
 
