@@ -6,6 +6,7 @@ import Button from '../components/ui/Button'
 import InputBox from '../components/ui/InputBox'
 import TextArea from '../components/ui/TextArea'
 import DatePicker from '../components/ui/DatePicker'
+import PasswordBox from '../components/ui/PasswordBox'
 
 const messageBoardURL = process.env.MESSAGE_BOARD_API_URL || "http://localhost:8011/api/messages/";
 
@@ -16,7 +17,7 @@ class MessageBoardForm extends Component {
         message: '',
         show_from: '',
         show_to: '',
-        passcode: 'development',
+        passcode: '',
         canSubmit: false
     }
 
@@ -26,7 +27,7 @@ class MessageBoardForm extends Component {
             [event.target.name]: event.target.value
         }, 
         function() { 
-            if (this.state.poster_name !== '' && this.state.message !== '' 
+            if (this.state.poster_name !== '' && this.state.message !== '' && this.state.passcode !== ''
                 && this.state.show_from !== '' && this.state.show_to !== '') {
                     this.setState(
                         {
@@ -66,13 +67,12 @@ class MessageBoardForm extends Component {
 
         const options = { headers : {
             'Content-Type': 'application/json',
-            'Authorization': hmacAuth,
-            'Content-Length': payload.length }
+            'Authorization': hmacAuth }
         }
 
         axios.post(messageBoardURL, payload, options)
              .then(response => {
-                     console.log('Response was ' + response)
+                     console.log('Response was ' + response.data)
                      this.props.switchMode()
                  })
              .catch(error => console.log('Error was ' + error));
@@ -89,6 +89,9 @@ class MessageBoardForm extends Component {
                 </div>
                 <div>
                     <TextArea name='message' placeholder='Enter Message Here' change={this.onInputChangeHandler} />
+                </div>
+                <div>
+                    <PasswordBox name='passcode' placeholder="Enter Passcode" change={this.onInputChangeHandler}/>
                 </div>
                 <div>
                     <DatePicker label='Effective Date' name='show_from' change={this.onInputChangeHandler} />
