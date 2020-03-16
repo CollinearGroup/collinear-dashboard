@@ -9,8 +9,7 @@ class MessageBoard extends Component {
 
     state = {
         messages: [],
-        messageNumberToDisplay: 0,
-        messageJsxToDisplay: null
+        messageNumberToDisplay: 0
     }
     
     componentDidMount() {
@@ -59,7 +58,7 @@ class MessageBoard extends Component {
 
         return (
             <div>
-                <Button clickHandler={this.props.switchMode} text="Add an event" />
+                <Button clickHandler={this.props.switchMode} text="Enter a new message" />
                 <div>
                     {this.state.messages[this.state.messageNumberToDisplay] ?
                     <Message 

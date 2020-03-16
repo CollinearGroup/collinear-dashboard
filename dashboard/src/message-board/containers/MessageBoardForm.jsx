@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
-import './MessageBoardForm.css';
-import axios from 'axios';
-import Button from '../components/ui/Button';
-import InputBox from '../components/ui/InputBox';
-import TextArea from '../components/ui/TextArea';
-import DatePicker from '../components/ui/DatePicker';
+import React, { Component } from 'react'
+import './MessageBoardForm.css'
+import axios from 'axios'
+import crypto from 'crypto'
+import Button from '../components/ui/Button'
+import InputBox from '../components/ui/InputBox'
+import TextArea from '../components/ui/TextArea'
+import DatePicker from '../components/ui/DatePicker'
 
 const messageBoardURL = process.env.MESSAGE_BOARD_API_URL || "http://localhost:8011/api/messages/";
 
@@ -20,26 +21,26 @@ class MessageBoardForm extends Component {
 
     onInputChangeHandler = (event) => {
         this.setState(
-            {
-                [event.target.name]: event.target.value
-            }, 
-            function() { 
-                if (this.state.poster_name !== '' && this.state.message !== '' 
-                   && this.state.show_from !== '' && this.state.show_to !== '') {
-                       this.setState(
-                           {
-                               canSubmit: true
-                           }
-                       )
-                }
-                else if (this.state.canSubmit) {
+        {
+            [event.target.name]: event.target.value
+        }, 
+        function() { 
+            if (this.state.poster_name !== '' && this.state.message !== '' 
+                && this.state.show_from !== '' && this.state.show_to !== '') {
                     this.setState(
                         {
-                            canSubmit: false
+                            canSubmit: true
                         }
                     )
-                }
-            })
+            }
+            else if (this.state.canSubmit) {
+                this.setState(
+                    {
+                        canSubmit: false
+                    }
+                )
+            }
+        })
     }
 
     messagePostHandler = (event) => {
@@ -51,7 +52,25 @@ class MessageBoardForm extends Component {
             show_from,
             show_to
         }
-        axios.post(messageBoardURL, newMessage)
+
+        const secret = "development"
+        const secretBuffer = Buffer.from(secret, "base64")
+
+        const payload = JSON.stringify(newMessage)
+        const payloadBuffer = Buffer.from(payload, "utf8")
+
+        // Create HMAC hash
+        const hash = crypto.createHmac("sha256", secretBuffer).update(payloadBuffer)
+        const digest64 = hash.digest("base64")
+        const hmacAuth = `HMAC ${digest64}`
+
+        const headers = {
+            "Content-Type": "application/json",
+            Authorization: hmacAuth,
+            "Content-Length": payload.length
+        }
+
+        axios.post(messageBoardURL, payload, headers)
              .then(response => {
                      console.log('Response was ' + response)
                      this.props.switchMode()
