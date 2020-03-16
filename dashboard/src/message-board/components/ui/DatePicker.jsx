@@ -1,11 +1,13 @@
 import React from 'react';
+import '../../containers/MessageBoardForm.css'
 
 const DatePicker = (props) => {
     return (
         <div className="input-box">
-            {props.label} 
-            <input name={props.name} className="date-picker" type="date" onChange={props.change}>
-            </input>
+            <div>{props.label}</div>
+            <div>
+                <input name={props.name} className="date-picker" type="date" onChange={props.change} />
+            </div>
         </div>
     ) 
 }

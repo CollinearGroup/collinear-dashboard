@@ -16,6 +16,7 @@ class MessageBoardForm extends Component {
         message: '',
         show_from: '',
         show_to: '',
+        passcode: 'development',
         canSubmit: false
     }
 
@@ -45,16 +46,15 @@ class MessageBoardForm extends Component {
 
     messagePostHandler = (event) => {
         event.preventDefault();
-        const { poster_name, message, show_from, show_to } = this.state
+        const { poster_name, message, show_from, show_to, passcode } = this.state
         const newMessage = {
-            poster_name,
-            message,
+            from: poster_name,
+            text: message,
             show_from,
             show_to
         }
 
-        const secret = "development"
-        const secretBuffer = Buffer.from(secret, "base64")
+        const secretBuffer = Buffer.from(passcode, "base64")
 
         const payload = JSON.stringify(newMessage)
         const payloadBuffer = Buffer.from(payload, "utf8")
@@ -64,13 +64,13 @@ class MessageBoardForm extends Component {
         const digest64 = hash.digest("base64")
         const hmacAuth = `HMAC ${digest64}`
 
-        const headers = {
-            "Content-Type": "application/json",
-            Authorization: hmacAuth,
-            "Content-Length": payload.length
+        const options = { headers : {
+            'Content-Type': 'application/json',
+            'Authorization': hmacAuth,
+            'Content-Length': payload.length }
         }
 
-        axios.post(messageBoardURL, payload, headers)
+        axios.post(messageBoardURL, payload, options)
              .then(response => {
                      console.log('Response was ' + response)
                      this.props.switchMode()

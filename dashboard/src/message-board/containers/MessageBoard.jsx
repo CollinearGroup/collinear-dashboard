@@ -50,7 +50,7 @@ class MessageBoard extends Component {
         if (totalMessages > 1) {
             this.interval = setInterval(() => { 
                 this.incrementMessage(totalMessages, this.state.messageNumberToDisplay) 
-            }, 5000)
+            }, 10000)
         }
     }
 

@@ -13,7 +13,7 @@ module.exports = tableName => {
     }
 
     static create(body) {
-      const poster_name = body.from.name
+      const poster_name = body.from
       const message = body.text
       const show_from = body.show_from
       const show_to = body.show_to
