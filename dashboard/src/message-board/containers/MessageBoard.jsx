@@ -10,33 +10,26 @@ class MessageBoard extends Component {
     state = {
         messages: [],
         messageNumberToDisplay: 0,
+        messageJsxToDisplay: null
     }
     
-    messageJsxToDisplay = null
+    componentDidMount() {
+        this.startMessageRotation()
+    }
 
-    async componentDidMount() {
+    startMessageRotation = async () => {
         await axios.get(messageBoardURL)
-            .then(response => {
-                const messages = response.data.messages
-                const todaysDate = new Date().toISOString()
-                const filteredMessages = Object.values(messages).filter(message => {
-                    return message.show_to >= todaysDate && message.show_from <= todaysDate
-                })
-                this.setState( { messages: filteredMessages } )
+        .then(response => {
+            const messages = response.data.messages
+            const todaysDate = new Date().toISOString()
+            const filteredMessages = Object.values(messages).filter(message => {
+                return message.show_to >= todaysDate && message.show_from <= todaysDate
             })
+            this.setState( { messages: filteredMessages } )
+        })
         .catch(error => console.log('Error was ' + error))
         const totalMessages = this.state.messages.length
         if (totalMessages > 0) {
-            const messageToDisplay = this.state.messages[this.state.messageNumberToDisplay]
-            this.setState({
-                messageJsxToDisplay: (<div>
-                    <Message 
-                        poster_name={messageToDisplay.poster_name} 
-                        message={messageToDisplay.message} />
-                    </div>
-                )
-            })
-                
             this.rotateFocus(totalMessages)
         }
     }
@@ -56,7 +49,9 @@ class MessageBoard extends Component {
 
     rotateFocus(totalMessages) {
         if (totalMessages > 1) {
-            this.interval = setInterval(() => this.incrementMessage(totalMessages, this.state.messageNumberToDisplay), 5000)
+            this.interval = setInterval(() => { 
+                this.incrementMessage(totalMessages, this.state.messageNumberToDisplay) 
+            }, 5000)
         }
     }
 
@@ -65,7 +60,13 @@ class MessageBoard extends Component {
         return (
             <div>
                 <Button clickHandler={this.props.switchMode} text="Add an event" />
-                {this.messageJsxToDisplay}
+                <div>
+                    {this.state.messages[this.state.messageNumberToDisplay] ?
+                    <Message 
+                        poster_name={this.state.messages[this.state.messageNumberToDisplay].poster_name} 
+                        message={this.state.messages[this.state.messageNumberToDisplay].message} /> : ""
+                    }
+                </div>
             </div>
         )
     }
