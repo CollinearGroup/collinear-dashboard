@@ -10,8 +10,9 @@ class MessageBoard extends Component {
     state = {
         messages: [],
         messageNumberToDisplay: 0,
-        messageJsxToDisplay: ""
     }
+    
+    messageJsxToDisplay = null
 
     async componentDidMount() {
         await axios.get(messageBoardURL)
@@ -64,7 +65,7 @@ class MessageBoard extends Component {
         return (
             <div>
                 <Button clickHandler={this.props.switchMode} text="Add an event" />
-                {this.state.messageJsxToDisplay}
+                {this.messageJsxToDisplay}
             </div>
         )
     }
