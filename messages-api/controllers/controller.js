@@ -1,3 +1,5 @@
+const format = require('date-fns/format')
+const addDays = require('date-fns/addDays')
 module.exports = name => {
   const Model = require(`../models/${name}.js`)
 
@@ -19,7 +21,8 @@ module.exports = name => {
     }
 
     static create(req, res, next) {
-      Model.create(req.body).then(response => {
+      const messageOrKudosData = setDefaultShowDateStrings(req.body)
+      Model.create(messageOrKudosData).then(response => {
         res.status(201).json({
           [name]: response
         })
@@ -83,4 +86,18 @@ module.exports = name => {
   }
 
   return Controller
+}
+
+const setDefaultShowDateStrings = requestBody => {
+  const payloadBodyWithDefaults = {
+    ...requestBody
+  }
+  if (!payloadBodyWithDefaults.show_from) {
+    payloadBodyWithDefaults.show_from = format(new Date(), "yyyy-MM-dd")
+  }
+  if (!payloadBodyWithDefaults.show_to) {
+    const showToDate = addDays(new Date(payloadBodyWithDefaults.show_from), 5)
+    payloadBodyWithDefaults.show_to = format(showToDate, "yyyy-MM-dd")
+  }
+  return payloadBodyWithDefaults
 }

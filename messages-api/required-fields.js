@@ -1,8 +1,8 @@
 class KeyArr {
   constructor() {
     this.messages = {
-      required: ["text", "from", "show_from", "show_to"],
-      optional: []
+      required: ["text", "from"],
+      optional: ["show_from", "show_to"]
     }
 
     this.kudos = {

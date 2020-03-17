@@ -7,8 +7,9 @@ const secretBuffer = Buffer.from(secret, "base64")
 const message = {
   from: "The Bossman",
   text: "helloworld from team awesome (dan, and lee)",
-  show_from: "2020-03-01",
-  show_to: "2020-03-15"
+  // These should default to now, now + 5 days
+  // show_from: "2020-03-01",
+  // show_to: "2020-03-15"
 }
 const payload = JSON.stringify(message)
 const payloadBuffer = Buffer.from(payload, "utf8")
