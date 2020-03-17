@@ -7,6 +7,8 @@ PASS=pic-api-key
 for f in images/*; do
   echo "Uploading -> $f";
   curl -k -H "pic-api-key:$PASS" -F file="@$f" $URL
+  echo ""
+  sleep 1
 done
 
-# Delete curl -k -H "pic-api-key:pic-api-key" http://localhost:9200/deleteAllPhotos
+# Delete curl -k -H "pic-api-key:pic-api-key" http://localhost:9200/deleteAll
