@@ -63,7 +63,8 @@ class MessageBoard extends Component {
                     {this.state.messages[this.state.messageNumberToDisplay] ?
                     <Message 
                         poster_name={this.state.messages[this.state.messageNumberToDisplay].poster_name} 
-                        message={this.state.messages[this.state.messageNumberToDisplay].message} /> : ""
+                        message={this.state.messages[this.state.messageNumberToDisplay].message}
+                        show_from={this.state.messages[this.state.messageNumberToDisplay].show_from}  />: ""
                     }
                 </div>
             </div>
