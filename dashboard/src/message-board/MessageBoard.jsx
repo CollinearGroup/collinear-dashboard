@@ -1,35 +1,55 @@
-import React, { Component } from 'react';
-import './MessageBoard.css';
-import MessageBoard from './containers/MessageBoard';
-import MessageBoardForm from './containers/MessageBoardForm';
+import React, { Component } from "react"
+import "./MessageBoard.css"
+import MessageBoard from "./containers/MessageBoard"
+import MessageBoardForm from "./containers/MessageBoardForm"
+import Button from "./components/ui/Button"
 
 class App extends Component {
   state = {
-    editMode: false
+    editMode: false,
+    showEditButton: false
   }
-
   toggleModeHandler = () => {
-    this.setState( { editMode: !this.state.editMode } )
+    this.setState({ editMode: !this.state.editMode })
+  }
+  showEditButton = () => {
+    this.setState({ showEditButton: true })
+  }
+  hideEditButton = () => {
+    this.setState({ showEditButton: false })
   }
 
   render() {
     if (this.state.editMode) {
       return (
         <div className="App">
-
           <MessageBoardForm switchMode={this.toggleModeHandler} />
         </div>
-      );
+      )
     }
-    else {
-      return (
-        <div className="App">
+    return (
+      <div
+        style={{ height: "100%" }}
+        onMouseEnter={this.showEditButton}
+        onMouseLeave={this.hideEditButton}
+        className="App"
+      >
+        <MessageBoard switchMode={this.toggleModeHandler} />
+        {this.renderEditFormButton()}
+      </div>
+    )
+  }
 
-          <MessageBoard switchMode={this.toggleModeHandler} />
-        </div>
-      );
+  renderEditFormButton = () => {
+    if (this.state.showEditButton) {
+      return (
+        <Button
+          clickHandler={this.toggleModeHandler}
+          text="Enter a new message"
+        />
+      )
     }
   }
 }
 
-export default App;
+export default App
