@@ -3,7 +3,7 @@ import axios from "axios"
 import Message from "../components/Message"
 
 const messageBoardURL =
-  process.env.MESSAGE_BOARD_API_URL || "http://localhost:8011/api/messages/"
+  process.env.REACT_APP_MESSAGE_BOARD_API_URL || "http://localhost:8011/api/messages/"
 
 class MessageBoard extends Component {
   state = {
@@ -59,6 +59,9 @@ class MessageBoard extends Component {
 
   incrementMessage = () => {
     const totalMessages = this.state.messages.length
+    if (totalMessages === 0) {
+      return
+    }
     let { messageNumberToDisplay } = this.state
     const nextMessageIndex = ++messageNumberToDisplay % totalMessages
     this.setState({ messageNumberToDisplay: nextMessageIndex })

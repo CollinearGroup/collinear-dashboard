@@ -34,6 +34,7 @@ class App extends Component {
         onMouseLeave={this.hideEditButton}
         className="App"
       >
+        <div>Messages</div>
         <MessageBoard switchMode={this.toggleModeHandler} />
         {this.renderEditFormButton()}
       </div>

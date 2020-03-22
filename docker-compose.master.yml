@@ -19,6 +19,7 @@ services:
       - REACT_APP_FOOSBALL_URL=http://localhost/foosball-api
       - REACT_APP_FOOSBALL_WS=ws://localhost/foosball-api
       - REACT_APP_PHOTOS_URL=http://localhost/picture-uploader
+      - REACT_APP_MESSAGE_BOARD_API_URL=http://localhost/messages
     volumes:
       - ./dashboard/src/:/app/src/
       - ./dashboard/public/:/app/public/
@@ -61,32 +62,28 @@ services:
       - 5432:5432
 
 
-  # messages-backend:
-  #   container_name: messages-backend
-  #   image: node:12
-  #   environment:
-  #     - "NODE_ENV=development"
-  #     - "MESSAGES_HMAC_KEY=development"
-  #   volumes:
-  #     - ./messages-api/:/app
-  #   working_dir: /app
-  #   depends_on:
-  #     - messages_database
-  #   ports:
-  #     - 8011:8000
-  #   command: sh -c "npm install && npm run dev"
+  messages-backend:
+    container_name: messages-backend
+    build: ./messages-api/
+    environment:
+      - "NODE_ENV=development"
+      - "MESSAGES_HMAC_KEY=development"
+      - "PORT=8011"
+    depends_on:
+      - messages_database
 
-  # messages_database:
-  #   container_name: messages_database
-  #   image: postgres:12
-  #   restart: always
-  #   volumes:
-  #     - messages-db:/var/lib/postgresql/data
-  #   environment:
-  #     - "POSTGRES_USER=test"
-  #     - "POSTGRES_PASSWORD=test"
-  #     - "POSTGRES_DB=messages_db"
+  messages_database:
+    container_name: messages_database
+    image: postgres:12
+    restart: always
+    volumes:
+      - messages-db:/var/lib/postgresql/data
+    environment:
+      - "POSTGRES_USER=test"
+      - "POSTGRES_PASSWORD=test"
+      - "POSTGRES_DB=messages_db"
 
 volumes:
   db:
   photos:
+  messages-db:

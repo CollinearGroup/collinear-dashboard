@@ -68,7 +68,7 @@ const expadSeries = (data = [], date) => {
           })
         }
       }
-      console.log("EV: ", ev)
+      // console.log("EV: ", ev)
     }
   })
   return ret
@@ -81,7 +81,7 @@ const formatData = (rawData, date = Date.now()) => {
   refDate.setSeconds(0)
   refDate.setMilliseconds(0)
 
-  console.log("Ref Date ", refDate.toLocaleString())
+  // console.log("Ref Date ", refDate.toLocaleString())
 
   let refMs = refDate.getTime()
 

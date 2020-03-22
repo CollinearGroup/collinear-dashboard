@@ -3,8 +3,9 @@ FROM node:12
 WORKDIR /app
 
 COPY package*.json ./
+
 RUN npm i
 
-COPY ./*.js ./
+COPY ./ ./
 
 CMD [ "node", "app.js" ]

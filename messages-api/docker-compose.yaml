@@ -3,18 +3,19 @@ version: "3"
 services:
   messages-backend:
     container_name: messages-backend
+    build: ./
     image: node:12
     environment:
       - "NODE_ENV=development"
       - "MESSAGES_HMAC_KEY=development"
+      - "PORT=8011"
     volumes:
-      - ./:/app
-    working_dir: /app
+      - ./:/app/
     depends_on:
       - messages_database
     ports:
-      - 8011:8000
-    command: sh -c "npm install && npm run dev"
+      - 8011:8011
+    command: npm run dev
 
   messages_database:
     container_name: messages_database

@@ -2,8 +2,6 @@ import React from 'react'
 import './Message.css'
 import moment from 'moment'
 
-
-
 const Message = (props) => {
     return (
         <div className='message-container'>
