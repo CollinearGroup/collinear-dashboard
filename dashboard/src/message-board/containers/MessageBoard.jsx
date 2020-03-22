@@ -11,48 +11,61 @@ class MessageBoard extends Component {
     messageNumberToDisplay: 0
   }
 
-  componentDidMount() {
-    this.startMessageRotation()
+  componentDidMount = async () => {
+    await this.updateStateWithMessages()
+    this.rotateFocus()
+    this.startRefreshDataInterval()
   }
 
-  startMessageRotation = async () => {
-    await axios
-      .get(messageBoardURL)
-      .then(response => {
-        const messages = response.data.messages
-        const todaysDate = new Date().toISOString()
-        const filteredMessages = Object.values(messages).filter(message => {
-          return (
-            message.show_to >= todaysDate && message.show_from <= todaysDate
-          )
-        })
-        this.setState({ messages: filteredMessages })
-      })
-      .catch(error => console.log("Error was " + error))
-    const totalMessages = this.state.messages.length
-    if (totalMessages > 0) {
-      this.rotateFocus(totalMessages)
-    }
+  updateStateWithMessages = async () => {
+    const messages = await this.fetchMessages()
+    const filteredMessages = this.filterMessagesByTodaysDate(messages)
+    this.setState({ messages: filteredMessages })
   }
 
   componentWillUnmount() {
     clearInterval(this.interval)
+    clearInterval(this.refreshInterval)
   }
 
-  incrementMessage(totalMessages, messageNumberToDisplay) {
-    if (messageNumberToDisplay === totalMessages - 1) {
-      this.setState({ messageNumberToDisplay: 0 })
-    } else {
-      this.setState({ messageNumberToDisplay: messageNumberToDisplay + 1 })
+  fetchMessages = async () => {
+    try {
+      const response = await axios.get(messageBoardURL)
+      return response.data.messages
+    } catch (error) {
+      console.log(error)
+      return []
     }
   }
 
-  rotateFocus(totalMessages) {
-    if (totalMessages > 1) {
-      this.interval = setInterval(() => {
-        this.incrementMessage(totalMessages, this.state.messageNumberToDisplay)
-      }, 10000)
-    }
+  filterMessagesByTodaysDate = messages => {
+    const todaysDate = Date.now()
+    const messagesInDateRange = messages.filter(message => {
+      return this.isDateInMessageRange(todaysDate, message)
+    })
+    return messagesInDateRange
+  }
+
+  isDateInMessageRange = (date, message) => {
+    const { show_to, show_from } = message
+    const show_to_time = new Date(show_to).getTime()
+    const show_from_time = new Date(show_from).getTime()
+    return show_to_time >= date && show_from_time <= date
+  }
+
+  rotateFocus = () => {
+    this.interval = setInterval(this.incrementMessage, 10000)
+  }
+
+  incrementMessage = () => {
+    const totalMessages = this.state.messages.length
+    let { messageNumberToDisplay } = this.state
+    const nextMessageIndex = ++messageNumberToDisplay % totalMessages
+    this.setState({ messageNumberToDisplay: nextMessageIndex })
+  }
+
+  startRefreshDataInterval = () => {
+    this.refreshInterval = setInterval(this.updateStateWithMessages, 10000)
   }
 
   render() {
