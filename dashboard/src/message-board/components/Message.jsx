@@ -5,7 +5,7 @@ import moment from 'moment'
 const Message = (props) => {
     return (
         <div className='message-container'>
-            <div className='poster'>{props.poster_name} said on:</div>
+            <div className='poster'>{props.poster_name}</div>
             <div className='message-date'>  {moment(props.show_from).format('MMMM Do, YYYY')}</div>
             <div className='message'>{props.message}</div>
         </div>

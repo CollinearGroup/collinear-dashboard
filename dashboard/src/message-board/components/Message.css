@@ -7,23 +7,26 @@
     border: 1px solid black;
     border-radius: 5px;
     text-align: left;
+    font-size: 12px;
 }
 
 .poster {
     /*border: 1px solid black;*/
-    font-size: 10px;
+    /* font-size: 12px; */
+    font-weight: bold;
     margin: 3px;
     padding: 3px;
     align-items: flex-end;
 }
 
 .message {
+    /* font-size: 12px; */
     margin: 3px;
     padding: 3px;
 }
 
 .message-date {
-    font-size: 10px;
+    /* font-size: 12px; */
     margin: 3px;
     padding: 3px;
     align-items: flex-end; 
