@@ -76,10 +76,14 @@ class MessageBoard extends Component {
 
   render() {
     const messagesToDisplay = this.messagesToDisplay()
+    if (messagesToDisplay.length === 0) {
+      return <div>There are no messages at this time! Hover over this area to add one!</div>
+    }
     return <div>{this.renderMessages(messagesToDisplay)}</div>
   }
 
   messagesToDisplay = () => {
+    // return []
     const { messages, messagesIndexToDisplay } = this.state
     const messagesToDisplay = []
     const numberOfMessagesThatCanBeDisplayed =

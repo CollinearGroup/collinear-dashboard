@@ -22,7 +22,7 @@ class App extends Component {
   render() {
     if (this.state.editMode) {
       return (
-        <div className="App">
+        <div className="message-board">
           <MessageBoardForm switchMode={this.toggleModeHandler} />
         </div>
       )
@@ -32,10 +32,12 @@ class App extends Component {
         style={{ height: "100%" }}
         onMouseEnter={this.showEditButton}
         onMouseLeave={this.hideEditButton}
-        className="App"
+        className="message-board"
       >
-        <div>Messages</div>
+        <div className="title">Announcements</div>
+        <br />
         <MessageBoard switchMode={this.toggleModeHandler} />
+        <br />
         {this.renderEditFormButton()}
       </div>
     )
@@ -44,10 +46,12 @@ class App extends Component {
   renderEditFormButton = () => {
     if (this.state.showEditButton) {
       return (
-        <Button
-          clickHandler={this.toggleModeHandler}
-          text="Enter a new message"
-        />
+        <div style={{ textAlign: "center" }}>
+          <Button
+            clickHandler={this.toggleModeHandler}
+            text="Enter a new message"
+          />
+        </div>
       )
     }
   }
