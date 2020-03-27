@@ -3,12 +3,15 @@ import axios from "axios"
 import Message from "../components/Message"
 
 const messageBoardURL =
-  process.env.REACT_APP_MESSAGE_BOARD_API_URL || "http://localhost:8011/api/messages/"
+  process.env.REACT_APP_MESSAGE_BOARD_API_URL ||
+  "http://localhost:8011/api/messages/"
+
+const MESSAGE_RANGE_TO_DISPLAY = 2
 
 class MessageBoard extends Component {
   state = {
     messages: [],
-    messageNumberToDisplay: 0
+    messagesIndexToDisplay: 0
   }
 
   componentDidMount = async () => {
@@ -62,9 +65,9 @@ class MessageBoard extends Component {
     if (totalMessages === 0) {
       return
     }
-    let { messageNumberToDisplay } = this.state
-    const nextMessageIndex = ++messageNumberToDisplay % totalMessages
-    this.setState({ messageNumberToDisplay: nextMessageIndex })
+    let { messagesIndexToDisplay } = this.state
+    const nextMessageIndex = ++messagesIndexToDisplay % totalMessages
+    this.setState({ messagesIndexToDisplay: nextMessageIndex })
   }
 
   startRefreshDataInterval = () => {
@@ -72,25 +75,34 @@ class MessageBoard extends Component {
   }
 
   render() {
-    return (
-      <div>
-        {this.state.messages[this.state.messageNumberToDisplay] ? (
-          <Message
-            poster_name={
-              this.state.messages[this.state.messageNumberToDisplay].poster_name
-            }
-            message={
-              this.state.messages[this.state.messageNumberToDisplay].message
-            }
-            show_from={
-              this.state.messages[this.state.messageNumberToDisplay].show_from
-            }
-          />
-        ) : (
-          ""
-        )}
-      </div>
-    )
+    const messagesToDisplay = this.messagesToDisplay()
+    return <div>{this.renderMessages(messagesToDisplay)}</div>
+  }
+
+  messagesToDisplay = () => {
+    const { messages, messagesIndexToDisplay } = this.state
+    const messagesToDisplay = []
+    const numberOfMessagesThatCanBeDisplayed =
+      messages.length < MESSAGE_RANGE_TO_DISPLAY
+        ? messages.length
+        : MESSAGE_RANGE_TO_DISPLAY
+    for (let index = 0; index < numberOfMessagesThatCanBeDisplayed; index++) {
+      const messagesIndex = (messagesIndexToDisplay + index) % messages.length
+      messagesToDisplay.unshift(messages[messagesIndex])
+    }
+    return messagesToDisplay
+  }
+
+  renderMessages = messages => {
+    return messages.map(message => {
+      return (
+        <Message
+          poster_name={message.poster_name}
+          message={message.message}
+          show_from={message.show_from}
+        />
+      )
+    })
   }
 }
 
