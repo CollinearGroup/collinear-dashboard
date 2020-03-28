@@ -26,8 +26,10 @@ const httpRequestOptions = {
     Authorization: hmacAuth
   }
 }
+// const URL = "http://localhost/messages"
+const URL = "http://localhost:8011/api/messages"
 axios
-  .post("http://localhost/messages", message, httpRequestOptions)
+  .post(URL, message, httpRequestOptions)
   .then(res => {
     console.log(res.data)
   })

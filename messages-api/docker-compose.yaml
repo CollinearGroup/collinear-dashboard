@@ -6,9 +6,12 @@ services:
     build: ./
     image: node:12
     environment:
-      - "NODE_ENV=development"
+      - "NODE_ENV=production"
       - "MESSAGES_HMAC_KEY=development"
       - "PORT=8011"
+      - "POSTGRES_USER=test"
+      - "POSTGRES_PASSWORD=test"
+      - "POSTGRES_DB=messages_db"
     volumes:
       - ./:/app/
     depends_on:

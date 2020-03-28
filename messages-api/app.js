@@ -20,7 +20,7 @@ app.use(express.json(addBodyBufferOptions))
 app.use(morgan("dev"))
 
 app.use("/api/messages", messages)
-app.use("/api/kudos", kudos)
+// app.use("/api/kudos", kudos)
 
 app.use((req, res) => {
   const status = 404
