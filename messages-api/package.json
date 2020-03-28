@@ -21,5 +21,8 @@
     "morgan": "^1.9.1",
     "nodemon": "^1.19.4",
     "pg": "^7.12.1"
+  },
+  "devDependencies": {
+    "axios": "^0.19.2"
   }
 }

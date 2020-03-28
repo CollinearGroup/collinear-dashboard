@@ -83,7 +83,6 @@ class MessageBoard extends Component {
   }
 
   messagesToDisplay = () => {
-    // return []
     const { messages, messagesIndexToDisplay } = this.state
     const messagesToDisplay = []
     const numberOfMessagesThatCanBeDisplayed =

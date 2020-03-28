@@ -1,12 +1,12 @@
 const crypto = require("crypto")
-const http = require("http")
+const axios = require("axios")
 
 // Setup data and various, necessary transformations
 const secret = "development"
 const secretBuffer = Buffer.from(secret, "base64")
 const message = {
   from: "The Bossman",
-  text: "helloworld from team awesome (dan, and lee)",
+  text: "helloworld from team awesome (dan, and lee)"
   // These should default to now, now + 5 days
   // show_from: "2020-03-01",
   // show_to: "2020-03-15"
@@ -21,23 +21,16 @@ const hmacAuth = `HMAC ${digest64}`
 
 // Send the request
 const httpRequestOptions = {
-  hostname: "localhost",
-  port: 8011,
-  path: "/api/messages/",
-  method: "POST",
   headers: {
     "Content-Type": "application/json",
-    Authorization: hmacAuth,
-    "Content-Length": payload.length
+    Authorization: hmacAuth
   }
 }
-const req = http.request(httpRequestOptions, res => {
-  res.on("data", d => {
-    process.stdout.write(d)
+axios
+  .post("http://localhost/messages", message, httpRequestOptions)
+  .then(res => {
+    console.log(res.data)
   })
-})
-req.on("error", error => {
-  console.error(error)
-})
-req.write(payload)
-req.end()
+  .catch(err => {
+    console.log(err)
+  })
