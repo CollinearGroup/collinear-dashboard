@@ -16,14 +16,14 @@ services:
     ports:
       - 8081:8080
 
-  # app:
-  #   build: .
-  #   volumes:
-  #   - .:/app
-  #   - ~/.m2:/root/.m2
-  #   working_dir: /app
-  #   ports:
-  #   - 8080:8080
-  #   command: mvn clean spring-boot:run
-  #   depends_on:
-  #   - hk-mysql
+  app:
+    build: .
+    volumes:
+    - .:/app
+    - ~/.m2:/root/.m2
+    working_dir: /app
+    ports:
+    - 8080:8080
+    command: mvn clean spring-boot:run
+    depends_on:
+    - mysql
