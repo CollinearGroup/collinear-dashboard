@@ -8,8 +8,7 @@ import Foosball from "./foosball/frontend"
 import Photos from "./photos/Photos"
 import MessageBoard from "./message-board/MessageBoard"
 import ConfRoomSchedule from "./conference-room-schedule/ConfRoomSchedule"
-// TODO: Import new message board front end.
-// import MessageBoard from "./message-board/MessageBoard"
+import Kudos from "./kudos/Kudos"
 
 export default function App() {
   return <GridContainer />
@@ -55,7 +54,7 @@ export class GridContainer extends React.Component {
         <PhotosWrapper />
         {this.wrapInId("foos", <Foosball />)}
         {this.wrapInId("npm", <NpmMetrics />)}
-        <Kudos />
+        <KudosWrapper />
         {this.wrapInId("message-board", <MessageBoard />)}
       </div>
     )
@@ -82,11 +81,11 @@ export class PhotosWrapper extends React.Component {
   }
 }
 
-export class Kudos extends React.Component {
+export class KudosWrapper extends React.Component {
   render() {
     return (
       <div id="kudos">
-        <p>Kudos Placeholder</p>
+        <Kudos />
       </div>
     )
   }
