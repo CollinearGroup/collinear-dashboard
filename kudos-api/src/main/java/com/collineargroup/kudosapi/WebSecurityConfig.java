@@ -1,5 +1,7 @@
 package com.collineargroup.kudosapi;
 
+import java.util.Map;
+
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -16,7 +18,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-    auth.inMemoryAuthentication().withUser("dashboard").password("{noop}development").roles("USER");
+    Map<String, String> env = System.getenv();
+    String password = env.get("KUDO_PASSWORD");
+    if (password == null || password.isEmpty()) {
+      password = "development";
+    }
+    auth.inMemoryAuthentication().withUser("dashboard").password("{noop}" + password).roles("USER");
   }
 
   @Override
