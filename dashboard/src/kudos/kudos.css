@@ -1,3 +1,13 @@
+#kudos {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(./kudos.png);
+  background-size: 100%;
+  background-position-y: -20px;
+}
+
+#kudos:first-child {
+  padding: 15px;
+}
+
 #title-bar {
   display: flex;
   justify-content: space-between;

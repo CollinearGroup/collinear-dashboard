@@ -15,13 +15,15 @@ class Kudos extends Component {
   render() {
     return (
       <div id="kudos">
-        <div id="title-bar">
-          {this.renderTitle()}
-          {this.renderCount()}
+        <div>
+          <div id="title-bar">
+            {this.renderTitle()}
+            {this.renderCount()}
+          </div>
+          <br />
+          {this.state.kudos[0] && this.renderKudo(this.state.kudos[0])}
+          {/* <pre>{JSON.stringify(this.state.kudos, null, " ")}</pre> */}
         </div>
-        <br/>
-        {this.state.kudos[0] && this.renderKudo(this.state.kudos[0])}
-        {/* <pre>{JSON.stringify(this.state.kudos, null, " ")}</pre> */}
       </div>
     )
   }
@@ -39,7 +41,7 @@ class Kudos extends Component {
       <div id="kudo-container">
         <div id="kudo-float-container">
           <div id="kudo-message">"{kudo.message}"</div>
-          <br/>
+          <br />
           <div id="kudo-from">- {kudo.from || "Anonymous"}</div>
         </div>
       </div>
