@@ -2,12 +2,16 @@ package com.collineargroup.kudosapi;
 
 import java.util.Map;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 /**
  * WebSecurityConfig
@@ -31,10 +35,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     http
     .httpBasic()
     .and()
+    .cors()
+    .and()
     .authorizeRequests()
     .antMatchers(HttpMethod.GET, "/kudo").permitAll()
     .antMatchers(HttpMethod.POST, "/kudo").hasRole("USER")
     .and()
     .csrf().disable();
   }
+
+  @Bean
+  CorsConfigurationSource corsConfigurationSource() {
+    CorsConfiguration configuration = new CorsConfiguration();
+    configuration.applyPermitDefaultValues();
+    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    source.registerCorsConfiguration("/kudo/**", configuration);
+    return source;
+  }
+
 }

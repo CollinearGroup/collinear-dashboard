@@ -1,22 +1,18 @@
 import React, { Component } from "react"
 import { get } from "axios"
 import "./kudos.css"
-import TitleBar from "./TitleBar"
-import Kudo from "./Kudo"
+import TitleBar from "./views/TitleBar"
+import Kudo from "./views/Kudo"
 import img from "./kudos.png"
-
-// TODO
-const URL = "http://localhost:8080/kudo"
+import AddForm from "./AddForm"
+import { save, getAll } from "./KudoService"
 
 class KudosContainer extends Component {
   state = {
     kudos: [],
     displayedIndex: 1,
     showEditButton: false,
-    editMode: false,
-    kudoFormMessage: "",
-    kudoFormFrom: "",
-    kudoFormPassword: ""
+    editMode: false
   }
 
   showEditButton = () => {
@@ -24,6 +20,10 @@ class KudosContainer extends Component {
   }
   hideEditButton = () => {
     this.setState({ showEditButton: false })
+  }
+
+  saveHandler = (kudo, password) => {
+    save(kudo, password)
   }
 
   componentDidMount = async () => {
@@ -49,10 +49,7 @@ class KudosContainer extends Component {
 
   updateKudos = async () => {
     try {
-      const results = await get(URL)
-      this.setState({
-        kudos: results.data._embedded.kudo
-      })
+      this.setState({ kudos: await getAll() })
     } catch (error) {
       console.log(error)
     }
@@ -82,7 +79,8 @@ class KudosContainer extends Component {
   renderKudoOrForm = () => {
     const { editMode } = this.state
     if (!editMode) return this.renderKudo()
-    return this.renderKudoForm()
+
+    return <AddForm onSave={this.saveHandler} />
   }
 
   renderKudo = () => {
@@ -94,37 +92,18 @@ class KudosContainer extends Component {
 
   renderAddKudosButton = () => {
     const { showEditButton, editMode } = this.state
-    const setEditModeToTrue = () => {
-      this.setState({ editMode: true })
-    }
-    const setEditModeToFalse = () => {
-      this.setState({ editMode: false })
-    }
-    const saveData = () => {
-      console.log("save")
-    }
     if (!showEditButton) return ""
     if (!editMode) {
-      return <button onClick={setEditModeToTrue}>Add Kudo</button>
+      return <button onClick={this.setEditModeToTrue}>Add Kudo</button>
     }
-    return (
-      <div>
-        <button onClick={setEditModeToFalse}>Cancel</button>
-        <button onClick={saveData}>Save</button>
-      </div>
-    )
+    return <button onClick={this.setEditModeToFalse}>Cancel</button>
   }
 
-  renderKudoForm = () => {
-    return (
-      <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-        <textarea style={{width: "60%"}} rows="5" name="" id="" placeholder="Kudos text"></textarea>
-        <br/>
-        <input type="text" placeholder="From" />
-        <br/>
-        <input type="password" placeholder="Password" />
-      </div>
-    )
+  setEditModeToTrue = () => {
+    this.setState({ editMode: true })
+  }
+  setEditModeToFalse = () => {
+    this.setState({ editMode: false })
   }
 }
 

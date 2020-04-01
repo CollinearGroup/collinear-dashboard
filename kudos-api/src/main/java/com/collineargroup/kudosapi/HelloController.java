@@ -7,6 +7,6 @@ public class HelloController {
 
   @RequestMapping("/")
   public String index() {
-    return "Hell Ya";
+    return "This is the kudo-api! Go to /kudo";
   }
 }
