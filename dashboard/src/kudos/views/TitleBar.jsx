@@ -17,6 +17,9 @@ class TitleBar extends PureComponent {
   }
   renderCount = () => {
     const {displayedIndex, total} = this.props
+    if (total === 0) {
+      return "☠️"
+    }
     return <div id="message-tracking-display">Showing {displayedIndex} of {total}</div>
   }
 }

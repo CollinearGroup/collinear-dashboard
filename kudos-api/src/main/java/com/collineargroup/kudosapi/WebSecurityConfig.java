@@ -39,7 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     .and()
     .authorizeRequests()
     .antMatchers(HttpMethod.GET, "/kudo").permitAll()
-    .antMatchers(HttpMethod.POST, "/kudo").hasRole("USER")
+    .anyRequest().authenticated()
     .and()
     .csrf().disable();
   }

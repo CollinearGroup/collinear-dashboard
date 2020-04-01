@@ -15,8 +15,7 @@ export const save = async (kudo, password) => {
       "Authorization": calcAuthHeader(username, password)
     }
   }
-  const result = await post(URL, kudo, config)
-  console.log("result:", result)
+  await post(URL, kudo, config)
 }
 
 export const calcAuthHeader = (username, password) => {

@@ -1,5 +1,4 @@
 import React, { Component } from "react"
-import { get } from "axios"
 import "./kudos.css"
 import TitleBar from "./views/TitleBar"
 import Kudo from "./views/Kudo"
@@ -10,7 +9,7 @@ import { save, getAll } from "./KudoService"
 class KudosContainer extends Component {
   state = {
     kudos: [],
-    displayedIndex: 1,
+    displayedIndex: 0,
     showEditButton: false,
     editMode: false
   }
@@ -21,9 +20,20 @@ class KudosContainer extends Component {
   hideEditButton = () => {
     this.setState({ showEditButton: false })
   }
+  setEditModeToTrue = () => {
+    this.setState({ editMode: true })
+  }
+  setEditModeToFalse = () => {
+    this.setState({ editMode: false })
+  }
 
-  saveHandler = (kudo, password) => {
-    save(kudo, password)
+  saveHandler = async (kudo, password) => {
+    try {
+      await save(kudo, password)
+    } catch (error) {
+      console.log(error)
+    }
+    this.setEditModeToFalse()
   }
 
   componentDidMount = async () => {
@@ -97,13 +107,6 @@ class KudosContainer extends Component {
       return <button onClick={this.setEditModeToTrue}>Add Kudo</button>
     }
     return <button onClick={this.setEditModeToFalse}>Cancel</button>
-  }
-
-  setEditModeToTrue = () => {
-    this.setState({ editMode: true })
-  }
-  setEditModeToFalse = () => {
-    this.setState({ editMode: false })
   }
 }
 
