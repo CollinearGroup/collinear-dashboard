@@ -11,7 +11,19 @@ const URL = "http://localhost:8080/kudo"
 class KudosContainer extends Component {
   state = {
     kudos: [],
-    displayedIndex: 1
+    displayedIndex: 1,
+    showEditButton: false,
+    editMode: false,
+    kudoFormMessage: "",
+    kudoFormFrom: "",
+    kudoFormPassword: ""
+  }
+
+  showEditButton = () => {
+    this.setState({ showEditButton: true })
+  }
+  hideEditButton = () => {
+    this.setState({ showEditButton: false })
   }
 
   componentDidMount = async () => {
@@ -49,17 +61,28 @@ class KudosContainer extends Component {
   render() {
     const { displayedIndex, kudos } = this.state
     return (
-      <div id="kudos-container">
-      <div id="background">
-        <img src={img} alt=""/>
-      </div>
-      <div id="kudos-content">
-        <TitleBar displayedIndex={displayedIndex + 1} total={kudos.length} />
-        <br />
-        {this.renderKudo()}
-      </div>
+      <div
+        id="kudos-container"
+        onMouseEnter={this.showEditButton}
+        onMouseLeave={this.hideEditButton}
+      >
+        <div id="background">
+          <img src={img} alt="" />
+        </div>
+        <div id="kudos-content">
+          <TitleBar displayedIndex={displayedIndex + 1} total={kudos.length} />
+          <br />
+          {this.renderKudoOrForm()}
+        </div>
+        <div id="form-button-container">{this.renderAddKudosButton()}</div>
       </div>
     )
+  }
+
+  renderKudoOrForm = () => {
+    const { editMode } = this.state
+    if (!editMode) return this.renderKudo()
+    return this.renderKudoForm()
   }
 
   renderKudo = () => {
@@ -67,6 +90,41 @@ class KudosContainer extends Component {
     if (kudos.length === 0) return "There are currently no kudos 😿"
 
     return <Kudo {...kudos[displayedIndex]} />
+  }
+
+  renderAddKudosButton = () => {
+    const { showEditButton, editMode } = this.state
+    const setEditModeToTrue = () => {
+      this.setState({ editMode: true })
+    }
+    const setEditModeToFalse = () => {
+      this.setState({ editMode: false })
+    }
+    const saveData = () => {
+      console.log("save")
+    }
+    if (!showEditButton) return ""
+    if (!editMode) {
+      return <button onClick={setEditModeToTrue}>Add Kudo</button>
+    }
+    return (
+      <div>
+        <button onClick={setEditModeToFalse}>Cancel</button>
+        <button onClick={saveData}>Save</button>
+      </div>
+    )
+  }
+
+  renderKudoForm = () => {
+    return (
+      <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+        <textarea style={{width: "60%"}} rows="5" name="" id="" placeholder="Kudos text"></textarea>
+        <br/>
+        <input type="text" placeholder="From" />
+        <br/>
+        <input type="password" placeholder="Password" />
+      </div>
+    )
   }
 }
 
