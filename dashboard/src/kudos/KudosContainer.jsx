@@ -30,6 +30,7 @@ class KudosContainer extends Component {
   saveHandler = async (kudo, password) => {
     try {
       await save(kudo, password)
+      await this.updateKudos()
     } catch (error) {
       console.log(error)
     }
@@ -38,8 +39,8 @@ class KudosContainer extends Component {
 
   componentDidMount = async () => {
     await this.updateKudos()
-    this.getNextKudoInterval = setInterval(this.updateDisplayedIndex, 1000)
-    this.getKudosInterval = setInterval(this.updateKudos, 1000)
+    this.getNextKudoInterval = setInterval(this.updateDisplayedIndex, 10000)
+    this.getKudosInterval = setInterval(this.updateKudos, 10000)
   }
 
   componentWillUnmount = () => {

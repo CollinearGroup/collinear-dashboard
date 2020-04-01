@@ -20,6 +20,7 @@ services:
       - REACT_APP_FOOSBALL_WS=ws://localhost/foosball-api
       - REACT_APP_PHOTOS_URL=http://localhost/picture-uploader
       - REACT_APP_MESSAGE_BOARD_API_URL=http://localhost/messages
+      - REACT_APP_KUDO_URL=http://localhost/kudos
     volumes:
       - ./dashboard/src/:/app/src/
       - ./dashboard/public/:/app/public/
@@ -83,7 +84,28 @@ services:
       - "POSTGRES_PASSWORD=test"
       - "POSTGRES_DB=messages_db"
 
+  kudos-api:
+    image: kudos-api
+    restart: always
+    environment: 
+      KUDO_PASSWORD: kudoapi
+      JDBC_URL: 'jdbc:mysql://kudos-mysql-db/dashboard?allowPublicKeyRetrieval=true&useSSL=false'
+      DB_USERNAME: root
+      DB_PASSWORD: kudosapi
+    depends_on:
+      - kudos-mysql-db
+
+  kudos-mysql-db:
+    container_name: kudos-mysql-db
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: kudosapi
+    volumes:
+      - kudos-db:/var/lib/mysql
+
 volumes:
   db:
   photos:
   messages-db:
+  kudos-db:

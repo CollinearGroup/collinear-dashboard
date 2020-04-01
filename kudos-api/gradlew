@@ -181,8 +181,7 @@ APP_ARGS=`save "$@"`
 eval set -- $DEFAULT_JVM_OPTS $JAVA_OPTS $GRADLE_OPTS "\"-Dorg.gradle.appname=$APP_BASE_NAME\"" -classpath "\"$CLASSPATH\"" org.gradle.wrapper.GradleWrapperMain "$APP_ARGS"
 
 # Environment vars for gradle
-export DB_URL=h2:mem:
-export DB_NAME=dashboard
+export JDBC_URL=jdbc:h2:mem:dashboard
 export DB_USERNAME=sa
 
 exec "$JAVACMD" "$@"

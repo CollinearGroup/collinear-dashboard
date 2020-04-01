@@ -1,6 +1,6 @@
 import { get, post } from "axios"
 
-const URL = "http://localhost:8080/kudo"
+const URL = process.env.REACT_APP_KUDO_URL || "http://localhost:8080/kudo"
 const username = "dashboard"
 
 export const getAll = async () => {

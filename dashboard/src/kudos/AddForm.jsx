@@ -2,9 +2,9 @@ import React, { Component } from "react"
 
 class AddForm extends Component {
   state = {
-    message: "I posted on " + Date.now(),
-    from: "Dan",
-    password: "development"
+    message: "",
+    from: "",
+    password: ""
   }
 
   fieldHandler = (stateFieldKey, e) => {

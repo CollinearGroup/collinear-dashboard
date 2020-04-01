@@ -7,6 +7,7 @@ Hacking? See the [CONTRIBUTING.md](/CONTRIBUTING.md) guide.
 ## Getting Started
 
 ```bash
+$ cd ../kudos-api; ./gradlew jibDockerBuild --image=kudos-api; cd -;
 $ docker-compose up --build
 ...
 ```
