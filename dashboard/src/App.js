@@ -8,7 +8,7 @@ import Foosball from "./foosball/frontend"
 import Photos from "./photos/Photos"
 import MessageBoard from "./message-board/MessageBoard"
 import ConfRoomSchedule from "./conference-room-schedule/ConfRoomSchedule"
-import Kudos from "./kudos/Kudos"
+import Kudos from "./kudos/KudosContainer"
 
 export default function App() {
   return <GridContainer />
