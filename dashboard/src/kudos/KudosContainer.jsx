@@ -3,6 +3,7 @@ import { get } from "axios"
 import "./kudos.css"
 import TitleBar from "./TitleBar"
 import Kudo from "./Kudo"
+import img from "./kudos.png"
 
 // TODO
 const URL = "http://localhost:8080/kudo"
@@ -38,7 +39,7 @@ class KudosContainer extends Component {
     try {
       const results = await get(URL)
       this.setState({
-        kudos: results.data._embedded.kudo,
+        kudos: results.data._embedded.kudo
       })
     } catch (error) {
       console.log(error)
@@ -48,15 +49,15 @@ class KudosContainer extends Component {
   render() {
     const { displayedIndex, kudos } = this.state
     return (
-      <div id="kudos">
-        <div>
-          <TitleBar
-            displayedIndex={displayedIndex + 1}
-            total={kudos.length}
-          />
-          <br />
-          {this.renderKudo()}
-        </div>
+      <div id="kudos-container">
+      <div id="background">
+        <img src={img} alt=""/>
+      </div>
+      <div id="kudos-content">
+        <TitleBar displayedIndex={displayedIndex + 1} total={kudos.length} />
+        <br />
+        {this.renderKudo()}
+      </div>
       </div>
     )
   }
