@@ -1,0 +1,15 @@
+version: '3.1'
+
+services:
+  dashboard-db:
+    container_name: database
+    image: postgres:12
+    restart: always
+    volumes:
+      - dashboard-db:/var/lib/postgresql/data
+    environment:
+      - "POSTGRES_USER=dashboard"
+      - "POSTGRES_PASSWORD=dashboard"
+
+volumes:
+  dashboard-db:

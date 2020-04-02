@@ -45,47 +45,20 @@ services:
   foosball-api:
     build: ./foosball-api/
     container_name: foosball-api
+    restart: always
     environment:
       - "NODE_ENV=production"
-      - "DATABASE_URL=pgsql://test:test@foosdb/foosball"
-
-  foosdb:
-    container_name: foosdb
-    image: postgres:12
-    restart: always
-    volumes:
-      - db:/var/lib/postgresql/data
-    environment:
-      - "POSTGRES_USER=test"
-      - "POSTGRES_PASSWORD=test"
-      - "POSTGRES_DB=foosball"
-    ports:
-      - 5432:5432
-
+      - "DATABASE_URL=pgsql://dashboard:dashboard@dashboard-db/foosball"
 
   messages-backend:
     container_name: messages-backend
     build: ./messages-api/
+    restart: always
     environment:
       - "NODE_ENV=production"
       - "MESSAGES_HMAC_KEY=development"
       - "PORT=8011"
-      - "POSTGRES_USER=test"
-      - "POSTGRES_PASSWORD=test"
-      - "POSTGRES_DB=messages_db"
-    depends_on:
-      - messages_database
-
-  messages_database:
-    container_name: messages_database
-    image: postgres:12
-    restart: always
-    volumes:
-      - messages-db:/var/lib/postgresql/data
-    environment:
-      - "POSTGRES_USER=test"
-      - "POSTGRES_PASSWORD=test"
-      - "POSTGRES_DB=messages_db"
+      - "DATABASE_URL=pgsql://dashboard:dashboard@dashboard-db/message_board"
 
   kudos-api:
     image: kudos-api
