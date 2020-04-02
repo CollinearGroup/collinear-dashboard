@@ -22,7 +22,6 @@ public class Kudo {
   private Long id;
   private String message;
   private String fromPerson;
-  private String toPerson;
   @CreationTimestamp
   private Date createdDate;
 }
