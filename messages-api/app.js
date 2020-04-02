@@ -1,9 +1,16 @@
 const environment = process.env.NODE_ENV || "development"
 const db = require("./knexfile")[environment]
 const knex = require("knex")(db)
-knex.migrate.latest().then(() => {
-  return knex.seed.run()
-})
+knex.migrate
+  .latest()
+  .then(() => {
+    if (environment === "development") {
+      return knex.seed.run()
+    }
+  })
+  .catch(error => {
+    console.log(error)
+  })
 
 const express = require("express")
 const app = express()
@@ -12,7 +19,7 @@ const port = process.env.PORT || 8000
 const cors = require("cors")
 const morgan = require("morgan")
 
-const { MessagesRouter: messages, KudosRouter: kudos } = require("./routes")
+const { MessagesRouter: messages } = require("./routes")
 const { addBodyBufferOptions } = require("./src/authUtil")
 
 app.use(cors())
@@ -20,7 +27,6 @@ app.use(express.json(addBodyBufferOptions))
 app.use(morgan("dev"))
 
 app.use("/api/messages", messages)
-// app.use("/api/kudos", kudos)
 
 app.use((req, res) => {
   const status = 404

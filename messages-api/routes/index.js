@@ -1,4 +1,3 @@
 module.exports = {
-  MessagesRouter: require('./messages'),
-  KudosRouter: require('./kudos')
+  MessagesRouter: require("./messages")
 }

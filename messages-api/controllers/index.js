@@ -1,4 +1,3 @@
 module.exports = {
-  KudosController: require('./kudos'),
-  MessagesController: require('./messages')
+  MessagesController: require("./messages")
 }

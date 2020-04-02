@@ -21,8 +21,8 @@ module.exports = name => {
     }
 
     static create(req, res, next) {
-      const messageOrKudosData = setDefaultShowDateStrings(req.body)
-      Model.create(messageOrKudosData).then(response => {
+      const messageData = setDefaultShowDateStrings(req.body)
+      Model.create(messageData).then(response => {
         res.status(201).json({
           [name]: response
         })

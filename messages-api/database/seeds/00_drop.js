@@ -1,5 +1,5 @@
-exports.seed = function (knex) {
-  let tableOrder = ['messages', 'kudos']
+exports.seed = function(knex) {
+  let tableOrder = ["messages"]
 
   let promiseList = tableOrder.map(table => {
     return knex(table).del()
@@ -7,9 +7,9 @@ exports.seed = function (knex) {
 
   Promise.all(promiseList)
     .then(() => {
-      console.log('Table data expunged')
+      console.log("Table data expunged")
     })
     .catch(error => {
-      console.log('ERROR: ', error)
+      console.log("ERROR: ", error)
     })
 }

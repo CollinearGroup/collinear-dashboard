@@ -4,11 +4,6 @@ class KeyArr {
       required: ["text", "from"],
       optional: ["show_from", "show_to"]
     }
-
-    this.kudos = {
-      required: ["text", "from"],
-      optional: []
-    }
   }
 
   postPrune(type) {
