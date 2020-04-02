@@ -6,10 +6,27 @@ Hacking? See the [CONTRIBUTING.md](/CONTRIBUTING.md) guide.
 
 ## Getting Started
 
+### Build
+
 ```bash
 $ cd ../kudos-api; ./gradlew jibDockerBuild --image=kudos-api; cd -;
-$ docker-compose up --build
+$ docker-compose build
 ...
+```
+
+### Run
+
+#### Database
+
+```bash
+$ docker-compose -f docker-compose.db.yml up -d 
+$ ./setUpDb.sh
+```
+
+#### Application Stack
+
+```bash
+$ docker-compose up -d
 ```
 
 ## Contributing

@@ -65,23 +65,9 @@ services:
     restart: always
     environment: 
       KUDO_PASSWORD: kudoapi
-      JDBC_URL: 'jdbc:mysql://kudos-mysql-db/dashboard?allowPublicKeyRetrieval=true&useSSL=false'
-      DB_USERNAME: root
-      DB_PASSWORD: kudosapi
-    depends_on:
-      - kudos-mysql-db
-
-  kudos-mysql-db:
-    container_name: kudos-mysql-db
-    image: mysql
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: kudosapi
-    volumes:
-      - kudos-db:/var/lib/mysql
+      JDBC_URL: 'jdbc:postgresql://dashboard-db/kudos_board'
+      DB_USERNAME: dashboard
+      DB_PASSWORD: dashboard
 
 volumes:
-  db:
   photos:
-  messages-db:
-  kudos-db:
