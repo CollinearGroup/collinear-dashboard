@@ -1,4 +1,4 @@
-FROM node:12
+FROM node:12-alpine
 
 WORKDIR /app
 
@@ -8,7 +8,5 @@ RUN npm i
 
 COPY ./src ./src
 RUN npx tsc
-
-HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 CMD [ "curl http://localhost:80" ]
 
 CMD [ "node", "dist/app.js" ]

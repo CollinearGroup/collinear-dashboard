@@ -1,4 +1,4 @@
-version: '3.1'
+version: "3.1"
 
 services:
   nginx:
@@ -12,7 +12,7 @@ services:
       - ./nginx.conf:/etc/nginx/nginx.conf
 
   dashboard:
-    build: ./dashboard
+    image: registry.gitlab.com/collinear/collinear-dashboard-server-config/dashboard
     container_name: dashboard
     environment:
       - REACT_APP_CONF_RM_URL=http://localhost/calendar-api/schedule
@@ -21,13 +21,9 @@ services:
       - REACT_APP_PHOTOS_URL=http://localhost/picture-uploader
       - REACT_APP_MESSAGE_BOARD_API_URL=http://localhost/messages
       - REACT_APP_KUDO_URL=http://localhost/kudos
-    volumes:
-      - ./dashboard/src/:/app/src/
-      - ./dashboard/public/:/app/public/
-    command: npm start
 
   picture-uploader:
-    build: ./picture-uploader/
+    image: registry.gitlab.com/collinear/collinear-dashboard-server-config/picture-uploader
     container_name: picture-uploader
     environment:
       - NODE_ENV=production
@@ -37,22 +33,22 @@ services:
       - photos:/var/lib/picture-uploader/uploads
 
   calendar-api:
-    build: ./calendar-api/
+    image: registry.gitlab.com/collinear/collinear-dashboard-server-config/calendar-api
     container_name: calendar-api
     volumes:
       - ./calendar-api/calendar_config.json:/app/calendar_config.json
 
   foosball-api:
-    build: ./foosball-api/
+    image: registry.gitlab.com/collinear/collinear-dashboard-server-config/foosball-api
     container_name: foosball-api
     restart: always
     environment:
       - "NODE_ENV=production"
       - "DATABASE_URL=pgsql://dashboard:dashboard@dashboard-db/foosball"
 
-  messages-backend:
-    container_name: messages-backend
-    build: ./messages-api/
+  messages-api:
+    image: registry.gitlab.com/collinear/collinear-dashboard-server-config/messages-api
+    container_name: messages-api
     restart: always
     environment:
       - "NODE_ENV=production"
@@ -63,9 +59,9 @@ services:
   kudos-api:
     image: kudos-api
     restart: always
-    environment: 
+    environment:
       KUDO_PASSWORD: kudoapi
-      JDBC_URL: 'jdbc:postgresql://dashboard-db/kudos_board'
+      JDBC_URL: "jdbc:postgresql://dashboard-db/kudos_board"
       DB_USERNAME: dashboard
       DB_PASSWORD: dashboard
 
