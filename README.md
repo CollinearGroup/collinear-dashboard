@@ -19,7 +19,7 @@ $ docker-compose build
 #### Database
 
 ```bash
-$ docker-compose -f docker-compose.db.yml up -d 
+$ docker-compose -f docker-compose.db.yml up -d
 $ ./setUpDb.sh
 ```
 
@@ -31,10 +31,9 @@ $ docker-compose up -d
 
 ### Deploy
 
-Currently we publish 2 containers due to some limitations of the production environment.
-Build and publish those with the `./publish.sh` script.
+Build and publish all containers with the `./publish.sh` script.
 
-Then refer to the [collinear-dashboard-server-config](https://gitlab.com/collinear/collinear-dashboard-server-config) repo for deployment configs.
+Then refer to the [collinear-dashboard-server-config](https://gitlab.com/collinear/collinear-dashboard-server-config) repo for deployment configs and info.
 
 ## Contributing
 
