@@ -4,7 +4,7 @@ import "./App.scss"
 import Header from "./layout/Header"
 
 import NpmMetrics from "./npm-metrics"
-import Foosball from "./foosball/frontend"
+import Foosball from "./foosball"
 import Photos from "./photos/Photos"
 import MessageBoard from "./message-board/MessageBoard"
 import ConfRoomSchedule from "./conference-room-schedule/ConfRoomSchedule"
@@ -16,24 +16,24 @@ export default function App() {
 
 export class GridContainer extends React.Component {
   componentDidMount() {
-    (function() {
+    (function () {
       var mouseTimer = null, cursorVisible = true;
-  
+
       function disappearCursor() {
-          mouseTimer = null;
-          document.body.style.cursor = "none";
-          cursorVisible = false;
+        mouseTimer = null;
+        document.body.style.cursor = "none";
+        cursorVisible = false;
       }
-  
-      document.onmousemove = function() {
-          if (mouseTimer) {
-              window.clearTimeout(mouseTimer);
-          }
-          if (!cursorVisible) {
-              document.body.style.cursor = "default";
-              cursorVisible = true;
-          }
-          mouseTimer = window.setTimeout(disappearCursor, 5000);
+
+      document.onmousemove = function () {
+        if (mouseTimer) {
+          window.clearTimeout(mouseTimer);
+        }
+        if (!cursorVisible) {
+          document.body.style.cursor = "default";
+          cursorVisible = true;
+        }
+        mouseTimer = window.setTimeout(disappearCursor, 5000);
       };
     })();
   }
