@@ -1,6 +1,6 @@
 FROM node:12-alpine
 
-USER 1000
+USER node
 WORKDIR /app
 
 COPY package*.json ./
