@@ -21,12 +21,21 @@ export default function App() {
 
 
 function FoosballWrapper() {
-  const isLoggedIn = useSelector(state => state.loggedIn),
-    jwt = useSelector(state => state.jwt);
+  const isLoggedIn = useSelector(state => state.loggedIn);
 
   return (
     <div id="foos" className="box padding">
-      <Foosball isLoggedIn={isLoggedIn} jwt={jwt}></Foosball>
+      <Foosball isLoggedIn={isLoggedIn}></Foosball>
+    </div>
+  )
+}
+
+function KudosWrapper() {
+  const isLoggedIn = useSelector(state => state.loggedIn);
+
+  return (
+    <div id="kudos">
+      <Kudos isLoggedIn={isLoggedIn} />
     </div>
   )
 }
@@ -100,12 +109,3 @@ export class PhotosWrapper extends React.Component {
   }
 }
 
-export class KudosWrapper extends React.Component {
-  render() {
-    return (
-      <div id="kudos">
-        <Kudos />
-      </div>
-    )
-  }
-}

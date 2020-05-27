@@ -68,6 +68,8 @@ class KudosContainer extends Component {
 
   render() {
     const { displayedIndex, kudos } = this.state
+    const { isLoggedIn } = this.props;
+
     return (
       <div
         id="kudos-container"
@@ -82,7 +84,7 @@ class KudosContainer extends Component {
           <br />
           {this.renderKudoOrForm()}
         </div>
-        <div id="form-button-container">{this.renderAddKudosButton()}</div>
+        {isLoggedIn && <div id="form-button-container">{this.renderAddKudosButton()}</div>}
       </div>
     )
   }

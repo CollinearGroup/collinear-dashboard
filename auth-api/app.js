@@ -3,22 +3,35 @@ const cors = require('cors')
 const jwt = require('jsonwebtoken')
 const bodyParser = require('body-parser')
 const app = express()
+const bcrypt = require('bcrypt')
 
 app.use(cors())
 app.use(bodyParser.json());
 
 const port = 8020
 
-app.get('/', (req, res) => res.send('Hello World!'))
+const HASH = '$2b$10$Eewkf.tM.vcsNESzn0.SguO7srJD0BXs/9OP3J6x8dGt5fwqfhILu'
 
-app.post('/api', async (req, res) => {
+function generateJwt() {
   const token = jwt.sign({
     user: 'dashboard'
   }, 'REPLACE_SECRET_HERE');
 
-  res.json({
-    jwt: token
-  });
+  return token;
+}
+
+app.post('/api', async (req, res) => {
+  const password = req.body.password;
+
+  const match = await bcrypt.compare(password, HASH);
+
+  if (match) {
+    res.json({
+      jwt: generateJwt()
+    });
+  } else {
+    res.status(401).json({});
+  }
 });
 
 app.listen(port, () => console.log(`Dashboard Auth API listening on port ${port}!`))

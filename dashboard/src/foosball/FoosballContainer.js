@@ -43,10 +43,10 @@ class FoosballContainer extends Component {
     }
     return (
       <div className="foosball-container">
-        <button
+        {this.props.isLoggedIn && <button
           className="toggle-button"
           onClick={() => this.setState({ isFormView: !this.state.isFormView })}
-        >{`Toggle to ${this.state.isFormView ? "Ranking" : "Form"}`}</button>
+        >{`Toggle to ${this.state.isFormView ? "Ranking" : "Form"}`}</button>}
         {this.state.isFormView ? (
           <ScoreForm
             users={this.state.users}
@@ -54,8 +54,8 @@ class FoosballContainer extends Component {
             submitNewUser={this.submitNewUser}
           />
         ) : (
-          <Ranking users={this.state.users} />
-        )}
+            <Ranking users={this.state.users} />
+          )}
       </div>
     );
   }
