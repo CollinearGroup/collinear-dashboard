@@ -5,7 +5,7 @@ import "./App.scss"
 import Header from "./layout/Header"
 
 import NpmMetrics from "./npm-metrics"
-import Foosball from "./foosball/frontend"
+import Foosball from "./foosball"
 import Photos from "./photos/Photos"
 import MessageBoard from "./message-board/MessageBoard"
 import ConfRoomSchedule from "./conference-room-schedule/ConfRoomSchedule"
