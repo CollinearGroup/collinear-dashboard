@@ -2,6 +2,7 @@ import React from "react"
 import Logo from "./Logo"
 import DateTime from "./DateTime"
 import Notifications from "./Notifications"
+import LoginButton from "./LoginButton"
 
 import "./Header.scss"
 
@@ -27,6 +28,7 @@ export default class Header extends React.Component {
         <Logo />
         <Notifications now={this.state.now} />
         <DateTime now={this.state.now} />
+        <LoginButton />
       </div>
     )
   }

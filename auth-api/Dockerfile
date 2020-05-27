@@ -5,9 +5,8 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm i
 
-COPY ./public ./public
-COPY ./src ./src
+COPY ./*.js ./
 
 USER node
 
-CMD ["npm", "start"]
+CMD [ "node", "app.js" ]
