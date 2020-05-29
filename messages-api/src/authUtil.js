@@ -5,12 +5,12 @@ const secret = process.env.MESSAGES_HMAC_KEY || `development`
 const secretBuffer = Buffer.from(secret, "base64")
 
 function checkAuth(req, res, next) {
-  const token = req.headers['Authorization'];
+  const token = req.header('Authorization');
 
   jwt.verify(token, process.env.AUTH_SECRET, (err, decoded) => {
     if (err) {
       console.error('Error validating token', err);
-      res.status(401).send('Invalid token');
+      res.status(403).send('Invalid token');
     } else {
       next();
     }
