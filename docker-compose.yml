@@ -35,7 +35,8 @@ services:
     restart: always
     environment:
       - "NODE_ENV=production"
-      - "MESSAGES_HMAC_KEY=development"
+      - "AUTH_PASSWORD=$$2b$$10$$Eewkf.tM.vcsNESzn0.SguO7srJD0BXs/9OP3J6x8dGt5fwqfhILu"
+      - "AUTH_SECRET=TEST_SECRET"
       - "PORT=8011"
       - "DATABASE_URL=pgsql://dashboard:dashboard@dashboard-db/message_board"
 
@@ -45,6 +46,7 @@ services:
     environment:
       - NODE_ENV=production
       - PIC_API_KEY=pic-api-key
+      - AUTH_SECRET=TEST_SECRET
       - STORE_PATH=/var/lib/picture-uploader/uploads
     volumes:
       - photos:/var/lib/picture-uploader/uploads
@@ -56,20 +58,22 @@ services:
       - ./calendar-api/calendar_config.json:/app/calendar_config.json
 
   foosball-api:
-    image: registry.gitlab.com/collinear/collinear-dashboard-server-config/foosball-api
+    image: foosball-api
     container_name: foosball-api
     restart: always
     environment:
       - "NODE_ENV=production"
+      - "AUTH_SECRET=TEST_SECRET"
       - "DATABASE_URL=pgsql://dashboard:dashboard@dashboard-db/foosball"
 
   messages-api:
-    image: registry.gitlab.com/collinear/collinear-dashboard-server-config/messages-api
+    image: messages-api
     container_name: messages-api
     restart: always
     environment:
       - "NODE_ENV=production"
       - "MESSAGES_HMAC_KEY=development"
+      - "AUTH_SECRET=TEST_SECRET"
       - "PORT=8011"
       - "DATABASE_URL=pgsql://dashboard:dashboard@dashboard-db/message_board"
 

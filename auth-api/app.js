@@ -10,12 +10,14 @@ app.use(bodyParser.json());
 
 const port = 8020
 
-const HASH = '$2b$10$Eewkf.tM.vcsNESzn0.SguO7srJD0BXs/9OP3J6x8dGt5fwqfhILu'
-
 function generateJwt() {
   const token = jwt.sign({
     user: 'dashboard'
-  }, 'REPLACE_SECRET_HERE');
+  },
+    process.env.AUTH_SECRET,
+    {
+      expiresIn: '7d'
+    });
 
   return token;
 }
@@ -23,7 +25,7 @@ function generateJwt() {
 app.post('/api', async (req, res) => {
   const password = req.body.password;
 
-  const match = await bcrypt.compare(password, HASH);
+  const match = await bcrypt.compare(password, process.env.AUTH_PASSWORD);
 
   if (match) {
     res.json({

@@ -1,7 +1,21 @@
 const crypto = require("crypto")
+const jwt = require('jsonwebtoken');
 
 const secret = process.env.MESSAGES_HMAC_KEY || `development`
 const secretBuffer = Buffer.from(secret, "base64")
+
+function checkAuth(req, res, next) {
+  const token = req.headers['Authorization'];
+
+  jwt.verify(token, process.env.AUTH_SECRET, (err, decoded) => {
+    if (err) {
+      console.error('Error validating token', err);
+      res.status(401).send('Invalid token');
+    } else {
+      next();
+    }
+  });
+}
 
 const validateAuthMiddleware = (req, _res, next) => {
   const authHeader = getAuthorizationHeader(req)
@@ -35,12 +49,13 @@ const throwForbiddenError = () => {
 }
 
 const addBodyBufferOptions = {
-  verify: function(req, _res, buf) {
+  verify: function (req, _res, buf) {
     req.bodyBuffer = buf || Buffer.from("")
   }
 }
 
 module.exports = {
+  checkAuth,
   validateAuthMiddleware,
   getAuthorizationHeader,
   isAuthorizedRequest,

@@ -23,7 +23,11 @@ class FoosballContainer extends Component {
   }
 
   submitGame = async payload => {
-    await axios.post(`${foosballRankingURL}/games`, payload);
+    await axios.post(`${foosballRankingURL}/games`, payload, {
+      headers: {
+        'Authorization': window.dashboardJwt
+      }
+    });
     await this.updateUsers();
   };
 
@@ -33,7 +37,11 @@ class FoosballContainer extends Component {
   };
 
   submitNewUser = async newUser => {
-    await axios.post(`${foosballRankingURL}/users`, newUser);
+    await axios.post(`${foosballRankingURL}/users`, newUser, {
+      headers: {
+        'Authorization': window.dashboardJwt
+      }
+    });
     await this.updateUsers();
   };
 

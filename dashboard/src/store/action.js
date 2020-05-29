@@ -9,7 +9,7 @@ export function signIn(password) {
         password
       });
 
-      dispatch({ type: 'LOGGED_IN', jwt: response.jwt });
+      dispatch({ type: 'LOGGED_IN', payload: response.data.jwt });
 
     } catch (err) {
       console.error('Error logging in to dashboard:', err);

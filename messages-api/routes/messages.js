@@ -1,14 +1,14 @@
 const router = require("express").Router()
 const Keys = require("../required-fields")
 const { MessagesController } = require(`../controllers`)
-const { validateAuthMiddleware } = require("../src/authUtil")
+const { checkAuth } = require("../src/authUtil")
 
 router.get("/", MessagesController.all)
 router.get("/:id", MessagesController.one)
 
 router.post(
   "/",
-  validateAuthMiddleware,
+  checkAuth,
   MessagesController.prune(Keys.postPrune("messages")),
   MessagesController.complete(Keys.postComplete("messages")),
   MessagesController.create

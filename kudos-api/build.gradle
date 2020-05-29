@@ -23,6 +23,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
 
 	runtime 'org.postgresql:postgresql:42.1.1'
+	runtime 'com.auth0:java-jwt:3.10.3'
 	runtimeOnly 'com.h2database:h2'
 	runtimeOnly 'mysql:mysql-connector-java'
 }

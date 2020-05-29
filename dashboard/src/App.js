@@ -40,6 +40,16 @@ function KudosWrapper() {
   )
 }
 
+function MessageBoardWrapper() {
+  const isLoggedIn = useSelector(state => state.loggedIn);
+
+  return (
+    <div id="message-board" className="box padding">
+      <MessageBoard isLoggedIn={isLoggedIn} />
+    </div>
+  )
+}
+
 export class GridContainer extends React.Component {
   componentDidMount() {
     (function () {
@@ -81,7 +91,7 @@ export class GridContainer extends React.Component {
         <FoosballWrapper />
         {this.wrapInId("npm", <NpmMetrics />)}
         <KudosWrapper />
-        {this.wrapInId("message-board", <MessageBoard />)}
+        <MessageBoardWrapper />
       </div>
     )
   }
