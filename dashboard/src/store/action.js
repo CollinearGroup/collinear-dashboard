@@ -2,8 +2,6 @@ import axios from "axios";
 
 export function signIn(password) {
   return async (dispatch) => {
-    console.log('SIGNING IN', password)
-
     try {
       const response = await axios.post('http://localhost/auth', {
         password

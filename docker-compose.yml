@@ -82,6 +82,7 @@ services:
     restart: always
     environment:
       KUDO_PASSWORD: kudoapi
+      AUTH_SECRET: TEST_SECRET
       JDBC_URL: "jdbc:postgresql://dashboard-db/kudos_board"
       DB_USERNAME: dashboard
       DB_PASSWORD: dashboard
