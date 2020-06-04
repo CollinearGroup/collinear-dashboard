@@ -1,9 +1,16 @@
 import axios from "axios";
 
+const endpoint = process.env.REACT_APP_AUTH_URL;
+
 export function signIn(password) {
   return async (dispatch) => {
     try {
-      const response = await axios.post('http://localhost/auth', {
+
+      if (!endpoint) {
+        console.error('Endpoint for authorization service not defined');
+      }
+
+      const response = await axios.post(endpoint, {
         password
       });
 
