@@ -2,7 +2,6 @@ package com.collineargroup.kudosapi;
 
 import java.util.Map;
 
-import com.auth0.spring.security.api.JwtWebSecurityConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
