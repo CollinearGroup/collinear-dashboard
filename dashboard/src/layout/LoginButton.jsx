@@ -19,14 +19,12 @@ export default function LoginButton() {
   }
 
   return (
-    <div>
-      {!loggedIn &&
-        <>
-          <input type="password" onChange={changePassword} />
-          <button onClick={buttonClick}>Sign In</button>
-        </>
-      }
-    </div>
+    <>
+      {!loggedIn && (<div>
+        <input type="password" onChange={changePassword} />
+        <button onClick={buttonClick}>Sign In</button>
+      </div>)}
+    </>
   )
-
 }
+
