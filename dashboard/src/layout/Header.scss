@@ -27,7 +27,7 @@ $banner-color: #ff0f2d;
   perspective: 600px;
 }
 
-#header-container {
+#header-container, #header-container-signed-in {
   display: grid;
   align-items: center;
   justify-items: center;
@@ -107,6 +107,9 @@ $banner-color: #ff0f2d;
 
 @media (min-width: 768px) {
   #header-container {
+    grid-template-columns: 220px 1fr auto 0.5fr;
+  }
+  #header-container-signed-in {
     grid-template-columns: 220px 1fr auto;
   }
   #timesheets-notification {

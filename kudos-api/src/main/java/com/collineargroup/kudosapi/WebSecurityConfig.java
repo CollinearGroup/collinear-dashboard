@@ -27,21 +27,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     if (password == null || password.isEmpty()) {
       password = "development";
     }
+
     auth.inMemoryAuthentication().withUser("dashboard").password("{noop}" + password).roles("USER");
   }
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    http
-    .httpBasic()
-    .and()
-    .cors()
-    .and()
-    .authorizeRequests()
-    .antMatchers(HttpMethod.GET, "/kudo").permitAll()
-    .anyRequest().authenticated()
-    .and()
-    .csrf().disable();
+
+    http.cors()
+            .and().authorizeRequests()
+            .antMatchers(HttpMethod.GET, "/kudo").permitAll()
+            .anyRequest().authenticated().and()
+            .csrf().disable()
+            .addFilter(new JWTAuthorizationFilter(authenticationManager()));
   }
 
   @Bean

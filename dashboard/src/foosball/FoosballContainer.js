@@ -23,7 +23,11 @@ class FoosballContainer extends Component {
   }
 
   submitGame = async payload => {
-    await axios.post(`${foosballRankingURL}/games`, payload);
+    await axios.post(`${foosballRankingURL}/games`, payload, {
+      headers: {
+        'Authorization': window.dashboardJwt
+      }
+    });
     await this.updateUsers();
   };
 
@@ -33,7 +37,11 @@ class FoosballContainer extends Component {
   };
 
   submitNewUser = async newUser => {
-    await axios.post(`${foosballRankingURL}/users`, newUser);
+    await axios.post(`${foosballRankingURL}/users`, newUser, {
+      headers: {
+        'Authorization': window.dashboardJwt
+      }
+    });
     await this.updateUsers();
   };
 
@@ -43,10 +51,10 @@ class FoosballContainer extends Component {
     }
     return (
       <div className="foosball-container">
-        <button
+        {this.props.isLoggedIn && <button
           className="toggle-button"
           onClick={() => this.setState({ isFormView: !this.state.isFormView })}
-        >{`Toggle to ${this.state.isFormView ? "Ranking" : "Form"}`}</button>
+        >{`Toggle to ${this.state.isFormView ? "Ranking" : "Form"}`}</button>}
         {this.state.isFormView ? (
           <ScoreForm
             users={this.state.users}
@@ -54,8 +62,8 @@ class FoosballContainer extends Component {
             submitNewUser={this.submitNewUser}
           />
         ) : (
-          <Ranking users={this.state.users} />
-        )}
+            <Ranking users={this.state.users} />
+          )}
       </div>
     );
   }

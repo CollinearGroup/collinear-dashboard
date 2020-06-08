@@ -35,13 +35,6 @@ class AddForm extends Component {
           onChange={this.fieldHandler.bind(this, "from")}
         />
         <br />
-        <input
-          type="password"
-          placeholder="Password"
-          value={this.state.password}
-          onChange={this.fieldHandler.bind(this, "password")}
-        />
-        <br />
         <button onClick={this.saveHandler}>Save</button>
       </div>
     )

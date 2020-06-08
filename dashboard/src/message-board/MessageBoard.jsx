@@ -20,6 +20,8 @@ class App extends Component {
   }
 
   render() {
+
+    const { isLoggedIn } = this.props;
     if (this.state.editMode) {
       return (
         <div className="message-board">
@@ -38,7 +40,7 @@ class App extends Component {
         <br />
         <MessageBoard switchMode={this.toggleModeHandler} />
         <br />
-        {this.renderEditFormButton()}
+        {isLoggedIn && this.renderEditFormButton()}
       </div>
     )
   }
