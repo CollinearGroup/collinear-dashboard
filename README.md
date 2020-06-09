@@ -6,17 +6,22 @@ Hacking? See the [CONTRIBUTING.md](/CONTRIBUTING.md) guide.
 
 ## Getting Started
 
+### Pre-requisites
+
+Before you can build, you will need the following installed:
+* Docker
+* A valid Java VM
+
 ### Build
 
 ```bash
-$ cd ../kudos-api; ./gradlew jibDockerBuild --image=kudos-api; cd -;
-$ docker-compose build
+$ ./bootstrap.sh
 ...
 ```
 
 ### Run
 
-#### Database
+#### Populate Database
 
 ```bash
 $ docker-compose -f docker-compose.db.yml up -d
