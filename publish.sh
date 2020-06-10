@@ -1,5 +1,13 @@
 #!/bin/bash
 
+
+# Auth API
+cd auth-api
+docker build . -t auth-api;
+docker tag auth-api registry.gitlab.com/collinear/collinear-dashboard-server-config/auth-api;
+docker push registry.gitlab.com/collinear/collinear-dashboard-server-config/auth-api;
+cd -;
+
 # Dashboard
 cd dashboard;
 docker build . -t dashboard;

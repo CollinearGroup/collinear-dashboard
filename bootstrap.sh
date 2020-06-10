@@ -25,5 +25,11 @@ docker build -t picture-uploader .
 cd -
 
 docker-compose build
+
 docker-compose -f docker-compose.db.yml up -d
+echo 'started the dashboard database server'
 ./setUpDb.sh
+echo 'ensured databases exist'
+
+echo 'the data is setup and running'
+docker ps
