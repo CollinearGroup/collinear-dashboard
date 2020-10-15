@@ -3,6 +3,7 @@ import { storeFile, getNextFile, deleteAll } from "./store"
 import express from "express"
 import {
   validateAuth,
+  validateUploadApiKey,
   temporaryFileUploadsDirectory,
   PicIncomingHttpHeaders
 } from "./appUtil"
@@ -15,7 +16,7 @@ export const uploadRoute = async (
   req: express.Request,
   res: express.Response
 ) => {
-  if (!validateAuthMiddleware(req, res)) return
+  if (!validateUploadApiKeyMiddleware(req, res)) return
 
   const uploadedFileName = req?.file?.filename
   const uploadedFilePath = `${temporaryFileUploadsDirectory}/${uploadedFileName}`
@@ -31,7 +32,7 @@ export const uploadRoute = async (
     console.log("stored", croppedFilePath)
   } catch (error) {
     console.log(error)
-    res.status(500).send({ message: error.message })
+    res.status(500).send({ message: error })
     cleanUpAndIgnoreFailures([uploadedFilePath, croppedFilePath])
     return
   }
@@ -54,14 +55,14 @@ export const deleteAllPhotos = async (
   req: express.Request,
   res: express.Response
 ) => {
-  if (!validateAuthMiddleware(req, res)) return
+  if (!validateUploadApiKeyMiddleware(req, res)) return
   console.log("deleting all files")
 
   try {
     await deleteAll()
     res.send({ message: "success" })
   } catch (error) {
-    res.status(500).send({ message: error.message })
+    res.status(500).send({ message: error })
     return
   }
 }
@@ -72,10 +73,24 @@ export const validateAuthMiddleware = (
 ): boolean => {
   try {
     const headers = req.headers as PicIncomingHttpHeaders
-    validateAuth(headers["pic-api-key"])
+    validateAuth(headers["authorization"])
     return true
   } catch (error) {
-    res.status(403).send({ message: error.message })
+    res.status(403).send({ message: error })
+    return false
+  }
+}
+
+export const validateUploadApiKeyMiddleware = (
+  req: express.Request,
+  res: express.Response
+): boolean => {
+  try {
+    const headers = req.headers as PicIncomingHttpHeaders
+    validateUploadApiKey(headers["pic-api-key"])
+    return true
+  } catch (error) {
+    res.status(403).send({ message: error })
     return false
   }
 }
@@ -89,11 +104,14 @@ export const removeUploadFile = async (filePath: string) => {
 }
 
 export const nextPhotoRoute = async (
-  _req: express.Request,
+  req: express.Request,
   res: express.Response
 ) => {
+  if (!validateAuthMiddleware(req, res)) return;
+
   try {
     const file = await getNextFile()
+    console.log(`File length ${file.readableLength} ${file}`);
     file.pipe(res)
     return
   } catch (error) {

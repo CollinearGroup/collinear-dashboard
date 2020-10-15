@@ -28,6 +28,10 @@
   flex: 1 1 100%;
 }
 
+.slideshow-notice {
+  padding: 4px 8px 4px 8px;
+}
+
 @keyframes opac {
   from {
     opacity: 0

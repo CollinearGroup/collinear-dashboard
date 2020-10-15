@@ -1,12 +1,12 @@
 import fs from "fs"
 import { Readable } from "stream"
 
-const STORE_PATH = process.env.STORE_PATH || "./tmp/uploads"
+const STORE_PATH = process.env.STORE_PATH || "/tmp/uploads"
 
 export const storeFile = async (name: string, filePath: string) => {
-  console.log("storing file:", filePath, "with name:", name)
   const fileStream = fs.createReadStream(filePath)
   const savePath = `${STORE_PATH}/${name}`
+  console.log(`storing file "${filePath}" with name "${name}" in "${savePath}"`)
   const pipe = fileStream.pipe(fs.createWriteStream(savePath))
   return new Promise((resolve, reject) => {
     pipe.on("error", () => {
@@ -27,6 +27,7 @@ export const getNextFile = async (): Promise<Readable> => {
   }
   const randomFileIndex = lastPhotoIndex++ % files.length
   const filePath = `${STORE_PATH}/${files[randomFileIndex]}`
+  console.log(`Reading file to send ${filePath}`)
   return fs.createReadStream(filePath)
 }
 

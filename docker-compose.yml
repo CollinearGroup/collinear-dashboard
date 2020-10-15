@@ -41,15 +41,16 @@ services:
       - "DATABASE_URL=pgsql://dashboard:dashboard@dashboard-db/message_board"
 
   picture-uploader:
-    image: registry.gitlab.com/collinear/collinear-dashboard-server-config/picture-uploader
+    image: picture-uploader
     container_name: picture-uploader
     environment:
-      - NODE_ENV=production
-      - PIC_API_KEY=pic-api-key
-      - AUTH_SECRET=TEST_SECRET
-      - STORE_PATH=/var/lib/picture-uploader/uploads
+      - "NODE_ENV=production"
+      - "PIC_API_KEY=pic-api-key"
+      - "PORT=9200"
+      - "AUTH_SECRET=TEST_SECRET"
+      - "STORE_PATH=/var/lib/picture-uploader/uploads"
     volumes:
-      - photos:/var/lib/picture-uploader/uploads
+      - ./photos://var/lib/picture-uploader/uploads
 
   calendar-api:
     image: registry.gitlab.com/collinear/collinear-dashboard-server-config/calendar-api

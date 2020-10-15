@@ -50,6 +50,16 @@ function MessageBoardWrapper() {
   )
 }
 
+function PhotosWrapper() {
+  const isLoggedIn = useSelector(state => state.loggedIn);
+
+  return (
+    <div id="photo">
+      <Photos isLoggedIn={isLoggedIn} />
+    </div>
+  )
+}
+
 export class GridContainer extends React.Component {
   componentDidMount() {
     (function () {
@@ -104,16 +114,6 @@ export class HeaderWrapper extends React.Component {
     return (
       <div id="header">
         <Header />
-      </div>
-    )
-  }
-}
-
-export class PhotosWrapper extends React.Component {
-  render() {
-    return (
-      <div id="photo">
-        <Photos />
       </div>
     )
   }

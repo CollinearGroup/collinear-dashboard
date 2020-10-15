@@ -1,6 +1,9 @@
 FROM node:12-alpine
 
 WORKDIR /app
+RUN [ "mkdir", "file-uploads" ]
+RUN [ "chown", "node", "file-uploads" ]
+RUN [ "chmod", "a+rw", "file-uploads" ]
 
 COPY package*.json ./
 COPY tsconfig.json ./
