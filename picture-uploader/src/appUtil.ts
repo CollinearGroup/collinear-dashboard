@@ -1,10 +1,20 @@
 import { IncomingHttpHeaders } from "http"
+import jwt from "jsonwebtoken"
 
 export const temporaryFileUploadsDirectory = "file-uploads"
 
-export const validateAuth = (apiKey: string) => {
+export const validateAuth = (token: string) => {
+  jwt.verify(token, process.env.AUTH_SECRET as string, (err) => {
+    if (err) {
+      console.error('Error validating JWT', err);
+      throw new Error("JWT validation failed")
+    }
+  });
+}
+
+export const validateUploadApiKey = (apiKey: string) => {
   if (process.env.NODE_ENV !== "production") {
-    console.log('skipping auth since',  process.env.NODE_ENV)
+    console.log('skipping auth since', process.env.NODE_ENV)
     return
   }
   if (!apiKey) {
@@ -16,5 +26,6 @@ export const validateAuth = (apiKey: string) => {
 }
 
 export interface PicIncomingHttpHeaders extends IncomingHttpHeaders {
+  ['authorization']: string,
   ['pic-api-key']: string
 }
