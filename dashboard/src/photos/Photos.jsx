@@ -21,41 +21,40 @@ export default class Photos extends Component {
   }
 
   startSlideShow = () => {
-    this.interval = setInterval(async () => {
+    this.runSlideShow();
+    this.interval = setInterval(this.runSlideShow, 10000);
+  }
 
-      const { imageRefreshKey } = this.state
-      if (this.props.isLoggedIn) {
-        try {
-          const response = await axios.get(`${PHOTOS_URL}?${imageRefreshKey}`,
-            {
-              responseType: 'arraybuffer',
-              headers: {
-                'Authorization': window.dashboardJwt
-              }
-            });
+  runSlideShow = async () => {
+    if (!this.props.isLoggedIn) {
+      return;
+    }
+    const { imageRefreshKey } = this.state
+    try {
+      const response = await axios.get(`${PHOTOS_URL}?${imageRefreshKey}`,
+        {
+          responseType: 'arraybuffer',
+          headers: {
+            'Authorization': window.dashboardJwt
+          }
+        });
 
-          const image = btoa(
-            new Uint8Array(response.data)
-              .reduce((data, byte) => data + String.fromCharCode(byte), '')
-          );
-          const mimetype = "image/jpeg";
-          const dataURL = "data:" + mimetype + ";base64," + image;
+      const image = btoa(
+        new Uint8Array(response.data)
+          .reduce((data, byte) => data + String.fromCharCode(byte), '')
+      );
+      const mimetype = "image/jpeg";
+      const dataURL = "data:" + mimetype + ";base64," + image;
 
-          document.getElementById('photo-holder').innerHTML = `
+      document.getElementById('photo-holder').innerHTML = `
             <img id="photo" src="${dataURL}" alt="Collinear Media" />
-          `
+          `;
 
-          document.getElementById('photo').setAttribute('src', dataURL);
-        }
-        catch (err) {
-          console.error(`Error fetching image ${PHOTOS_URL}?${imageRefreshKey}:`, err);
-        }
-      }
-
-
-
-      this.setState({ imageRefreshKey: Date.now() })
-    }, 10000)
+      this.setState({ imageRefreshKey: Date.now() });
+    }
+    catch (err) {
+      console.error(`Error fetching image ${PHOTOS_URL}?${imageRefreshKey}:`, err);
+    }
   }
 
   render() {
